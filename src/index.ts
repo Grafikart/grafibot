@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv'
 import Bot from './Bot'
 import { HelpCommand, RoleCommand, RolesCommand, CleanCommand } from './commands'
 import { Client, TextChannel } from 'discord.js'
-import { loggerId, roles } from './config'
+import { loggerId, roles, syntax } from './config'
 import Logger from './utils/Logger'
-import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter } from './filters'
+import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
 
 dotenv.config()
 
@@ -32,6 +32,7 @@ bot
   .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
   .addFilter(new MentionFilter())
+  .addFilter(new SyntaxFilter(syntax))
   .connect()
   .catch(function (e) {
     console.error(e)

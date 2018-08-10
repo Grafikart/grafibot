@@ -8,6 +8,10 @@ export const roles = {
   freelance: '305381504479920129',
   etudiant:  '305381380802609163'
 }
+export const syntax = {
+  '245543980224217089': /^(\[[^\]]+\]|<\:[a-z0-9]+\:[0-9]+>) .+ https?:\/\/\S*$/i,
+  '106702700409815040': /^(\[[^\]]+\]|<\:[a-z0-9]+\:[0-9]+>) .+ https?:\/\/\S*$/i
+}
 export const loggerId = '477123703658905606'
 export const admin = '88771742822055936' // Rôle du modérateur
 export const guildId = '85154866468487168' // Id du serveur Grafikart.fr

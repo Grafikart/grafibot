@@ -1,5 +1,5 @@
 import { IFilter } from '../interfaces'
-import { Message, User } from 'discord.js'
+import { Message } from 'discord.js'
 import { sendDMorReply } from '../utils/helpers'
 
 /**
@@ -17,7 +17,7 @@ export default class InsultFilter implements IFilter {
 ${message.cleanContent}
 \`\`\``)
         .catch()
-        .then(() => message.delete().catch())
+      message.delete().catch()
       return true
     }
     return false

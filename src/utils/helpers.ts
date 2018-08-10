@@ -24,7 +24,7 @@ export const sendDMorReplyAutoDelete = async function (message: Message, content
     .createDM()
     .then((channel) => channel.send(content))
     .catch(async function () {
-      let reply = await message.reply(content) as Message
+      let reply = await message.reply(content.split('\n')[0]) as Message
       setTimeout(function () {
         reply.delete().catch()
       }, 3500)

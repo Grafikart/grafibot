@@ -2,11 +2,14 @@ import { IFilter } from '../interfaces'
 import { Message } from 'discord.js'
 import { sendDMorReplyAutoDelete } from '../utils/helpers'
 
+type ISyntaxes = {[key: string]: RegExp }
+
 export default class SyntaxFilter implements IFilter {
 
-  private syntaxes: {[key: string]: RegExp } = {
-    '245543980224217089': /^(\[[^\]]+\]|<\:[a-z0-9]+\:[0-9]+>) .+ https?:\/\/\S*$/i,
-    '106702700409815040': /^(\[[^\]]+\]|<\:[a-z0-9]+\:[0-9]+>) .+ https?:\/\/\S*$/i
+  private syntaxes: ISyntaxes
+
+  constructor (syntaxes: ISyntaxes) {
+    this.syntaxes = syntaxes
   }
 
   filter (message: Message): boolean {
@@ -17,7 +20,8 @@ export default class SyntaxFilter implements IFilter {
       sendDMorReplyAutoDelete(message, `:octagonal_sign: Votre message a été supprimé car il ne respecte pas le format imposé par le channel
 \`\`\`
 ${message.cleanContent}
-\`\`\``)
+\`\`\``).catch()
+      message.delete().catch()
       return true
     }
     return false
