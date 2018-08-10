@@ -20,6 +20,7 @@ const fakeMessage = function (content: string): Message {
   }, client)
   chai.spy.on(message.channel, ['send'])
   chai.spy.on(message, ['delete', 'reply'])
+  chai.spy.on(message.author, ['createDM'])
   return message
 }
 

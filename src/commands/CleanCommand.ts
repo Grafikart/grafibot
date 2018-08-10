@@ -28,7 +28,7 @@ export default class CleanCommand extends Command implements ICommand {
   private async log (member: User, messages: Collection<string, Message>) {
     let deletions = messages.map(message => {
       return message.author.username + ': ' +
-        message.content
+        message.cleanContent
     }).slice(1).reverse().join('\n')
     return this.logger.log(`<@!${member.id}> a supprimé les messages suivant :
 \`\`\`
