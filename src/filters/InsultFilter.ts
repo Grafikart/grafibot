@@ -15,16 +15,12 @@ export default class InsultFilter implements IFilter {
       sendDMorReply(message, `Hey ! pas d'insulte sur le chan, votre message a été supprimé :disappointed_relieved:
 \`\`\`
 ${message.cleanContent}
-\`\`\``).catch()
+\`\`\``)
+        .catch()
+        .then(() => message.delete().catch())
       return true
     }
     return false
-  }
-
-  async sendDM (user: User, message: string) {
-    return user.createDM()
-      .then(channel => channel.send(message))
-      .catch(null)
   }
 
 }

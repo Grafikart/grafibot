@@ -4,7 +4,7 @@ import { HelpCommand, RoleCommand, RolesCommand, CleanCommand } from './commands
 import { Client, TextChannel } from 'discord.js'
 import { loggerId, roles } from './config'
 import Logger from './utils/Logger'
-import { CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter } from './filters'
+import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter } from './filters'
 
 dotenv.config()
 
@@ -31,6 +31,7 @@ bot
   .addFilter(new InsultFilter())
   .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
+  .addFilter(new MentionFilter())
   .connect()
   .catch(function (e) {
     console.error(e)

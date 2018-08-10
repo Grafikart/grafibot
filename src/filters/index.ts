@@ -4,6 +4,7 @@ import ErrorsFilter from './ErrorsFilter'
 import QuestionFilter from './QuestionFilter'
 import InsultFilter from './InsultFilter'
 import CodeFilter from './CodeFilter'
+import MentionFilter from './MentionFilter'
 
 export {
   CapslockFilter,
@@ -11,5 +12,6 @@ export {
   ErrorsFilter,
   QuestionFilter,
   InsultFilter,
-  CodeFilter
+  CodeFilter,
+  MentionFilter
 }

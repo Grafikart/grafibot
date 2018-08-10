@@ -52,11 +52,12 @@ export default class Bot {
 
   /**
    * Un message a été envoyé
+   * @param {module:discord.js.Message} message
    */
   private onMessage (message: Message) {
-    return (message.author.id === this.client.user.id) ||
+    return (this.client.user && message.author.id === this.client.user.id) ||
       (message.content.startsWith('!') && this.runCommand(message) !== false) ||
-      (this.runFilters(message) !== false)
+      (message.channel.type !== 'dm' && this.runFilters(message) !== false)
   }
 
   /**
