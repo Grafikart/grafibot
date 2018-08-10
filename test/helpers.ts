@@ -18,6 +18,7 @@ const fakeMessage = function (content: string): Message {
       id: '123123123'
     }
   }, client)
+  message.author.createDM = function () { return new Promise((resolve, reject) => reject()) }
   chai.spy.on(message.channel, ['send'])
   chai.spy.on(message, ['delete', 'reply'])
   chai.spy.on(message.author, ['createDM'])

@@ -51,13 +51,12 @@ export default class Bot {
   }
 
   /**
-   *
+   * Un message a été envoyé
    */
   private onMessage (message: Message) {
-    if (message.content.startsWith('!')) {
-      if (this.runCommand(message) !== false) return
-    }
-    if (this.runFilters(message) !== false) return
+    return (message.author.id === this.client.user.id) ||
+      (message.content.startsWith('!') && this.runCommand(message) !== false) ||
+      (this.runFilters(message) !== false)
   }
 
   /**

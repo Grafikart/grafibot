@@ -65,4 +65,14 @@ describe('Filters', function () {
     expect(filterb.filter).to.not.be.called()
   })
 
+  it('ne filtre pas les messages privés', function () {
+    let message = fakeMessage('a')
+    message.type = 'dm'
+    let filtera = generateFilter('a')
+    let bot = new Bot(message.client).addFilter(filtera)
+    message.client.emit('message', message)
+    expect(message.channel.send).to.not.be.called()
+    expect(filtera.filter).to.not.be.called()
+  })
+
 })

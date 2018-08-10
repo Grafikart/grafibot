@@ -4,7 +4,7 @@ import { HelpCommand, RoleCommand, RolesCommand, CleanCommand } from './commands
 import { Client, TextChannel } from 'discord.js'
 import { loggerId, roles } from './config'
 import Logger from './utils/Logger'
-import CapslockFilter from './filters/CapslockFilter'
+import { CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter } from './filters'
 
 dotenv.config()
 
@@ -20,12 +20,18 @@ client.on('ready', function () {
 })
 
 const bot = new Bot(client, process.env.API_KEY)
-bot.addCommand(new HelpCommand(bot.commands))
-bot.addCommand(new RolesCommand(roles))
-bot.addCommand(new RoleCommand(roles))
-bot.addCommand(new CleanCommand(logger))
-bot.addFilter(new CapslockFilter())
-bot.connect()
+bot
+  .addCommand(new HelpCommand(bot.commands))
+  .addCommand(new RolesCommand(roles))
+  .addCommand(new RoleCommand(roles))
+  .addCommand(new CleanCommand(logger))
+  .addFilter(new CapslockFilter())
+  .addFilter(new ChocopainFilter())
+  .addFilter(new ErrorsFilter())
+  .addFilter(new InsultFilter())
+  .addFilter(new QuestionFilter())
+  .addFilter(new CodeFilter())
+  .connect()
   .catch(function (e) {
     console.error(e)
   })

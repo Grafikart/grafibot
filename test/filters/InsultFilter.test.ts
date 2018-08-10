@@ -1,5 +1,5 @@
 import { expect, chai, fakeMessage } from '../helpers'
-import InsultFilter from '../../src/filters/InsultFilter'
+import { InsultFilter } from '../../src/filters'
 
 const filter = new InsultFilter()
 const match = [
