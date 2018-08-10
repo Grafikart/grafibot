@@ -1,26 +1,63 @@
-import { ICommand } from './interfaces/index'
-import { Client, GuildMember, Message } from 'discord.js'
+import { ICommand, IFilter } from './interfaces/index'
+import { Client, GuildMember, Message, Role } from 'discord.js'
 import { admin } from './config'
 
 export default class Bot {
 
-  public commands: ICommand[] = []
-  private apiKey: string
+  public commands: ICommand[] = [] // Liste les commandes à utiliser
+  private filters: IFilter[] = [] // Liste les filtres à utiliser
+  private apiKey: string // Clef d'api
   private client: Client
-  private modos: string[]
+  private modos: string[] // Liste des modérateurs
+  private modoRole: Role
 
   constructor (client: Client, apiKey: string = '') {
     this.apiKey = apiKey
     this.client = client
     this.client.on('ready', () => {
-      this.modos = this.client.guilds.first().roles.find('id', admin).members.map(member => member.id)
+      let roles = this.client.guilds.first().roles
+      this.modoRole = roles.find('name', 'Modo')
+      this.modos = this.modoRole.members.map(member => member.id)
     })
     this.client.on('guildMemberUpdate', this.onGuildMemberUpdate.bind(this))
-    this.client.on('message', (msg: Message) => {
-      if (msg.content.startsWith('!')) {
-        this.runCommand(msg).catch(e => console.error(e))
-      }
-    })
+    this.client.on('message', this.onMessage.bind(this))
+  }
+
+  /**
+   * Ajoute une commande au bot
+   * @param {ICommand} command
+   * @returns {Bot}
+   */
+  addCommand (command: ICommand): Bot {
+    this.commands.push(command)
+    return this
+  }
+
+  /**
+   * Ajoute un filtre au bot
+   * @param {IFilter} filter
+   */
+  addFilter (filter: IFilter): Bot {
+    this.filters.push(filter)
+    return this
+  }
+
+  /**
+   * Connecte le bot
+   */
+  async connect () {
+    await this.client.login(this.apiKey)
+    return
+  }
+
+  /**
+   *
+   */
+  private onMessage (message: Message) {
+    if (message.content.startsWith('!')) {
+      if (this.runCommand(message) !== false) return
+    }
+    if (this.runFilters(message) !== false) return
   }
 
   /**
@@ -28,13 +65,17 @@ export default class Bot {
    * @param {module:discord.js.GuildMember} oldMember
    * @param {module:discord.js.GuildMember} newMember
    */
-  onGuildMemberUpdate (oldMember: GuildMember, newMember: GuildMember) {
+  private onGuildMemberUpdate (oldMember: GuildMember, newMember: GuildMember) {
     if (!newMember.roles.equals(oldMember.roles)) {
       this.onRoleUpdate(newMember)
     }
   }
 
-  onRoleUpdate (member: GuildMember) {
+  /**
+   * Lorsqu'un utilisateur a changé de rôle
+   * @param {module:discord.js.GuildMember} member
+   */
+  private onRoleUpdate (member: GuildMember) {
     let roles = member.roles
     if (
       roles.exists('id', admin) &&
@@ -50,31 +91,10 @@ export default class Bot {
   }
 
   /**
-   * Ajoute une commande au bot
-   * @param {ICommand} command
-   * @returns {Bot}
-   */
-  addCommand (command: ICommand): Bot {
-    this.commands.push(command)
-    return this
-  }
-
-  /**
-   * Connecte le bot
-   */
-  async connect () {
-    try {
-      await this.client.login(this.apiKey)
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  /**
    * Trouve la commande à lancer pour le message
    * @param {module:discord.js.Message} message
    */
-  private async runCommand (message: Message) {
+  private runCommand (message: Message) {
     let parts = message.content.split(' ')
     let commandName = parts[0].replace('!', '')
     let command: ICommand = this.commands.find(c => c.name === commandName)
@@ -83,10 +103,18 @@ export default class Bot {
       if (this.modos.includes(message.author.id)) {
         return command.run(message, parts.slice(1))
       } else {
-        return new Promise((resolve) => resolve())
+        return false
       }
     }
     return command.run(message, parts.slice(1))
   }
 
+  /**
+   * Renvoie le message sur tous les filtres
+   * @param {module:discord.js.Message} message
+   * @returns {boolean}
+   */
+  private runFilters (message: Message): boolean {
+    return this.filters.find(f => f.filter(message)) === undefined
+  }
 }

@@ -11,3 +11,7 @@ export interface ICommand {
 
   run (msg: Message, args: string[]): any
 }
+
+export interface IFilter {
+  filter (msg: Message): boolean
+}

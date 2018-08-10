@@ -3,11 +3,11 @@ import { ICommand, ILogger } from '../interfaces/index'
 import Command from './Command'
 
 /**
- * Attribue / Supprime un rôle
+ * Supprime plusieurs messages
  */
 export default class CleanCommand extends Command implements ICommand {
 
-  public name = 'c'
+  public name = 'clean'
   public description = 'Permet de supprimer X messages, ex: "!clean !messages"'
   public admin = true
   private logger: ILogger
@@ -17,7 +17,7 @@ export default class CleanCommand extends Command implements ICommand {
     this.logger = logger
   }
 
-  public async run (message: Message, args: string[]) {
+  async run (message: Message, args: string[]) {
     let messages = await message.channel.fetchMessages({
       limit: args[0] ? parseInt(args[0], 10) + 1 : 2
     })
@@ -25,7 +25,7 @@ export default class CleanCommand extends Command implements ICommand {
     return message.channel.bulkDelete(messages).catch(e => message.reply(e))
   }
 
-  public async log (member: User, messages: Collection<string, Message>) {
+  private async log (member: User, messages: Collection<string, Message>) {
     let deletions = messages.map(message => {
       return message.author.username + ': ' +
         message.content
