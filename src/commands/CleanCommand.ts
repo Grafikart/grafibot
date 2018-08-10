@@ -30,7 +30,7 @@ export default class CleanCommand extends Command implements ICommand {
       return message.author.username + ': ' +
         message.cleanContent
     }).slice(1).reverse().join('\n')
-    return this.logger.log(`<@!${member.id}> a supprimé les messages suivant :
+    return this.logger.log(`:x: <@!${member.id}> a supprimé les messages suivant :
 \`\`\`
 ${deletions}
 \`\`\``)

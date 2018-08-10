@@ -1,24 +1,17 @@
 import * as dotenv from 'dotenv'
 import Bot from './Bot'
 import { HelpCommand, RoleCommand, RolesCommand, CleanCommand } from './commands'
-import { Client, TextChannel } from 'discord.js'
-import { loggerId, roles, syntax } from './config'
+import { Client } from 'discord.js'
+import { roles, syntax } from './config'
 import Logger from './utils/Logger'
 import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
+import Premium from './tasks/Premium'
 
 dotenv.config()
 
-const logger = new Logger()
 const client = new Client()
-
-// On cherche le channel "log"
-client.on('ready', function () {
-  let channel = client.channels.find('id', loggerId) as TextChannel
-  if (channel) {
-    logger.channel = channel
-  }
-})
-
+const logger = new Logger(client)
+Premium.connect(client)
 const bot = new Bot(client, process.env.API_KEY)
 bot
   .addCommand(new HelpCommand(bot.commands))

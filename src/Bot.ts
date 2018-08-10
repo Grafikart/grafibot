@@ -1,6 +1,5 @@
 import { ICommand, IFilter } from './interfaces/index'
 import { Client, GuildMember, Message, Role } from 'discord.js'
-import { admin } from './config'
 
 export default class Bot {
 
@@ -78,12 +77,12 @@ export default class Bot {
   private onRoleUpdate (member: GuildMember) {
     let roles = member.roles
     if (
-      roles.exists('id', admin) &&
+      roles.exists('id', this.modos) &&
       !this.modos.includes(member.id)
     ) {
       this.modos.push(member.id)
     } else if (
-      !roles.exists('id', admin) &&
+      !roles.exists('id', this.modos) &&
       this.modos.includes(member.id)
     ) {
       this.modos = this.modos.filter(m => m !== member.id)

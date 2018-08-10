@@ -31,3 +31,13 @@ export const sendDMorReplyAutoDelete = async function (message: Message, content
       return
     })
 }
+
+/**
+ * Renvoie les éléments de arr1 qui ne sont pas dans arr2
+ * @param {T[]} arr1
+ * @param {T[]} arr2
+ * @returns {T[]}
+ */
+export const arrayDiff = function<T> (arr1: T[], arr2: T[]): T[] {
+  return arr1.filter(i => arr2.indexOf(i) < 0)
+}
