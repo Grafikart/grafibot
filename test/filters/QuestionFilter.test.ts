@@ -26,7 +26,7 @@ describe('QuestionFilter', () => {
   it('détecte les questions', () => {
     questions.forEach(function (q) {
       let message = fakeMessage(q)
-      expect(filter.filter(message)).to.be.true
+      expect(filter.filter(message), q).to.be.true
       expect(message.channel.send).to.be.called()
     })
   })
@@ -34,7 +34,7 @@ describe('QuestionFilter', () => {
   it('laisse passer les messages', () => {
     notQuestions.forEach(function (q) {
       let message = fakeMessage(q)
-      expect(filter.filter(message)).to.be.false
+      expect(filter.filter(message), q).to.be.false
       expect(message.channel.send).to.not.be.called()
     })
   })

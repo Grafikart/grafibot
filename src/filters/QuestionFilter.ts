@@ -7,8 +7,7 @@ import { Message } from 'discord.js'
 export default class QuestionFilter implements IFilter {
 
   filter (message: Message): boolean {
-    return true
-    if (this.isQuestion(message.content)) {
+    if (this.isQuestion(message.content.trim())) {
       message.channel
         .send(`:question: N'hésite pas à poser ta question directement <@!${message.author.id}>, il n'est pas utile de demander si quelqu'un connait quelque chose avant.`)
         .catch(console.error)
@@ -18,7 +17,8 @@ export default class QuestionFilter implements IFilter {
   }
 
   private isQuestion (content: string): boolean {
-    return content.match(/^(bonjour |salut )?([^ ]+ ){0,3}(qui s'y conna(î|i)(t|s)|des gens|quelqu'un|qqun|des personnes)[^\?]+\?$/i) !== null
+    return content.split(' ').length <= 10 &&
+      content.match(/^(bonjour |salut )?([^ ]+ ){0,3}(qui s'y conna(î|i)(t|s)|des gens|quelqu'un|qqun|des personnes)[^\?]+\?$/i) !== null
   }
 
 }

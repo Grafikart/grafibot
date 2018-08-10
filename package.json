@@ -9,7 +9,7 @@
     "serve": "node dist/index.js",
     "watch-node": "nodemon dist/index.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "test": "jest --forceExit --detectOpenHandles --verbose --runInBand",
+    "test": "jest --forceExit --verbose --runInBand",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^4.0.3",
     "@types/chai": "^4.1.4",
     "@types/chai-spies": "^1.0.0",
     "@types/jest": "^23.3.1",
@@ -34,7 +35,6 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "@types/dotenv": "^4.0.3",
     "discord.js": "^11.3.2",
     "dotenv": "^6.0.0"
   }
