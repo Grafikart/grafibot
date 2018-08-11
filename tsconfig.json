@@ -14,7 +14,8 @@
                 "node_modules/*",
                 "src/types/*"
             ]
-        }
+        },
+        "typeRoots": ["./typings"]
     },
     "include": [
         "src/**/*"

@@ -6,12 +6,14 @@ import { roles, syntax } from './config'
 import Logger from './utils/Logger'
 import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
 import Premium from './tasks/Premium'
+import RSS from './tasks/RSS'
 
 dotenv.config()
 
 const client = new Client()
 const logger = new Logger(client)
 Premium.connect(client)
+RSS.connect(client)
 const bot = new Bot(client, process.env.API_KEY)
 bot
   .addCommand(new HelpCommand(bot.commands))
