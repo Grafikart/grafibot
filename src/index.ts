@@ -34,9 +34,9 @@ bot
     ':mag: @user Il y a sûrement déjà un tutoriel sur le sujet https://www.grafikart.fr/search?q=@content'
   ))
   .addCommand(new QuickCommand(
-    'grafikart',
-    'Permet de renvoyer un utilisateur vers un tutoriel grafikart (!grafikart @user rsync)',
-    ':mag: @user Il y a sûrement déjà un tutoriel sur le sujet https://www.grafikart.fr/search?q=@content'
+    'code',
+    'Permet d\'indiquer à un utilisateur comment mieux poster sa question, ex: "!code @Grafikart#1849"',
+    ":robot: N'hésite pas à mieux décrire ton problème @Grafikart. Si tu le souhaite tu peux utiliser ce template : \n http://hastebin.com/uzufecurol.php"
   ))
   .addCommand(new HelpCommand(bot.commands))
   .addFilter(new CapslockFilter())
