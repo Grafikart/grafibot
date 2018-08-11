@@ -1,5 +1,10 @@
 .PHONY: build dev lint test
 
+install: build
+	git pull origin master
+	yarn
+	pm2 start --env production
+
 build: db.sqlite lint
 	npx tsc
 
