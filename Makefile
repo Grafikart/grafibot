@@ -11,8 +11,8 @@ dev: db.sqlite build
 		"npx tsc -w" \
 		"nodemon --inspect dist/index.js"
 
-test:
-	jest --forceExit --verbose --runInBand
+test: lint
+	npx jest --forceExit --verbose --runInBand
 
 db.sqlite: schema.sqlite
 	cp schema.sqlite db.sqlite
