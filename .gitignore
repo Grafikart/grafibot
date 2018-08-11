@@ -6,3 +6,4 @@ coverage
 .DS_STORE
 *.log
 db.sqlite
+logs/*.log

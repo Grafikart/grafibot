@@ -2,10 +2,9 @@
 
 install: build
 	git pull origin master
-	yarn
 	pm2 start --env production
 
-build: db.sqlite lint
+build: node_modules db.sqlite lint
 	npx tsc
 
 dev: db.sqlite build
@@ -24,3 +23,6 @@ db.sqlite: schema.sqlite
 
 lint:
 	npx tslint -c tslint.json -p tsconfig.json
+
+node_modules:
+	yarn

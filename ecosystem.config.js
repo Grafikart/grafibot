@@ -7,6 +7,8 @@ module.exports = {
     },
     env_production : {
       NODE_ENV: 'production'
-    }
+    },
+    output: './logs/out.log',
+    error: './logs/error.log'
   }],
 };
