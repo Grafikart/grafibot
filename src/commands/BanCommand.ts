@@ -20,7 +20,7 @@ export default class BanCommand implements ICommand {
       days: 7,
       reason: reason
     }).catch()
-    message.delete()
+    message.delete().catch()
   }
 
 }
