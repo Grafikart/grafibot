@@ -17,8 +17,8 @@ export default class MuteCommand implements ICommand {
   private readonly client: Client
   private readonly levels = [
     {
-      duration: 10 * 1000,
-      forget: 50 * 1000
+      duration: 10 * minute,
+      forget: day
     },
     {
       duration: hour,
