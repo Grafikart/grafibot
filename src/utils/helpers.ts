@@ -41,3 +41,28 @@ export const sendDMorReplyAutoDelete = async function (message: Message, content
 export const arrayDiff = function<T> (arr1: T[], arr2: T[]): T[] {
   return arr1.filter(i => arr2.indexOf(i) < 0)
 }
+
+/**
+ * Convertit une durée en ms en chaine
+ * @param {number} duration (en ms)
+ * @returns {string}
+ */
+export const durationToString = function (duration: number): string {
+  const minute = 60 * 1000
+  const hour = 60 * minute
+  const day = 24 * hour
+  let type = 'seconde'
+  let n = duration / 1000
+  if (duration >= day) {
+    type = 'jour'
+    n = Math.floor(duration / day)
+  } else if (duration >= hour) {
+    type = 'heure'
+    n = Math.floor(duration / hour)
+  } else if (duration >= minute) {
+    type = 'minute'
+    n = Math.floor(duration / minute)
+  }
+  if (n > 1) type += 's'
+  return `${n} ${type}`
+}

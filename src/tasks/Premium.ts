@@ -1,15 +1,18 @@
 import { Client, GuildMember, Role } from 'discord.js'
 import * as mysql from 'mysql2/promise'
 import { arrayDiff } from '../utils/helpers'
+import { ILogger } from '../interfaces'
 
 type IRow = { discord_id: string }
 
 export default class Premium {
 
   static client: Client
+  static logger: ILogger
 
-  static connect (client: Client) {
+  static connect (client: Client, logger: ILogger) {
     this.client = client
+    this.logger = logger
     this.client.on('ready', this.syncPremiums.bind(this))
   }
 
@@ -51,11 +54,17 @@ export default class Premium {
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB
     })
-    const [rows] = await connection.execute(
-      'SELECT discord_id FROM users WHERE premium > NOW() AND discord_id IS NOT NULL AND discord_id != ""'
-    )
+    let rows: IRow[] = []
+    try {
+      let results = await connection.execute(
+        'SELECT discord_id FROM users WHERE premium > NOW() AND discord_id IS NOT NULL AND discord_id != ""'
+      )
+      rows = results[0] as IRow[]
+    } catch (e) {
+      this.logger.log(':space_invader: Impossible de récupérer les membres premiums')
+    }
     connection.destroy()
-    return (rows as IRow[]).map(row => row.discord_id)
+    return (rows).map(row => row.discord_id)
   }
 
 }

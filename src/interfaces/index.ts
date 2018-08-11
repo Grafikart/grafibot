@@ -5,9 +5,9 @@ export interface ILogger {
 }
 
 export interface ICommand {
-  name: string
-  description: string
-  admin?: boolean
+  readonly name: string
+  readonly description: string
+  readonly admin?: boolean
 
   run (msg: Message, args: string[]): any
 }

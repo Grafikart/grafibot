@@ -13,7 +13,7 @@ export default class RSS {
     this.client = client
     this.client.on('ready', () => {
       job.start()
-      this.parseRSS()
+      this.parseRSS().catch()
     })
   }
 
