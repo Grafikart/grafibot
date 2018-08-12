@@ -4,7 +4,8 @@ export default class Command {
 
   protected async replyDM (reply: string, message: Message): Promise<any> {
     try {
-      await message.author.dmChannel.send(reply)
+      let channel = await message.author.createDM()
+      await channel.send(reply)
     } catch (e) {
       await message.reply(reply)
     }
