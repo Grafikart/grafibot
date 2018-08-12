@@ -12,11 +12,11 @@ const fakeMessage = function (content: string): Message {
   let channel = new TextChannel(guild, { id: '123123' })
   let message = new Message(channel, {
     content,
-    id: '13123123',
+    id: 'messageID',
     attachments: [],
     embeds: [],
     author: {
-      id: '123123123'
+      id: 'authorID'
     }
   }, client)
   message.author.createDM = function () {

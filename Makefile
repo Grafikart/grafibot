@@ -18,6 +18,9 @@ dev: db.sqlite build
 test: lint
 	npx jest --forceExit --verbose --runInBand
 
+wtest: lint
+	npx jest --forceExit --verbose --runInBand --watchAll
+
 db.sqlite: schema.sqlite
 	cp schema.sqlite db.sqlite
 

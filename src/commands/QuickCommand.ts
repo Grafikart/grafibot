@@ -18,7 +18,7 @@ export default class QuickCommand implements ICommand {
     let content = args[0]
     if (args.length > 1) {
       user = args[0]
-      content = args[1]
+      content = args.slice(1).join(' ')
     }
     message.channel.send(this.message
       .replace('@user', user)
