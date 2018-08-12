@@ -4,7 +4,7 @@ import { MuteCommand, HelpCommand, RoleCommand, RolesCommand, CleanCommand, Quic
 import { Client } from 'discord.js'
 import { roles, syntax } from './config'
 import Logger from './utils/Logger'
-import { MentionFilter, CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
+import { CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
 import sqlite3 from 'sqlite3'
@@ -45,7 +45,6 @@ bot
   .addFilter(new InsultFilter())
   .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
-  .addFilter(new MentionFilter())
   .addFilter(new SyntaxFilter(syntax))
   .connect()
   .catch(function (e) {
