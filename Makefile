@@ -1,7 +1,8 @@
 .PHONY: build dev lint test
 
-install: build
+install:
 	git pull origin master
+	make build
 	pm2 start --env production
 
 build: node_modules db.sqlite lint
