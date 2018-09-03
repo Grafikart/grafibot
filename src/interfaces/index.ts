@@ -17,6 +17,6 @@ export interface IFilter {
 }
 
 export interface IResource {
-  name: string,
-  website: string
+  techo: string,
+  websites: string[]
 }

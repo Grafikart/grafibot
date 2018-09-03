@@ -19,10 +19,10 @@ export const loggerId = '477123703658905606'
 export const guildId = '85154866468487168' // Id du serveur Grafikart.fr
 // ressources
 export const resources: IResource[] = [
-  { name: 'Cours complet sur l\'HTML et le CSS:', website: 'https://marksheet.io/' },
-  { name: 'Une des meilleures documentations pour les technologies web:', website: 'https://developer.mozilla.org/en-US/' },
-  { name: 'Cours complet sur le Javascript:', website: 'http://eloquentjavascript.net/\nhttp://javascript.info/' },
-  { name: 'Documentation PHP:', website: 'https://secure.php.net' },
-  { name: 'Un site regroupant une tonne de documentations sur différents langages/technologies:', website: 'https://devdocs.io/' },
-  { name: 'Un site regroupant des trucs et astuces (Tips) sur de nombreuses technologies:', website: 'https://devhints.io/' }
+  { techo: 'HTML/CSS', websites: ['https://marksheet.io/', 'https://developer.mozilla.org/en-US/docs/Learn'] },
+  { techo: 'Javascript', websites: ['http://eloquentjavascript.net/', 'http://javascript.info/', 'https://developer.mozilla.org/en-US/javascript'] },
+  { techo: 'PHP', websites: ['https://secure.php.net/docs.php'] },
+  { techo: 'Python', websites: ['https://inforef.be/swi/download/apprendre_python3_5.pdf', 'https://www.python.org/doc/'] },
+  { techo: 'Java', websites: ['http://java2s.com/', 'https://www.jmdoudoux.fr/java/dej/indexavecframes.htm', 'https://www.youtube.com/channel/UCl8T9GRhma8C2PaRfGIjOtA/playlists'] },
+  { techo: 'Autre', websites: ['https://devdocs.io/', 'https://devhints.io/'] }
 ]

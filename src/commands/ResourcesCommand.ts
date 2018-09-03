@@ -20,7 +20,7 @@ export default class ResourcesCommand extends Command implements ICommand {
   private createEmbed (): RichEmbed {
     const resourcesEmbed = new RichEmbed()
     resourcesEmbed.setTitle('Voici quelques ressources qui pourront t\'aider à en apprendre plus:')
-    this.resources.map(resource => resourcesEmbed.addField(resource.name, resource.website))
+    this.resources.map(resource => resourcesEmbed.addField(resource.techo, resource.websites.join('\n')))
     resourcesEmbed.setColor('#78AB4E')
     resourcesEmbed.setFooter('Une liste plus complète ce trouve juste ici (par TnTakara): https://learndev.rault.io/')
     return resourcesEmbed
