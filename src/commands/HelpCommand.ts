@@ -32,7 +32,7 @@ export default class HelpCommand extends Command implements ICommand {
 
 ${help}
 
-Un bug / un problème avec le bot ? https://github.com/Grafikart/GrafikartBot-Elixir/issues`, message)
+Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`, message)
   }
 
 }
