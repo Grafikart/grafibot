@@ -1,4 +1,4 @@
-import { Message } from 'discord.js'
+import { Message, RichEmbed } from 'discord.js'
 import { ICommand, IResource } from '../interfaces/index'
 import Command from './Command'
 
@@ -14,7 +14,14 @@ export default class ResourcesCommand extends Command implements ICommand {
   }
 
   public async run (message: Message, args: string[]) {
-    await message.channel.send(`Test ${this.resources}`)
+    return message.channel.send(this.createEmbed())
+  }
+
+  private createEmbed () {
+    const resourcesEmbed = new RichEmbed()
+    this.resources.map(resource => resourcesEmbed.addField(resource.name, resource.website))
+    resourcesEmbed.setColor('#78AB4E')
+    return resourcesEmbed
   }
 
 }
