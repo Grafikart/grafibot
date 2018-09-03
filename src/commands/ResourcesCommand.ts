@@ -13,7 +13,7 @@ export default class ResourcesCommand extends Command implements ICommand {
     this.resources = resources
   }
 
-  public async run (message: Message, args: string[]) {
+  public run (message: Message, args: string[]) {
     return message.channel.send(this.createEmbed())
   }
 
