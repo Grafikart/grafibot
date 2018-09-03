@@ -20,8 +20,8 @@ export const guildId = '85154866468487168' // Id du serveur Grafikart.fr
 // ressources
 export const resources: IResource[] = [
   { name: 'Cours complet sur l\'HTML et le CSS:', website: 'https://marksheet.io/' },
-  { name: 'Une des meilleures documentation pour les technologies web:', website: 'https://developer.mozilla.org/en-US/' },
-  { name: 'Cours complets sur le Javascript:', website: 'http://eloquentjavascript.net/\nhttp://javascript.info/' },
+  { name: 'Une des meilleures documentations pour les technologies web:', website: 'https://developer.mozilla.org/en-US/' },
+  { name: 'Cours complet sur le Javascript:', website: 'http://eloquentjavascript.net/\nhttp://javascript.info/' },
   { name: 'Documentation PHP:', website: 'https://secure.php.net' },
   { name: 'Un site regroupant une tonne de documentations sur différents langages/technologies:', website: 'https://devdocs.io/' },
   { name: 'Un site regroupant des trucs et astuces (Tips) sur de nombreuses technologies:', website: 'https://devhints.io/' }
