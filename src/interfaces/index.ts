@@ -15,3 +15,8 @@ export interface ICommand {
 export interface IFilter {
   filter (msg: Message): boolean
 }
+
+export interface IResource {
+  name: string,
+  website: string
+}

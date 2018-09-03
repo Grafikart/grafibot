@@ -1,3 +1,6 @@
+
+import { IResource } from './interfaces'
+
 // Rôles modifiables par l'utilisateur
 export const roles = {
   fullstack: '305381229753139200',
@@ -14,3 +17,7 @@ export const syntax = {
 }
 export const loggerId = '477123703658905606'
 export const guildId = '85154866468487168' // Id du serveur Grafikart.fr
+// ressources
+export const resources: IResource[] = [
+  { name: 'Documentation PHP', website: 'https://secure.php.net' }
+]

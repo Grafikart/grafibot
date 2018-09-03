@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv'
 import Bot from './Bot'
-import { MuteCommand, HelpCommand, RoleCommand, RolesCommand, CleanCommand, QuickCommand, BanCommand } from './commands'
+import { MuteCommand, HelpCommand, RoleCommand, RolesCommand, CleanCommand, QuickCommand, BanCommand, ResourcesCommand } from './commands'
 import { Client } from 'discord.js'
-import { roles, syntax } from './config'
+import { roles, syntax, resources } from './config'
 import Logger from './utils/Logger'
 import { CapslockFilter, ChocopainFilter, ErrorsFilter, InsultFilter, QuestionFilter, CodeFilter, SyntaxFilter } from './filters'
 import Premium from './tasks/Premium'
@@ -39,6 +39,7 @@ bot
     ":robot: N'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce template : \n http://hastebin.com/uzufecurol.php"
   ))
   .addCommand(new HelpCommand(bot.commands))
+  .addCommand(new ResourcesCommand(resources))
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
