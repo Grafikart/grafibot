@@ -17,7 +17,7 @@ export default class ResourcesCommand extends Command implements ICommand {
     return message.channel.send(this.createEmbed())
   }
 
-  private createEmbed () {
+  private createEmbed (): RichEmbed {
     const resourcesEmbed = new RichEmbed()
     resourcesEmbed.setTitle('Voici quelques ressources qui pourront t\'aider à en apprendre plus:')
     this.resources.map(resource => resourcesEmbed.addField(resource.name, resource.website))
