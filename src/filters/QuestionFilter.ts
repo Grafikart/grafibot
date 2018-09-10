@@ -18,7 +18,7 @@ export default class QuestionFilter implements IFilter {
 
   private isQuestion (content: string): boolean {
     return content.split(' ').length <= 10 &&
-      content.match(/^(bonjour |salut )?([^ ]+ ){0,3}(qui s'y conna(î|i)(t|s)|des gens|quelqu'un|qqun|des personnes)[^\?]+\?$/i) !== null
+      content.match(/^(bonjour |salut )?([^ ]+ ){0,3}(qui s'y conna(î|i)(t|s)|des gens|(pour|pou(r|rr)a(î|i)t(s)?) m(\'|\")aid(e|é)(z|r)?|quelqu'un|qqun|qq|des personnes)[^\?]+\??$/i) !== null
   }
 
 }
