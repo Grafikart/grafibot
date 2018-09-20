@@ -20,6 +20,7 @@ export default class Bot {
     })
     this.client.on('guildMemberUpdate', this.onGuildMemberUpdate.bind(this))
     this.client.on('message', this.onMessage.bind(this))
+    this.client.on('messageUpdate', (_, newMessage: Message) => this.onMessage(newMessage))
   }
 
   /**
