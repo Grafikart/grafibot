@@ -61,7 +61,7 @@ export default class MuteCommand implements ICommand {
    * @param {string} reason
    * @returns {Promise<void>}
    */
-  private async muteMember (member: GuildMember, reason: string) {
+  public async muteMember (member: GuildMember, reason: string) {
     let role = this.getMutedRole()
     let lvl = await this.incrementLevelForUser(member)
     let duration = durationToString(this.levels[lvl].duration)

@@ -6,6 +6,7 @@ import InsultFilter from './InsultFilter'
 import CodeFilter from './CodeFilter'
 import MentionFilter from './MentionFilter'
 import SyntaxFilter from './SyntaxFilter'
+import InviteFilter from './InviteFilter'
 
 export {
   CapslockFilter,
@@ -15,5 +16,6 @@ export {
   InsultFilter,
   CodeFilter,
   MentionFilter,
-  SyntaxFilter
+  SyntaxFilter,
+  InviteFilter
 }
