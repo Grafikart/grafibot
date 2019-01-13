@@ -56,8 +56,8 @@ bot
   .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
   .addFilter(new SyntaxFilter(syntax))
-  .addCommand(new InviteFilter(muteCommand))
+  .addFilter(new InviteFilter(muteCommand))
   .connect()
-  .catch(function (e) {
+  .catch(function (e: string) {
     console.error(e)
   })
