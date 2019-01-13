@@ -22,6 +22,7 @@ describe('InviteFilter', () => {
 
   it('détecte les invitation discord', () => {
     expect(filter.filter(fakeMessage('Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'))).to.be.true
+    expect(filter.filter(fakeMessage('Pour ce qui veulent mon groupe : https://discordapp.com/invite/rAuuD7Q'))).to.be.true
     expect(filter.filter(fakeMessage(`Pour ce qui veulent mon groupe : 
     
     https://discord.gg/jMwPGe`))).to.be.true
