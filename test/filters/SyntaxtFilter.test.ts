@@ -6,7 +6,7 @@ const filter = new SyntaxFilter({
 })
 const match = [
   '[Test] dlzpepflef htttttp://google..fr',
-  'Voila mon lien https://github.com/docker/docker-birthday-3'
+  'Voila mon lien https://github.com/docker/docker-birthday-3',
   'Lien https://example.org/',
   'Lien <https://example.org/>',
   'http://example.org/',
