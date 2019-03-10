@@ -7,6 +7,11 @@ const filter = new SyntaxFilter({
 const match = [
   '[Test] dlzpepflef htttttp://google..fr',
   'Voila mon lien https://github.com/docker/docker-birthday-3'
+  'Lien https://example.org/',
+  'Lien <https://example.org/>',
+  'http://example.org/',
+  '<http://example.org/>',
+  '[Test] ABC\nhttp://def.ghi/'
 ]
 const noMatch = [
   '[DOCKER] à l\'occasion du docker birthday, un git hub avec un cours et un TP: https://github.com/docker/docker-birthday-3',
