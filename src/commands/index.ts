@@ -5,6 +5,7 @@ import CleanCommand from './CleanCommand'
 import QuickCommand from './QuickCommand'
 import MuteCommand from './MuteCommand'
 import BanCommand from './BanCommand'
+import ResourcesCommand from './ResourcesCommand'
 
 export {
   HelpCommand,
@@ -13,5 +14,6 @@ export {
   CleanCommand,
   QuickCommand,
   MuteCommand,
-  BanCommand
+  BanCommand,
+  ResourcesCommand
 }
