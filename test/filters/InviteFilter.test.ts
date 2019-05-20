@@ -26,6 +26,8 @@ describe('InviteFilter', () => {
     expect(filter.filter(fakeMessage(`Pour ce qui veulent mon groupe : 
     
     https://discord.gg/jMwPGe`))).to.be.true
+    expect(filter.filter(fakeMessage('notre bot prevention: https://discordapp.com/oauth2/authorize?client_id=579748008804089891&scope=bot&permissions=252928'))).to.be.true
+    expect(filter.filter(fakeMessage('Notre bot Anti-Raid: https://discordapp.com/oauth2/authorize?client_id=451361230901346314&scope=bot&permissions=8'))).to.be.true
     expect(filter.filter(fakeMessage('Un message à propos de discord'))).to.be.false
   })
 
