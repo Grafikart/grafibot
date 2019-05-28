@@ -8,7 +8,7 @@ import {
   CapslockFilter,
   ChocopainFilter,
   ErrorsFilter,
-  InsultFilter,
+  // InsultFilter,
   QuestionFilter,
   CodeFilter,
   SyntaxFilter,
@@ -52,7 +52,7 @@ bot
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
-  .addFilter(new InsultFilter())
+  // .addFilter(new InsultFilter())
   .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
   .addFilter(new SyntaxFilter(syntax))
