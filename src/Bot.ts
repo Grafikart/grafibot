@@ -1,9 +1,11 @@
-import { ICommand, IFilter } from './interfaces/index'
-import { Client, GuildMember, Message, Role } from 'discord.js'
+import { ICommand, IFilter, IReactionCommand } from './interfaces/index'
+import { Client, GuildMember, Message, Role, MessageReaction, User } from 'discord.js'
+import { modoRole } from './config'
 
 export default class Bot {
 
   public commands: ICommand[] = [] // Liste les commandes à utiliser
+  private reactionCommands: IReactionCommand[] = []
   private filters: IFilter[] = [] // Liste les filtres à utiliser
   private apiKey: string // Clef d'api
   private client: Client
@@ -21,6 +23,7 @@ export default class Bot {
     this.client.on('guildMemberUpdate', this.onGuildMemberUpdate.bind(this))
     this.client.on('message', this.onMessage.bind(this))
     this.client.on('messageUpdate', (_, newMessage: Message) => this.onMessage(newMessage))
+    this.client.on('messageReactionAdd', this.onReactionAdd.bind(this))
   }
 
   /**
@@ -39,6 +42,14 @@ export default class Bot {
    */
   addFilter (filter: IFilter): Bot {
     this.filters.push(filter)
+    return this
+  }
+
+  /**
+   * Ajoute une commande au bot
+   */
+  addReactionCommand (command: IReactionCommand): Bot {
+    this.reactionCommands.push(command)
     return this
   }
 
@@ -92,20 +103,30 @@ export default class Bot {
   }
 
   /**
+   * Détecte l'ajout de réaction
+   */
+  private onReactionAdd (reaction: MessageReaction, user: User) {
+    const command = this.reactionCommands.find(c => c.name === reaction.emoji.name)
+    const member = reaction.message.guild.member(user)
+    if (command === undefined) return false
+    if (command.admin === true && !this.isModo(member)) {
+      return false
+    }
+    return command.run(reaction, user)
+  }
+
+  /**
    * Trouve la commande à lancer pour le message
    * @param {module:discord.js.Message} message
    */
   private runCommand (message: Message) {
-    let parts = message.content.split(' ')
-    let commandName = parts[0].replace('!', '')
-    let command: ICommand = this.commands.find(c => c.name === commandName)
+    const parts = message.content.split(' ')
+    const commandName = parts[0].replace('!', '')
+    const command: ICommand = this.commands.find(c => c.name === commandName)
+    const member = message.guild.member(message.author)
     if (command === undefined) return false
-    if (command.admin === true) {
-      if (this.modos.includes(message.author.id)) {
-        return command.run(message, parts.slice(1))
-      } else {
-        return false
-      }
+    if (command.admin === true && !this.isModo(member)) {
+      return false
     }
     return command.run(message, parts.slice(1))
   }
@@ -117,5 +138,9 @@ export default class Bot {
    */
   private runFilters (message: Message): boolean {
     return this.filters.find(f => f.filter(message)) === undefined
+  }
+
+  private isModo (member: GuildMember): boolean {
+    return member.roles.find(r => r.name === modoRole) !== null
   }
 }

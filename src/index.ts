@@ -17,6 +17,7 @@ import {
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
 import sqlite3 from 'sqlite3'
+import { ReportCommand } from './reactions'
 
 dotenv.config()
 
@@ -49,6 +50,7 @@ bot
     ':robot: N\'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce template : \n http://hastebin.com/uzufecurol.php'
   ))
   .addCommand(new HelpCommand(bot.commands))
+  .addReactionCommand(new ReportCommand(logger))
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
