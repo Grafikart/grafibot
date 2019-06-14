@@ -15,6 +15,7 @@ export default class InviteFilter implements IFilter {
 
   filter (message: Message): boolean {
     if (message.content.match(/(discord\.(gg|io|me|li)|discordapp\.com\/(invite|oauth2))\/[0-9A-Za-z]+/i) !== null) {
+      if (message.content.match(/(discord\.(gg|io|me|li)|discordapp\.com\/(invite|oauth2))\/rAuuD7Q/i)) return false
       this.muteCommand
         .muteMember(message.member, 'Les liens d\'invitation discord sont interdit sur ce serveur')
         .then(function () {
