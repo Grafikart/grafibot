@@ -9,7 +9,7 @@ import {
   ChocopainFilter,
   ErrorsFilter,
   // InsultFilter,
-  QuestionFilter,
+  // QuestionFilter,
   CodeFilter,
   SyntaxFilter,
   InviteFilter
@@ -55,7 +55,7 @@ bot
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
   // .addFilter(new InsultFilter())
-  .addFilter(new QuestionFilter())
+  // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
   .addFilter(new SyntaxFilter(syntax))
   .addFilter(new InviteFilter(muteCommand))
