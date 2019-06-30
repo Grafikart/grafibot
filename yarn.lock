@@ -2944,12 +2944,12 @@ rimraf@^2.5.4, rimraf@^2.6.1:
   dependencies:
     glob "^7.0.5"
 
-rss-parser@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/rss-parser/-/rss-parser-3.4.2.tgz#a7d88b5676864845e6b9c3a84e09a00478c75306"
+rss-parser@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/rss-parser/-/rss-parser-3.7.1.tgz#86d15d1c84b860d1aff1c00a2149278a9fe64c0b"
   dependencies:
     entities "^1.1.1"
-    xml2js "^0.4.17"
+    xml2js "^0.4.19"
 
 rsvp@^3.3.3:
   version "3.6.2"
@@ -3638,7 +3638,7 @@ xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
 
-xml2js@^0.4.17:
+xml2js@^0.4.19:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
   dependencies:

@@ -43,7 +43,7 @@
     "discord.js": "^11.3.2",
     "dotenv": "^6.0.0",
     "mysql2": "^1.6.1",
-    "rss-parser": "^3.4.2",
+    "rss-parser": "^3.7.1",
     "sqlite3": "^4.0.8"
   }
 }
