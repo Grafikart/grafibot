@@ -46,7 +46,7 @@ bot
   .addCommand(new QuickCommand(
     'code',
     'Permet d\'indiquer à un utilisateur comment mieux poster sa question, ex: "!code @Grafikart#1849"',
-    ':robot: N\'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce template : \n http://hastebin.com/uzufecurol.php'
+    ':robot: N\'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce paste : \n https://paste.artemix.org/'
   ))
   .addCommand(new HelpCommand(bot.commands))
   .addFilter(new CapslockFilter())
