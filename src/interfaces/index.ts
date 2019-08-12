@@ -1,4 +1,4 @@
-import { Message } from 'discord.js'
+import { Message, MessageReaction, User } from 'discord.js'
 
 export interface ILogger {
   log (message: string): void
@@ -10,6 +10,14 @@ export interface ICommand {
   readonly admin?: boolean
 
   run (msg: Message, args: string[]): any
+}
+
+export interface IReactionCommand {
+  readonly name: string
+  readonly admin?: boolean
+
+  run (reaction: MessageReaction, user: User): any
+
 }
 
 export interface IFilter {
