@@ -1,5 +1,4 @@
 declare module 'rss-parser' {
-
   export interface IFeed {
     feedUrl: string
     title: string

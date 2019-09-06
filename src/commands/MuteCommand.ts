@@ -9,11 +9,10 @@ const hour = 60 * minute
 const day = 24 * hour
 
 export default class MuteCommand implements ICommand {
-
   readonly name = 'mute'
   readonly description = 'Permet de mute un utilisateur'
   readonly admin = true
-  private jobs: {[k: string]: CronJob[]} = {}
+  private jobs: { [k: string]: CronJob[] } = {}
   private readonly client: Client
   private readonly levels = [
     {
@@ -50,7 +49,11 @@ export default class MuteCommand implements ICommand {
   async run (message: Message, args: string[]) {
     let member = message.mentions.members.first()
     let reason = args.slice(1).join(' ')
-    this.logger.log(`<@!${message.author.id}> a mute <@!${member.id}>\n **Raison :** ${reason}`)
+    this.logger.log(
+      `<@!${message.author.id}> a mute <@!${
+        member.id
+      }>\n **Raison :** ${reason}`
+    )
     this.muteMember(member, reason).catch()
     return true
   }
@@ -66,7 +69,13 @@ export default class MuteCommand implements ICommand {
     let lvl = await this.incrementLevelForUser(member)
     let duration = durationToString(this.levels[lvl].duration)
     await member.addRole(role)
-    this.getMutedChannel().send(`<@!${member.id}> Vous avez été muté pour la raison suivante \n\n > *${reason.trim()}* \n\n Le mute sera levé dans **${duration}**, merci de respecter les règles de ce serveur.`).catch()
+    this.getMutedChannel()
+      .send(
+        `<@!${
+          member.id
+        }> Vous avez été muté pour la raison suivante \n\n > *${reason.trim()}* \n\n Le mute sera levé dans **${duration}**, merci de respecter les règles de ce serveur.`
+      )
+      .catch()
     this.addJobsFor(member, lvl)
   }
 
@@ -76,7 +85,9 @@ export default class MuteCommand implements ICommand {
   private resetJobs () {
     this.db.each('SELECT id, lvl, muted_at FROM mutes', (err, row) => {
       if (err === null) {
-        let member = this.client.guilds.first().members.find('id', row.id)
+        let member = this.client.guilds
+          .first()
+          .members.find(m => m.id === row.id)
         if (member) {
           this.addJobsFor(member, row.lvl)
         }
@@ -95,21 +106,25 @@ export default class MuteCommand implements ICommand {
     let role = this.getMutedRole()
     let jobs = []
     if (member.roles.has(role.id)) {
-      jobs.push(new CronJob({
-        cronTime: new Date(date + level.duration),
-        start: true,
-        onTick: function () {
-          member.removeRole(role).catch()
-        }
-      }))
+      jobs.push(
+        new CronJob({
+          cronTime: new Date(date + level.duration),
+          start: true,
+          onTick: function () {
+            member.removeRole(role).catch()
+          }
+        })
+      )
     }
-    jobs.push(new CronJob({
-      cronTime: new Date(date + level.forget),
-      start: true,
-      onTick: () => {
-        this.decrementLevelForUser(member).catch()
-      }
-    }))
+    jobs.push(
+      new CronJob({
+        cronTime: new Date(date + level.forget),
+        start: true,
+        onTick: () => {
+          this.decrementLevelForUser(member).catch()
+        }
+      })
+    )
     if (this.jobs[member.id]) {
       this.jobs[member.id].forEach(job => job.stop())
     }
@@ -121,7 +136,7 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedRole (): Role {
-    return this.client.guilds.first().roles.find('name', 'muted')
+    return this.client.guilds.first().roles.find(r => r.name === 'muted')
   }
 
   /**
@@ -129,21 +144,30 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedChannel (): TextChannel {
-    return this.client.guilds.first().channels.find('name', 'muted') as TextChannel
+    return this.client.guilds
+      .first()
+      .channels.find(c => c.name === 'muted') as TextChannel
   }
 
   private async decrementLevelForUser (member: GuildMember): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.db.get('SELECT lvl FROM mutes WHERE id = ?', [member.id], (err, row) => {
-        if (err !== null) return reject(err)
-        if (row.lvl === 0) {
-          this.db.run('DELETE FROM mutes WHERE id = ?', [member.id])
-        } else {
-          this.db.run('UPDATE mutes SET lvl = lvl - 1, muted_at = ? WHERE id = ?', [member.id, Date.now()])
-          this.addJobsFor(member, row.lvl - 1)
+      this.db.get(
+        'SELECT lvl FROM mutes WHERE id = ?',
+        [member.id],
+        (err, row) => {
+          if (err !== null) return reject(err)
+          if (row.lvl === 0) {
+            this.db.run('DELETE FROM mutes WHERE id = ?', [member.id])
+          } else {
+            this.db.run(
+              'UPDATE mutes SET lvl = lvl - 1, muted_at = ? WHERE id = ?',
+              [member.id, Date.now()]
+            )
+            this.addJobsFor(member, row.lvl - 1)
+          }
+          resolve(row.lvl - 1)
         }
-        resolve(row.lvl - 1)
-      })
+      )
     })
   }
 
@@ -161,16 +185,22 @@ export default class MuteCommand implements ICommand {
         function (err: any, row: any) {
           if (err !== null) return reject(err)
           if (this.changes > 0) {
-            db.get('SELECT lvl FROM mutes WHERE id = ?', [member.id], function (err, row) {
+            db.get('SELECT lvl FROM mutes WHERE id = ?', [member.id], function (
+              err,
+              row
+            ) {
               if (err === null) return resolve(row.lvl)
               return reject(err)
             })
           } else {
-            db.run('INSERT INTO mutes (id, muted_at) VALUES (?, ?)', [member.id, Date.now()])
+            db.run('INSERT INTO mutes (id, muted_at) VALUES (?, ?)', [
+              member.id,
+              Date.now()
+            ])
             resolve(0)
           }
-        })
+        }
+      )
     })
   }
-
 }

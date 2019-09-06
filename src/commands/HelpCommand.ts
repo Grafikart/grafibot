@@ -7,7 +7,6 @@ interface ICommandList {
 }
 
 export default class HelpCommand extends Command implements ICommand {
-
   public name = 'help'
   public description = 'Affiche cette aide'
   private commands: ICommand[] = []
@@ -18,21 +17,29 @@ export default class HelpCommand extends Command implements ICommand {
   }
 
   public async run (message: Message, args: string[]) {
-    let commands: ICommandList = this.commands.reduce(function (acc: ICommandList, command) {
+    let commands: ICommandList = this.commands.reduce(function (
+      acc: ICommandList,
+      command
+    ) {
       if (command.admin !== true) {
         acc[command.name] = command.description
       }
       return acc
-    }, {})
+    },
+    {})
     let commandsName = Object.keys(commands).sort()
-    let help = commandsName.map(function (name) {
-      return `**!${name}**: ${commands[name]}`
-    }).join('\n')
-    await this.replyDM(`Voici la liste de mes commandes disponibles :
+    let help = commandsName
+      .map(function (name) {
+        return `**!${name}**: ${commands[name]}`
+      })
+      .join('\n')
+    await this.replyDM(
+      `Voici la liste de mes commandes disponibles :
 
 ${help}
 
-Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`, message)
+Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`,
+      message
+    )
   }
-
 }

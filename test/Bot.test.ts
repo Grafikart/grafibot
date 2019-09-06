@@ -40,7 +40,6 @@ describe('Commands', function () {
 })
 
 describe('Filters', function () {
-
   it('laisse passer les messages', function () {
     let message = fakeMessage('c')
     let filtera = generateFilter('a')
@@ -74,5 +73,4 @@ describe('Filters', function () {
     expect(message.channel.send).to.not.be.called()
     expect(filtera.filter).to.not.be.called()
   })
-
 })

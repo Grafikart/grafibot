@@ -5,7 +5,7 @@ let filter = new CapslockFilter()
 
 describe('CapslockFilter', () => {
   it('détecte les message en majuscule', () => {
-    let message = fakeMessage('POURQUOI PERSONNE NE M\'AIDE !')
+    let message = fakeMessage("POURQUOI PERSONNE NE M'AIDE !")
     expect(filter.filter(message)).to.be.true
     expect(message.channel.send).to.have.been.called.once
   })

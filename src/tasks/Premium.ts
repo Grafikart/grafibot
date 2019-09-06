@@ -6,7 +6,6 @@ import { ILogger } from '../interfaces'
 type IRow = { discord_id: string }
 
 export default class Premium {
-
   static client: Client
   static logger: ILogger
 
@@ -17,7 +16,7 @@ export default class Premium {
   }
 
   static async syncPremiums () {
-    let role = this.client.guilds.first().roles.find('name', 'Premium')
+    let role = this.client.guilds.first().roles.find(r => r.name === 'Premium')
     let [discord, site] = await Promise.all([
       this.getPremiumsFromDiscord(role),
       this.getPremiumsFromSite()
@@ -26,13 +25,13 @@ export default class Premium {
     let toRemove = arrayDiff(discord, site)
     let toAdd = arrayDiff(site, discord)
     toRemove.forEach(id => {
-      let member = guild.members.find('id', id)
+      let member = guild.members.find(m => m.id === id)
       if (member) {
         member.removeRole(role).catch()
       }
     })
     toAdd.forEach(id => {
-      let member = guild.members.find('id', id)
+      let member = guild.members.find(m => m.id === id)
       if (member) {
         member.addRole(role).catch()
       }
@@ -42,8 +41,9 @@ export default class Premium {
   }
 
   static async getPremiumsFromDiscord (role: Role): Promise<string[]> {
-    return this.client.guilds.first().members
-      .filter((member: GuildMember) => member.roles.has(role.id))
+    return this.client.guilds
+      .first()
+      .members.filter((member: GuildMember) => member.roles.has(role.id))
       .map((member: GuildMember) => member.id)
   }
 
@@ -61,10 +61,11 @@ export default class Premium {
       )
       rows = results[0] as IRow[]
     } catch (e) {
-      this.logger.log(':space_invader: Impossible de récupérer les membres premiums')
+      this.logger.log(
+        ':space_invader: Impossible de récupérer les membres premiums'
+      )
     }
     connection.destroy()
-    return (rows).map(row => row.discord_id)
+    return rows.map(row => row.discord_id)
   }
-
 }

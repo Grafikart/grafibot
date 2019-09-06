@@ -2,12 +2,8 @@ import { MentionFilter } from '../../src/filters'
 import { expect, chai, fakeMessage } from '../helpers'
 
 const filter = new MentionFilter()
-const match = [
-  '<@123123213>'
-]
-const noMatch = [
-  '<@123123213> Salut ça va ?'
-]
+const match = ['<@123123213>']
+const noMatch = ['<@123123213> Salut ça va ?']
 
 describe('MentionFilter', () => {
   it('détecte les messages', () => {
@@ -25,5 +21,4 @@ describe('MentionFilter', () => {
       expect(message.channel.send).to.not.be.called()
     })
   })
-
 })

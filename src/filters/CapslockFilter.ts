@@ -4,7 +4,6 @@ import { Message } from 'discord.js'
  * Evite les capslock
  */
 export default class CapslockFilter {
-
   filter (message: Message): boolean {
     if (this.isCapslock(message.content)) {
       message.channel
@@ -16,9 +15,10 @@ export default class CapslockFilter {
   }
 
   private isCapslock (content: string): boolean {
-    return content === content.toUpperCase() &&
+    return (
+      content === content.toUpperCase() &&
       content.length > 15 &&
       content.match(/[A-Z]{4,}/) !== null
+    )
   }
-
 }

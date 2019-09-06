@@ -6,7 +6,6 @@ import Command from './Command'
  * Supprime plusieurs messages
  */
 export default class CleanCommand extends Command implements ICommand {
-
   public name = 'clean'
   public description = 'Permet de supprimer X messages, ex: "!clean !messages"'
   public admin = true
@@ -26,14 +25,18 @@ export default class CleanCommand extends Command implements ICommand {
   }
 
   private async log (member: User, messages: Collection<string, Message>) {
-    let deletions = messages.map(message => {
-      return message.author.username + ': ' +
-        message.cleanContent
-    }).slice(1).reverse().join('\n')
-    return this.logger.log(`:x: <@!${member.id}> a supprimé les messages suivant :
+    let deletions = messages
+      .map(message => {
+        return message.author.username + ': ' + message.cleanContent
+      })
+      .slice(1)
+      .reverse()
+      .join('\n')
+    return this.logger.log(`:x: <@!${
+      member.id
+    }> a supprimé les messages suivant :
 \`\`\`
 ${deletions}
 \`\`\``)
   }
-
 }

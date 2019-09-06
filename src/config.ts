@@ -1,12 +1,12 @@
 // Rôles modifiables par l'utilisateur
 export const roles = {
   fullstack: '305381229753139200',
-  backend:   '305381310996676609',
-  frontend:  '305381272832704514',
-  devops:    '305426040077942785',
-  designer:  '305425719515938836',
+  backend: '305381310996676609',
+  frontend: '305381272832704514',
+  devops: '305426040077942785',
+  designer: '305425719515938836',
   freelance: '305381504479920129',
-  etudiant:  '305381380802609163'
+  etudiant: '305381380802609163'
 }
 export const modoRole = 'Modo'
 export const syntax = {

@@ -20,10 +20,8 @@ export default class QuickCommand implements ICommand {
       user = args[0]
       content = args.slice(1).join(' ')
     }
-    message.channel.send(this.message
-      .replace('@user', user)
-      .replace('@content', content)
-    ).catch()
+    message.channel
+      .send(this.message.replace('@user', user).replace('@content', content))
+      .catch()
   }
-
 }

@@ -6,10 +6,13 @@ import { Message } from 'discord.js'
  * @param {string} content
  * @returns {Promise<any>}
  */
-export const sendDMorReply = async function (message: Message, content: string) {
+export const sendDMorReply = async function (
+  message: Message,
+  content: string
+) {
   return message.author
     .createDM()
-    .then((channel) => channel.send(content))
+    .then(channel => channel.send(content))
     .catch(() => message.reply(content.split('\n')[0]))
 }
 
@@ -19,12 +22,15 @@ export const sendDMorReply = async function (message: Message, content: string) 
  * @param {string} content
  * @returns {Promise<any>}
  */
-export const sendDMorReplyAutoDelete = async function (message: Message, content: string) {
+export const sendDMorReplyAutoDelete = async function (
+  message: Message,
+  content: string
+) {
   return message.author
     .createDM()
-    .then((channel) => channel.send(content))
+    .then(channel => channel.send(content))
     .catch(async function () {
-      let reply = await message.reply(content.split('\n')[0]) as Message
+      let reply = (await message.reply(content.split('\n')[0])) as Message
       setTimeout(function () {
         reply.delete().catch()
       }, 3500)

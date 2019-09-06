@@ -14,7 +14,7 @@ const questions = [
   "Bonjour qui s'y connaît bien en Rails please ? ",
   "Bonjour qui s'y connais avec prestashop ?",
   "Y'aurais t'il quelqu'un qui utilise MarionetteJs ?",
-  "qui pourait m\"aider 2s svp"
+  'qui pourait m"aider 2s svp'
 ]
 const notQuestions = [
   'eu, dis toujours',
@@ -39,5 +39,4 @@ describe('QuestionFilter', () => {
       expect(message.channel.send).to.not.be.called()
     })
   })
-
 })

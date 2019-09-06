@@ -6,10 +6,10 @@ const filter = new SyntaxFilter({
 })
 const bad = [
   '[Test] dlzpepflef htttttp://google..fr',
-  'Voila un lien sans categorie https://github.com/docker/docker-birthday-3',
+  'Voila un lien sans categorie https://github.com/docker/docker-birthday-3'
 ]
 const good = [
-  '[DOCKER] à l\'occasion du docker birthday, un git hub avec un cours et un TP: https://github.com/docker/docker-birthday-3',
+  "[DOCKER] à l'occasion du docker birthday, un git hub avec un cours et un TP: https://github.com/docker/docker-birthday-3",
   '[DOCKER] Un exemple avec saut de ligne \n https://github.com/docker/docker-birthday-3',
   '[DOCKER]\nUne description\nlongue\nhttps://github.com/docker/docker-birthday-3',
   '[DOCKER] Exemple sans card <https://github.com/docker/docker-birthday-3>',
@@ -41,5 +41,4 @@ describe('SyntaxFilter', () => {
       expect(message.author.createDM).to.not.be.called()
     })
   })
-
 })

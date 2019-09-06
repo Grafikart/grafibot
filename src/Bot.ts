@@ -1,9 +1,15 @@
 import { ICommand, IFilter, IReactionCommand } from './interfaces/index'
-import { Client, GuildMember, Message, Role, MessageReaction, User } from 'discord.js'
+import {
+  Client,
+  GuildMember,
+  Message,
+  Role,
+  MessageReaction,
+  User
+} from 'discord.js'
 import { modoRole } from './config'
 
 export default class Bot {
-
   public commands: ICommand[] = [] // Liste les commandes à utiliser
   private reactionCommands: IReactionCommand[] = []
   private filters: IFilter[] = [] // Liste les filtres à utiliser
@@ -17,12 +23,14 @@ export default class Bot {
     this.client = client
     this.client.on('ready', () => {
       let roles = this.client.guilds.first().roles
-      this.modoRole = roles.find('name', 'Modo')
+      this.modoRole = roles.find(r => r.name === 'Modo')
       this.modos = this.modoRole.members.map(member => member.id)
     })
     this.client.on('guildMemberUpdate', this.onGuildMemberUpdate.bind(this))
     this.client.on('message', this.onMessage.bind(this))
-    this.client.on('messageUpdate', (_, newMessage: Message) => this.onMessage(newMessage))
+    this.client.on('messageUpdate', (_, newMessage: Message) =>
+      this.onMessage(newMessage)
+    )
     this.client.on('messageReactionAdd', this.onReactionAdd.bind(this))
   }
 
@@ -57,7 +65,9 @@ export default class Bot {
    * Connecte le bot
    */
   async connect () {
+    console.log('logged')
     await this.client.login(this.apiKey)
+    console.log('logged')
     this.client.on('error', e => console.error(e.message))
     return
   }
@@ -67,9 +77,11 @@ export default class Bot {
    * @param {module:discord.js.Message} message
    */
   private onMessage (message: Message) {
-    return (this.client.user && message.author.id === this.client.user.id) ||
+    return (
+      (this.client.user && message.author.id === this.client.user.id) ||
       (message.content.startsWith('!') && this.runCommand(message) !== false) ||
       (message.channel.type !== 'dm' && this.runFilters(message) !== false)
+    )
   }
 
   /**
@@ -89,10 +101,7 @@ export default class Bot {
    */
   private onRoleUpdate (member: GuildMember) {
     let roles = member.roles
-    if (
-      roles.exists('id', this.modos) &&
-      !this.modos.includes(member.id)
-    ) {
+    if (roles.exists('id', this.modos) && !this.modos.includes(member.id)) {
       this.modos.push(member.id)
     } else if (
       !roles.exists('id', this.modos) &&
@@ -106,7 +115,13 @@ export default class Bot {
    * Détecte l'ajout de réaction
    */
   private onReactionAdd (reaction: MessageReaction, user: User) {
-    const command = this.reactionCommands.find(c => c.name === reaction.emoji.name)
+    console.log(
+      reaction.emoji.name,
+      this.isModo(reaction.message.guild.member(user))
+    )
+    const command = this.reactionCommands.find(
+      c => c.name === reaction.emoji.name
+    )
     const member = reaction.message.guild.member(user)
     if (command === undefined) return false
     if (command.admin === true && !this.isModo(member)) {

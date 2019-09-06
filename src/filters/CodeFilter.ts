@@ -3,19 +3,21 @@ import { IFilter } from '../interfaces'
 import { sendDMorReply } from '../utils/helpers'
 
 export default class CodeFilter implements IFilter {
-
   filter (message: Message) {
     if (
       message.content.split('\n').length > 40 &&
-      message.content.match(/([\{\}\[\]$;])/mg).length > 3
+      message.content.match(/([\{\}\[\]$;])/gm).length > 3
     ) {
-      sendDMorReply(message, `:space_invader: Woops trop de code, poste ton code sur paste : https://paste.artemix.org avec ce template si tu veux plus d'aide.
+      sendDMorReply(
+        message,
+        `:space_invader: Woops trop de code, poste ton code sur paste : https://paste.artemix.org avec ce template si tu veux plus d'aide.
 
 Pour rappel voila le message que tu as essayé d'envoyer :
 
 \`\`\`
 ${message.cleanContent}
-\`\`\``)
+\`\`\``
+      )
         .catch()
         .then(() => message.delete())
         .catch()
@@ -23,5 +25,4 @@ ${message.cleanContent}
     }
     return false
   }
-
 }

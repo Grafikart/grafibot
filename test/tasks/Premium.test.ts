@@ -37,7 +37,6 @@ Premium.getPremiumsFromDiscord = function () {
 Premium.client = client as Client
 
 describe('Premium', function () {
-
   test('doit ajouter les membres', function (done) {
     Premium.syncPremiums().then(function () {
       expect(addRole).to.be.called.exactly(3)
@@ -45,5 +44,4 @@ describe('Premium', function () {
       done()
     })
   })
-
 })

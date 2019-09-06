@@ -10,9 +10,9 @@ interface IRoles {
  * Attribue / Supprime un rôle
  */
 export default class RoleCommand extends Command implements ICommand {
-
   public name = 'role'
-  public description = 'Permet de s\'attribuer/se retirer un rôle, ex: "!role BackEnd"'
+  public description =
+    'Permet de s\'attribuer/se retirer un rôle, ex: "!role BackEnd"'
   private roles: IRoles
 
   public constructor (roles: IRoles) {
@@ -27,7 +27,7 @@ export default class RoleCommand extends Command implements ICommand {
     let guild = message.client.guilds.first()
     let member = await guild.fetchMember(message.author, false)
     let roleId = this.roles[args[0].toLowerCase()]
-    let role = member.roles.find('id', roleId)
+    let role = member.roles.find(r => r.id === roleId)
     if (role) {
       await member.removeRole(role)
       return this.replyDM(`Rôle ${args[0]} supprimé !`, message)
@@ -36,5 +36,4 @@ export default class RoleCommand extends Command implements ICommand {
       return this.replyDM(`Rôle ${args[0]} ajouté !`, message)
     }
   }
-
 }

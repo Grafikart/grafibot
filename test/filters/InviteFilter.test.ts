@@ -1,5 +1,6 @@
 import { InviteFilter } from '../../src/filters'
 import { expect, chai, fakeMessage } from '../helpers'
+import { Database } from 'sqlite3'
 import MuteCommand from '../../src/commands/MuteCommand'
 
 let mockMuteMember = jest.fn().mockImplementation(() => {
@@ -9,10 +10,10 @@ let mockMuteMember = jest.fn().mockImplementation(() => {
 })
 jest.mock('../../src/commands/MuteCommand', () => {
   return jest.fn().mockImplementation(() => {
-    return {muteMember: mockMuteMember}
+    return { muteMember: mockMuteMember }
   })
 })
-let muteCommand = new MuteCommand()
+let muteCommand = new MuteCommand(null, null, null)
 let filter = new InviteFilter(muteCommand)
 
 describe('InviteFilter', () => {
@@ -21,18 +22,53 @@ describe('InviteFilter', () => {
   })
 
   it('détecte les invitation discord', () => {
-    expect(filter.filter(fakeMessage('Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'))).to.be.true
-    expect(filter.filter(fakeMessage('Pour ce qui veulent mon groupe : https://discordapp.com/invite/rAuuD7Q'))).to.be.true
-    expect(filter.filter(fakeMessage(`Pour ce qui veulent mon groupe : 
+    expect(
+      filter.filter(
+        fakeMessage(
+          'Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'
+        )
+      )
+    ).to.be.true
+    expect(
+      filter.filter(
+        fakeMessage(
+          'Pour ce qui veulent mon groupe : https://discordapp.com/invite/rAuuD7Q'
+        )
+      )
+    ).to.be.true
+    expect(
+      filter.filter(
+        fakeMessage(`Pour ce qui veulent mon groupe : 
     
-    https://discord.gg/jMwPGe`))).to.be.true
-    expect(filter.filter(fakeMessage('notre bot prevention: https://discordapp.com/oauth2/authorize?client_id=579748008804089891&scope=bot&permissions=252928'))).to.be.true
-    expect(filter.filter(fakeMessage('Notre bot Anti-Raid: https://discordapp.com/oauth2/authorize?client_id=451361230901346314&scope=bot&permissions=8'))).to.be.true
-    expect(filter.filter(fakeMessage('Un message à propos de discord'))).to.be.false
+    https://discord.gg/jMwPGe`)
+      )
+    ).to.be.true
+    expect(
+      filter.filter(
+        fakeMessage(
+          'notre bot prevention: https://discordapp.com/oauth2/authorize?client_id=579748008804089891&scope=bot&permissions=252928'
+        )
+      )
+    ).to.be.true
+    expect(
+      filter.filter(
+        fakeMessage(
+          'Notre bot Anti-Raid: https://discordapp.com/oauth2/authorize?client_id=451361230901346314&scope=bot&permissions=8'
+        )
+      )
+    ).to.be.true
+    expect(filter.filter(fakeMessage('Un message à propos de discord'))).to.be
+      .false
   })
 
-  it('mute l\'utilisateur', () => {
-    expect(filter.filter(fakeMessage('Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'))).to.be.true
+  it("mute l'utilisateur", () => {
+    expect(
+      filter.filter(
+        fakeMessage(
+          'Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'
+        )
+      )
+    ).to.be.true
     expect(mockMuteMember.mock.calls.length).equal(1)
   })
 })

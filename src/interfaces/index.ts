@@ -1,7 +1,7 @@
 import { Message, MessageReaction, User } from 'discord.js'
 
 export interface ILogger {
-  log (message: string): void
+  log(message: string): void
 }
 
 export interface ICommand {
@@ -9,17 +9,16 @@ export interface ICommand {
   readonly description: string
   readonly admin?: boolean
 
-  run (msg: Message, args: string[]): any
+  run(msg: Message, args: string[]): any
 }
 
 export interface IReactionCommand {
   readonly name: string
   readonly admin?: boolean
 
-  run (reaction: MessageReaction, user: User): any
-
+  run(reaction: MessageReaction, user: User): any
 }
 
 export interface IFilter {
-  filter (msg: Message): boolean
+  filter(msg: Message): boolean
 }

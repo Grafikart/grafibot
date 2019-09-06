@@ -10,7 +10,6 @@ interface IRoles {
  * Liste les rôles disponibles
  */
 export default class RolesCommand extends Command implements ICommand {
-
   public name = 'roles'
   public description = 'Permet de lister les différents rôles'
   private roles: IRoles
@@ -24,5 +23,4 @@ export default class RolesCommand extends Command implements ICommand {
     let roles = Object.keys(this.roles).join(', ')
     await this.replyDM(`Voici la liste des rôles : ${roles}`, message)
   }
-
 }

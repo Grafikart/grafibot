@@ -2,11 +2,7 @@ import { expect, chai, fakeMessage } from '../helpers'
 import { InsultFilter } from '../../src/filters'
 
 const filter = new InsultFilter()
-const match = [
-  'vazy ntm !',
-  'yo ntm',
-  'pute'
-]
+const match = ['vazy ntm !', 'yo ntm', 'pute']
 const noMatch = [
   `scrollspy solutions, but has the following advantages:
      it is written on vanilla javascript,`,
@@ -29,5 +25,4 @@ describe('QuestionFilter', () => {
       expect(message.author.createDM).to.not.be.called()
     })
   })
-
 })

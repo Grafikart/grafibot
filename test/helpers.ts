@@ -10,15 +10,19 @@ const fakeMessage = function (content: string): Message {
   let client = new Client()
   let guild = new Guild(client, { emojis: [], id: '13123123' })
   let channel = new TextChannel(guild, { id: '123123' })
-  let message = new Message(channel, {
-    content,
-    id: 'messageID',
-    attachments: [],
-    embeds: [],
-    author: {
-      id: 'authorID'
-    }
-  }, client)
+  let message = new Message(
+    channel,
+    {
+      content,
+      id: 'messageID',
+      attachments: [],
+      embeds: [],
+      author: {
+        id: 'authorID'
+      }
+    },
+    client
+  )
   message.author.createDM = function () {
     return new Promise((resolve, reject) => reject())
   }
@@ -30,8 +34,4 @@ const fakeMessage = function (content: string): Message {
 
 const expect = chai.expect
 
-export {
-  chai,
-  expect,
-  fakeMessage
-}
+export { chai, expect, fakeMessage }

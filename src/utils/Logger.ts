@@ -2,12 +2,13 @@ import { Client, TextChannel } from 'discord.js'
 import { ILogger } from '../interfaces'
 
 export default class Logger implements ILogger {
-
   private channel: TextChannel
 
   constructor (client: Client) {
     client.on('ready', () => {
-      this.channel = client.guilds.first().channels.find('name', 'logs') as TextChannel
+      this.channel = client.guilds
+        .first()
+        .channels.find(c => c.name === 'logs') as TextChannel
     })
   }
 
@@ -17,5 +18,4 @@ export default class Logger implements ILogger {
     }
     return
   }
-
 }

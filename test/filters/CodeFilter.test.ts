@@ -55,5 +55,4 @@ describe('CodeFilter', () => {
       expect(message.author.createDM).to.not.be.called()
     })
   })
-
 })
