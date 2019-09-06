@@ -1,13 +1,14 @@
-.PHONY: build dev lint test
-
+.PHONY: install
 install:
 	git pull origin master
 	make build
 	pm2 start --env production
 
+.PHONY: build
 build: node_modules db.sqlite lint
 	npx tsc
 
+.PHONY: dev
 dev: db.sqlite build
 	npx concurrently -k \
 		-p "[{name}]" \
@@ -16,17 +17,20 @@ dev: db.sqlite build
 		"npx tsc -w" \
 		"nodemon --inspect dist/index.js"
 
+.PHONY: test
 test: lint
 	npx jest --forceExit --verbose --runInBand
 
+.PHONY: wtest
 wtest: lint
 	npx jest --forceExit --verbose --runInBand --watchAll
 
+.PHONY: lint
+lint:
+	npx prettier-standard --check "**/*.ts"
+
 db.sqlite: schema.sqlite
 	cp schema.sqlite db.sqlite
-
-lint:
-	npx tslint -c tslint.json -p tsconfig.json
 
 node_modules:
 	yarn

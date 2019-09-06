@@ -9,22 +9,7 @@
       "@typescript-eslint/eslint-plugin"
     ]
   },
-  "scripts": {
-    "start": "npm run serve",
-    "build": "npm run build-ts && npm run tslint",
-    "serve": "node dist/index.js",
-    "watch-node": "nodemon dist/index.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "test": "jest --forceExit --verbose --runInBand",
-    "watch-test": "npm run test -- --watchAll",
-    "build-ts": "tsc",
-    "watch-ts": "tsc -w",
-    "tslint": "prettier-standard --check \"**/*.ts\"",
-    "fix": "prettier-standard \"**/*.ts\"",
-    "debug": "npm run build && npm run watch-debug",
-    "serve-debug": "nodemon --inspect dist/index.js",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "devDependencies": {
