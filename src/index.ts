@@ -17,7 +17,7 @@ import {
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
 import sqlite3 from 'sqlite3'
-import { ReportCommand } from './reactions'
+import { JeSaisToutCommand, ReportCommand, SecCommand } from './reactions'
 
 dotenv.config()
 
@@ -51,6 +51,8 @@ bot
   ))
   .addCommand(new HelpCommand(bot.commands))
   .addReactionCommand(new ReportCommand(logger))
+  .addReactionCommand(new SecCommand())
+  .addReactionCommand(new JeSaisToutCommand())
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())

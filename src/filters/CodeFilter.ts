@@ -6,7 +6,7 @@ export default class CodeFilter implements IFilter {
 
   filter (message: Message) {
     if (
-      message.content.split('\n').length > 20 &&
+      message.content.split('\n').length > 40 &&
       message.content.match(/([\{\}\[\]$;])/mg).length > 3
     ) {
       sendDMorReply(message, `:space_invader: Woops trop de code, poste ton code sur paste : https://paste.artemix.org avec ce template si tu veux plus d'aide.
