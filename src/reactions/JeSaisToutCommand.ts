@@ -1,5 +1,6 @@
 import { MessageReaction, User } from 'discord.js'
 import { IReactionCommand } from '../interfaces/index'
+import { sendDMorReply } from '../utils/helpers'
 
 /**
  * Supprime plusieurs messages
@@ -11,10 +12,12 @@ export default class JeSaisToutCommand implements IReactionCommand {
   run (reaction: MessageReaction, user: User) {
     reaction.remove(user).catch(console.error)
     const author = reaction.message.author
-    // const message = `Merci pour la précision @XXX mais on s'en fiche`
-    const message = `:brain: Inutile de donner trop d'informations <@!${
-      author.id
-    }> ! Je suis heureux de savoir que vous en savez tant mais ce n'est pas le sujet.`
-    reaction.message.channel.send(message).catch(console.error)
+    const quote = (str: string) => str[0].split('\n').map(s => `> ${s}`).join('\n')
+    const message = `:brain: Inutile de donner plus d'informations que nécessaire <@!${author.id}>.
+
+${quote(reaction.message.content)}
+
+Essaie d'adapter ta réponse au niveau de la discussion, donner trop d'informations peut être déroutant et finalement nuire à la discussion.`
+    sendDMorReply(reaction.message, message)
   }
 }
