@@ -13,7 +13,7 @@ export default class JeSaisToutCommand implements IReactionCommand {
     reaction.remove(user).catch(console.error)
     const author = reaction.message.author
     const quote = (str: string) =>
-      str[0]
+      str
         .split('\n')
         .map(s => `> ${s}`)
         .join('\n')
