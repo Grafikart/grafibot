@@ -12,8 +12,14 @@ export default class JeSaisToutCommand implements IReactionCommand {
   run (reaction: MessageReaction, user: User) {
     reaction.remove(user).catch(console.error)
     const author = reaction.message.author
-    const quote = (str: string) => str[0].split('\n').map(s => `> ${s}`).join('\n')
-    const message = `:brain: Inutile de donner plus d'informations que nécessaire <@!${author.id}>.
+    const quote = (str: string) =>
+      str[0]
+        .split('\n')
+        .map(s => `> ${s}`)
+        .join('\n')
+    const message = `:brain: Inutile de donner plus d'informations que nécessaire <@!${
+      author.id
+    }>.
 
 ${quote(reaction.message.content)}
 
