@@ -17,11 +17,14 @@ export default class CleanCommand extends Command implements ICommand {
   }
 
   async run (message: Message, args: string[]) {
+    const limit = args[0] ? parseInt(args[0], 10) + 1 : 2
     let messages = await message.channel.fetchMessages({
-      limit: args[0] ? parseInt(args[0], 10) + 1 : 2
+      limit: limit
     })
-    this.log(message.author, messages).catch(console.error)
-    return message.channel.bulkDelete(messages).catch(e => message.reply(e))
+    if (limit <= 5) {
+      this.log(message.author, messages).catch(console.error)
+    }
+    return message.channel.bulkDelete(messages).catch(console.error)
   }
 
   private async log (member: User, messages: Collection<string, Message>) {
