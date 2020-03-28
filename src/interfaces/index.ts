@@ -13,10 +13,11 @@ export interface ICommand {
 }
 
 export interface IReactionCommand {
-  readonly name: string
+  readonly name?: string
   readonly admin?: boolean
 
   run(reaction: MessageReaction, user: User): any
+  support?(reactionName: string): boolean
 }
 
 export interface IFilter {

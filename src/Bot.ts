@@ -115,13 +115,12 @@ export default class Bot {
    * Détecte l'ajout de réaction
    */
   private onReactionAdd (reaction: MessageReaction, user: User) {
-    console.log(
-      reaction.emoji.name,
-      this.isModo(reaction.message.guild.member(user))
-    )
-    const command = this.reactionCommands.find(
-      c => c.name === reaction.emoji.name
-    )
+    const command = this.reactionCommands.find(function (c) {
+      return (
+        c.name === reaction.emoji.name ||
+        (c.support && c.support(reaction.emoji.name))
+      )
+    })
     const member = reaction.message.guild.member(user)
     if (command === undefined) return false
     if (command.admin === true && !this.isModo(member)) {

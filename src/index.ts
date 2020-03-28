@@ -25,14 +25,19 @@ import {
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
 import sqlite3 from 'sqlite3'
-import { JeSaisToutCommand, ReportCommand, SecCommand } from './reactions'
+import {
+  JeSaisToutCommand,
+  ReportCommand,
+  SecCommand,
+  RuleCommand
+} from './reactions'
 
 dotenv.config()
 
 const db = new sqlite3.Database('db.sqlite')
 const client = new Client()
 const logger = new Logger(client)
-Premium.connect(client, logger)
+// Premium.connect(client, logger)
 RSS.connect(client)
 const bot = new Bot(client, process.env.API_KEY)
 const muteCommand = new MuteCommand(db, client, logger)
@@ -67,6 +72,7 @@ bot
   .addReactionCommand(new ReportCommand(logger))
   .addReactionCommand(new SecCommand())
   .addReactionCommand(new JeSaisToutCommand())
+  .addReactionCommand(new RuleCommand())
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
