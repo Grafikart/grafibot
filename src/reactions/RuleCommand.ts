@@ -14,16 +14,22 @@ export default class RuleCommand implements IReactionCommand {
       case '0️⃣':
         message =
           "N'hésite pas à mieux décrire ton problème. Si tu le souhaite tu peux utiliser ce paste : \n https://paste.artemix.org/"
+        break
       case '2️⃣':
         message = `Les remarques du genre "c'est nul", "X est à chier" ne servent à rien. Essaie de donner plus de détail plus objectifs...`
+        break
       case '3️⃣':
         message = `Essaie d'adapter ta réponse au niveau des personnes qui posent une question. Donner trop d'information peut être contre-productif.`
+        break
       case '5️⃣':
         message = `Ne redirigez pas la personne vers une recherche sans offrir de contexte. Si tu n'as pas le temps d'aider alors abstiens toi ;)`
+        break
       case '6️⃣':
         message = `N'essaie pas d'agir à la place des modérateurs, si un message est inadapté tu peux le signaler à l'aide de la réaction :report:`
+        break
       case '7️⃣':
         message = `Ne mentionne pas les autres utilisateurs pour rien.`
+        break
     }
     if (message) {
       if (this.bufferIncludes(reaction.message.id)) {
@@ -34,7 +40,6 @@ export default class RuleCommand implements IReactionCommand {
         `:robot: **règle ${reaction.emoji.name}** : ${message}`
       )
       this.bufferPush(reaction.message.id)
-      console.log(this.buffer)
       reaction.remove(reaction.users.first())
     }
   }
