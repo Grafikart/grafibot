@@ -1,14 +1,19 @@
-import { IReactionCommand } from '../interfaces'
+import { IReactionCommand, ILogger } from '../interfaces'
 import { MessageReaction, User } from 'discord.js'
 
 export default class RuleCommand implements IReactionCommand {
-  public buffer: string[] = [] // Mémorise les messages pour éviter les doublons
+  buffer: string[] = [] // Mémorise les messages pour éviter les doublons
+  logger: ILogger
 
-  public support (reactionName: string): boolean {
+  constructor (logger: ILogger) {
+    this.logger = logger
+  }
+
+  support (reactionName: string): boolean {
     return ['0️⃣', '2️⃣', '3️⃣', '5️⃣', '6️⃣', '7️⃣'].includes(reactionName)
   }
 
-  public run (reaction: MessageReaction, user: User): any {
+  run (reaction: MessageReaction, user: User): any {
     let message = null
     switch (reaction.emoji.name) {
       case '0️⃣':
@@ -36,6 +41,11 @@ export default class RuleCommand implements IReactionCommand {
         reaction.remove(reaction.users.first())
         return null
       }
+      this.logger.log(
+        `<@!${reaction.users.first().id}> a utilisé le bot pour la règle ${
+          reaction.emoji.name
+        }`
+      )
       reaction.message.reply(
         `:robot: **règle ${reaction.emoji.name}** : ${message}`
       )
@@ -44,11 +54,11 @@ export default class RuleCommand implements IReactionCommand {
     }
   }
 
-  public bufferIncludes (id: string): boolean {
+  private bufferIncludes (id: string): boolean {
     return this.buffer.includes(id)
   }
 
-  public bufferPush (id: string): void {
+  private bufferPush (id: string): void {
     this.buffer.push(id)
     this.buffer = this.buffer.slice(-10)
   }

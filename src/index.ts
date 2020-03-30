@@ -72,7 +72,7 @@ bot
   .addReactionCommand(new ReportCommand(logger))
   .addReactionCommand(new SecCommand())
   .addReactionCommand(new JeSaisToutCommand())
-  .addReactionCommand(new RuleCommand())
+  .addReactionCommand(new RuleCommand(logger))
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
