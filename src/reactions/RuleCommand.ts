@@ -30,7 +30,7 @@ export default class RuleCommand implements IReactionCommand {
         message = `Ne redirigez pas la personne vers une recherche sans offrir de contexte. Si tu n'as pas le temps d'aider alors abstiens toi ;)`
         break
       case '6️⃣':
-        message = `N'essaie pas d'agir à la place des modérateurs, si un message est inadapté tu peux le signaler à l'aide de la réaction :report:`
+        message = `N'essaie pas d'agir à la place des modérateurs, si un message est inadapté tu peux le signaler à l'aide de la réaction <:report:583189482157899777>`
         break
       case '7️⃣':
         message = `Ne mentionne pas les autres utilisateurs pour rien.`
