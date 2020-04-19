@@ -8,8 +8,8 @@ import BanCommand from './BanCommand'
 
 export {
   HelpCommand,
-  // RolesCommand,
-  // RoleCommand,
+  RolesCommand,
+  RoleCommand,
   CleanCommand,
   QuickCommand,
   MuteCommand,

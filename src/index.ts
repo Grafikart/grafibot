@@ -3,8 +3,6 @@ import Bot from './Bot'
 import {
   MuteCommand,
   HelpCommand,
-//  RoleCommand,
-//  RolesCommand,
   CleanCommand,
   QuickCommand,
   BanCommand
@@ -44,8 +42,6 @@ const muteCommand = new MuteCommand(db, client, logger)
 bot
   .addCommand(new BanCommand(logger))
   .addCommand(muteCommand)
-  .addCommand(new RolesCommand(roles))
-  .addCommand(new RoleCommand(roles))
   .addCommand(new CleanCommand(logger))
   .addCommand(
     new QuickCommand(
