@@ -3,8 +3,8 @@ import Bot from './Bot'
 import {
   MuteCommand,
   HelpCommand,
-  RoleCommand,
-  RolesCommand,
+//  RoleCommand,
+//  RolesCommand,
   CleanCommand,
   QuickCommand,
   BanCommand
