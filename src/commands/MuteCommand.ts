@@ -136,7 +136,7 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedRole (): Role {
-    return this.client.guilds.first().roles.find(r => r.name === 'muted')
+    return this.client.guilds.first().roles.find(r => r.name === 'Muted')
   }
 
   /**
