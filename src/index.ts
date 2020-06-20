@@ -14,6 +14,7 @@ import {
   CapslockFilter,
   ChocopainFilter,
   ErrorsFilter,
+  RegleFilter,
   // InsultFilter,
   // QuestionFilter,
   CodeFilter,
@@ -72,6 +73,7 @@ bot
   .addFilter(new CapslockFilter())
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
+  .addFilter(new RegleFilter())
   // .addFilter(new InsultFilter())
   // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
