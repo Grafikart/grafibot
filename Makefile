@@ -5,7 +5,7 @@ install:
 	pm2 start --env production
 
 .PHONY: build
-build: node_modules db.sqlite lint
+build: node_modules db.sqlite
 	npx tsc
 
 .PHONY: dev
