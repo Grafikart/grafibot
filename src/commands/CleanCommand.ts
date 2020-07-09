@@ -35,9 +35,8 @@ export default class CleanCommand extends Command implements ICommand {
       .slice(1)
       .reverse()
       .join('\n')
-    return this.logger.log(`:x: <@!${
-      member.id
-    }> a supprimé les messages suivant :
+    return this.logger
+      .log(`:x: <@!${member.id}> a supprimé les messages suivant :
 \`\`\`
 ${deletions}
 \`\`\``)

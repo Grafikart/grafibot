@@ -50,9 +50,7 @@ export default class MuteCommand implements ICommand {
     let member = message.mentions.members.first()
     let reason = args.slice(1).join(' ')
     this.logger.log(
-      `<@!${message.author.id}> a mute <@!${
-        member.id
-      }>\n **Raison :** ${reason}`
+      `<@!${message.author.id}> a mute <@!${member.id}>\n **Raison :** ${reason}`
     )
     this.muteMember(member, reason).catch()
     return true

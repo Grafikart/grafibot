@@ -15,9 +15,7 @@ export default class BanCommand implements ICommand {
     let reason = args.slice(1).join(' ')
     let member = message.mentions.members.first()
     this.logger.log(
-      `<@!${message.author.id}> a banni <@!${
-        member.id
-      }>\n **Raison :** ${reason}`
+      `<@!${message.author.id}> a banni <@!${member.id}>\n **Raison :** ${reason}`
     )
     message.mentions.members
       .first()

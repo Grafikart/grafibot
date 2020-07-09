@@ -27,7 +27,7 @@ wtest: lint
 
 .PHONY: lint
 lint:
-	npx prettier-standard --check "**/*.ts"
+	npx prettier-standard --format "**/*.ts"
 
 db.sqlite: schema.sqlite
 	cp schema.sqlite db.sqlite

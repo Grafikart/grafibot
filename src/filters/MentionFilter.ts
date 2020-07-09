@@ -14,9 +14,7 @@ export default class MentionFilter implements IFilter {
     ) {
       message.channel
         .send(
-          `:robot: Merci de ne pas mentionner un autre utilisateur sans message <@!${
-            message.author.id
-          }>`
+          `:robot: Merci de ne pas mentionner un autre utilisateur sans message <@!${message.author.id}>`
         )
         .catch()
       return true

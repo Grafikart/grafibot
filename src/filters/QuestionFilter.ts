@@ -9,9 +9,7 @@ export default class QuestionFilter implements IFilter {
     if (this.isQuestion(message.content.trim())) {
       message.channel
         .send(
-          `:question: N'hésite pas à poser ta question directement <@!${
-            message.author.id
-          }>, il n'est pas utile de demander si quelqu'un connait quelque chose avant.`
+          `:question: N'hésite pas à poser ta question directement <@!${message.author.id}>, il n'est pas utile de demander si quelqu'un connait quelque chose avant.`
         )
         .catch(console.error)
       return true

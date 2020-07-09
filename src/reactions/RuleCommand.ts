@@ -38,9 +38,7 @@ export default class RuleCommand implements IReactionCommand {
         reaction.remove(reaction.users.first())
         return null
       }
-      const permalink = `https://discordapp.com/channels/${
-        reaction.message.guild.id
-      }/${reaction.message.channel.id}/${reaction.message.id}`
+      const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
       this.logger.log(
         `<@!${reaction.users.first().id}> a utilisé le bot pour la règle ${
           reaction.emoji.name
