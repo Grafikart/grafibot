@@ -13,13 +13,13 @@ export default class ErrorsFilter {
       'https://www.grafikart.fr/tutoriels/syntax-error-874',
     'Undefined index: ':
       'https://www.grafikart.fr/tutoriels/undefined-index-872',
-    'Cannot read property: ':
+    'Cannot read property ':
       'https://www.grafikart.fr/tutoriels/javascript-cannot-read-property-1348',
     'RegeneratorRuntime is not defined':
       'https://www.grafikart.fr/tutoriels/javascript-regeneratorruntime-1349'
   }
 
-  filter (message: Message): boolean {
+  filter(message: Message): boolean {
     let error = Object.keys(this.errors).find(
       e => message.content.match(new RegExp(e, 'i')) !== null
     )
