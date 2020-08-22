@@ -10,7 +10,7 @@ export default class CodeFilter implements IFilter {
     ) {
       sendDMorReply(
         message,
-        `:space_invader: Woops trop de code, poste ton code sur paste : https://paste.artemix.org avec ce template si tu veux plus d'aide.
+        `:space_invader: Woops trop de code ! Merci d'utiliser ce service de partage de code : https://paste.mozilla.org/ si tu veux plus d'aide.
 
 Pour rappel voila le message que tu as essayé d'envoyer :
 

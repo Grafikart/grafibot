@@ -62,7 +62,7 @@ bot
     new QuickCommand(
       'code',
       'Permet d\'indiquer à un utilisateur comment mieux poster sa question, ex: "!code @Grafikart#1849"',
-      ":robot: N'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce paste : \n https://paste.artemix.org/"
+      ":robot: N'hésite pas à mieux décrire ton problème @user. Si tu le souhaite tu peux utiliser ce service de partage de code : \n https://paste.mozilla.org/"
     )
   )
   .addCommand(new HelpCommand(bot.commands))
