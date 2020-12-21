@@ -38,7 +38,7 @@ export default class RSS {
       .channels
       .cache
       .find(channel => channel.name === 'annonces') as TextChannel
-    if (channel === null) return
+    if (channel === undefined) return
     feed.items.forEach((item: IFeedItem) => {
       if (item.isoDate > this.lastTime) {
         channel.send(this.message(item)).catch()

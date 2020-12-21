@@ -127,6 +127,6 @@ export default class Bot {
   }
 
   private isModo (member: GuildMember): boolean {
-    return member.roles.cache.find(r => r.name === modoRole) !== null
+    return member.roles.cache.find(r => r.name === modoRole) !== undefined
   }
 }
