@@ -2,7 +2,7 @@ import Premium from '../../src/tasks/Premium'
 import { chai, expect } from '../helpers'
 import { Client, Collection } from 'discord.js'
 
-const nothing = () => new Promise(resolve => resolve())
+const nothing = () => new Promise(resolve => resolve(null))
 const addRole = chai.spy(nothing)
 const removeRole = chai.spy(nothing)
 
@@ -18,10 +18,12 @@ for (let i = 0; i < 10; i++) {
 }
 const client = {
   guilds: {
-    first: function () {
-      return {
-        members: members,
-        roles: roles
+    cache: {
+      first: function () {
+        return {
+          members: members,
+          roles: roles
+        }
       }
     }
   }

@@ -9,7 +9,7 @@ export default class SecCommand implements IReactionCommand {
   public admin = true
 
   run (reaction: MessageReaction, user: User) {
-    reaction.remove(user).catch(console.error)
+    reaction.users.remove(user).catch(console.error)
     const author = reaction.message.author
     const message = `:anger: Pas besoin d'être aussi sec ! <@!${author.id}> si la question ne t'intérèsse pas abstiens-toi.`
     reaction.message.channel.send(message).catch(console.error)

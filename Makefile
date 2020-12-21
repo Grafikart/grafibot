@@ -15,7 +15,7 @@ dev: db.sqlite build
 		-n "TypeScript,Node" \
 		-c "yellow.bold,cyan.bold,green.bold" \
 		"npx tsc -w" \
-		"nodemon --inspect dist/index.js"
+		"npx nodemon --inspect dist/index.js"
 
 .PHONY: test
 test: lint

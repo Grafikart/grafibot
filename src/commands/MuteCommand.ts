@@ -66,7 +66,7 @@ export default class MuteCommand implements ICommand {
     let role = this.getMutedRole()
     let lvl = await this.incrementLevelForUser(member)
     let duration = durationToString(this.levels[lvl].duration)
-    await member.addRole(role)
+    await member.roles.add(role)
     this.getMutedChannel()
       .send(
         `<@!${
@@ -84,8 +84,9 @@ export default class MuteCommand implements ICommand {
     this.db.each('SELECT id, lvl, muted_at FROM mutes', (err, row) => {
       if (err === null) {
         let member = this.client.guilds
+          .cache
           .first()
-          .members.find(m => m.id === row.id)
+          .members.cache.find(m => m.id === row.id)
         if (member) {
           this.addJobsFor(member, row.lvl)
         }
@@ -103,13 +104,13 @@ export default class MuteCommand implements ICommand {
     let level = this.levels[lvl]
     let role = this.getMutedRole()
     let jobs = []
-    if (member.roles.has(role.id)) {
+    if (member.roles.cache.has(role.id)) {
       jobs.push(
         new CronJob({
           cronTime: new Date(date + level.duration),
           start: true,
           onTick: function () {
-            member.removeRole(role).catch()
+            member.roles.remove(role).catch()
           }
         })
       )
@@ -134,7 +135,7 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedRole (): Role {
-    return this.client.guilds.first().roles.find(r => r.name === 'Muted')
+    return this.client.guilds.cache.first().roles.cache.find(r => r.name === 'Muted')
   }
 
   /**
@@ -143,8 +144,11 @@ export default class MuteCommand implements ICommand {
    */
   private getMutedChannel (): TextChannel {
     return this.client.guilds
+      .cache
       .first()
-      .channels.find(c => c.name === 'muted') as TextChannel
+      .channels
+      .cache
+      .find(c => c.name === 'muted') as TextChannel
   }
 
   private async decrementLevelForUser (member: GuildMember): Promise<any> {

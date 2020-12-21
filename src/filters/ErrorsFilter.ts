@@ -19,7 +19,7 @@ export default class ErrorsFilter {
       'https://www.grafikart.fr/tutoriels/javascript-regeneratorruntime-1349'
   }
 
-  filter(message: Message): boolean {
+  filter (message: Message): boolean {
     let error = Object.keys(this.errors).find(
       e => message.content.match(new RegExp(e, 'i')) !== null
     )

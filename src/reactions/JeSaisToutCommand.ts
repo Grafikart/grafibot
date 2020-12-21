@@ -10,7 +10,7 @@ export default class JeSaisToutCommand implements IReactionCommand {
   public admin = true
 
   run (reaction: MessageReaction, user: User) {
-    reaction.remove(user).catch(console.error)
+    reaction.remove().catch(console.error)
     const author = reaction.message.author
     const quote = (str: string) =>
       str

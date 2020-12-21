@@ -11,7 +11,7 @@ const fakeMessage = function (content: string): Message {
   let guild = new Guild(client, { emojis: [], id: '13123123' })
   let channel = new TextChannel(guild, { id: '123123' })
   let message = new Message(
-    channel,
+    client,
     {
       content,
       id: 'messageID',
@@ -21,7 +21,7 @@ const fakeMessage = function (content: string): Message {
         id: 'authorID'
       }
     },
-    client
+    channel
   )
   message.author.createDM = function () {
     return new Promise((resolve, reject) => reject())

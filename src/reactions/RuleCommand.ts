@@ -35,12 +35,12 @@ export default class RuleCommand implements IReactionCommand {
     }
     if (message) {
       if (this.bufferIncludes(reaction.message.id)) {
-        reaction.remove(reaction.users.first())
+        reaction.remove()
         return null
       }
       const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
       this.logger.log(
-        `<@!${reaction.users.first().id}> a utilisé le bot pour la règle ${
+        `<@!${reaction.users.cache.first().id}> a utilisé le bot pour la règle ${
           reaction.emoji.name
         } sur le message ${permalink}`
       )
@@ -48,7 +48,7 @@ export default class RuleCommand implements IReactionCommand {
         `:robot: **règle ${reaction.emoji.name}** : ${message}`
       )
       this.bufferPush(reaction.message.id)
-      reaction.remove(reaction.users.first())
+      reaction.remove()
     }
   }
 

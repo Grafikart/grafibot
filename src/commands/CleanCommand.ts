@@ -1,4 +1,4 @@
-import { Collection, Message, User } from 'discord.js'
+import { Collection, Message, NewsChannel, User } from 'discord.js'
 import { ICommand, ILogger } from '../interfaces/index'
 import Command from './Command'
 
@@ -18,13 +18,13 @@ export default class CleanCommand extends Command implements ICommand {
 
   async run (message: Message, args: string[]) {
     const limit = args[0] ? parseInt(args[0], 10) + 1 : 2
-    let messages = await message.channel.fetchMessages({
+    let messages = await message.channel.messages.fetch({
       limit: limit
     })
     if (limit <= 5) {
       this.log(message.author, messages).catch(console.error)
     }
-    return message.channel.bulkDelete(messages).catch(console.error)
+    return (message.channel as NewsChannel).bulkDelete(messages).catch(console.error)
   }
 
   private async log (member: User, messages: Collection<string, Message>) {

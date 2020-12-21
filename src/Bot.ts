@@ -22,11 +22,10 @@ export default class Bot {
     this.apiKey = apiKey
     this.client = client
     this.client.on('ready', () => {
-      let roles = this.client.guilds.first().roles
-      this.modoRole = roles.find(r => r.name === 'Modo')
+      let roles = this.client.guilds.cache.first().roles
+      this.modoRole = roles.cache.find(r => r.name === 'Modo')
       this.modos = this.modoRole.members.map(member => member.id)
     })
-    this.client.on('guildMemberUpdate', this.onGuildMemberUpdate.bind(this))
     this.client.on('message', this.onMessage.bind(this))
     this.client.on('messageUpdate', (_, newMessage: Message) =>
       this.onMessage(newMessage)
@@ -85,33 +84,6 @@ export default class Bot {
   }
 
   /**
-   * Lorsqu'une utilisateur est mis à jour
-   * @param {module:discord.js.GuildMember} oldMember
-   * @param {module:discord.js.GuildMember} newMember
-   */
-  private onGuildMemberUpdate (oldMember: GuildMember, newMember: GuildMember) {
-    if (!newMember.roles.equals(oldMember.roles)) {
-      this.onRoleUpdate(newMember)
-    }
-  }
-
-  /**
-   * Lorsqu'un utilisateur a changé de rôle
-   * @param {module:discord.js.GuildMember} member
-   */
-  private onRoleUpdate (member: GuildMember) {
-    let roles = member.roles
-    if (roles.exists('id', this.modos) && !this.modos.includes(member.id)) {
-      this.modos.push(member.id)
-    } else if (
-      !roles.exists('id', this.modos) &&
-      this.modos.includes(member.id)
-    ) {
-      this.modos = this.modos.filter(m => m !== member.id)
-    }
-  }
-
-  /**
    * Détecte l'ajout de réaction
    */
   private onReactionAdd (reaction: MessageReaction, user: User) {
@@ -155,6 +127,6 @@ export default class Bot {
   }
 
   private isModo (member: GuildMember): boolean {
-    return member.roles.find(r => r.name === modoRole) !== null
+    return member.roles.cache.find(r => r.name === modoRole) !== null
   }
 }
