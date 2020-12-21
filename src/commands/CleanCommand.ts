@@ -1,4 +1,4 @@
-import { Collection, Message, NewsChannel, User } from 'discord.js'
+import { Collection, Message, MessageEmbed, NewsChannel, User } from 'discord.js'
 import { ICommand, ILogger } from '../interfaces/index'
 import Command from './Command'
 
@@ -18,10 +18,19 @@ export default class CleanCommand extends Command implements ICommand {
 
   async run (message: Message, args: string[]) {
     const limit = args[0] ? parseInt(args[0], 10) + 1 : 2
+    const reason = args[1] ? args.slice(1).join(' ') : null
     let messages = await message.channel.messages.fetch({
       limit: limit
     })
-    if (limit <= 5) {
+    if (reason) {
+      const embed = new MessageEmbed()
+        .setImage("https://media.giphy.com/media/6NtM0tLYeLwT6/giphy.gif")
+        .setColor("#c62828")
+        .addField('Message supprimés', messages.array().length, true)
+        .addField('Raison', reason, true)
+        .setAuthor(message.author.username, message.author.avatarURL())
+      message.channel.send(embed).catch(console.error)
+    } else if (limit <= 5) {
       this.log(message.author, messages).catch(console.error)
     }
     return (message.channel as NewsChannel).bulkDelete(messages).catch(console.error)
