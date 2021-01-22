@@ -1,7 +1,7 @@
 import { Client, GuildMember, Role } from 'discord.js'
-import * as mysql from 'mysql2/promise'
 import { arrayDiff } from '../utils/helpers'
 import { ILogger } from '../interfaces'
+import got from 'got/dist/source'
 
 type IRow = { discord_id: string }
 
@@ -52,24 +52,7 @@ export default class Premium {
   }
 
   static async getPremiumsFromSite (): Promise<string[]> {
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DB
-    })
-    let rows: IRow[] = []
-    try {
-      let results = await connection.execute(
-        'SELECT discord_id FROM users WHERE premium > NOW() AND discord_id IS NOT NULL AND discord_id != ""'
-      )
-      rows = results[0] as IRow[]
-    } catch (e) {
-      this.logger.log(
-        ':space_invader: Impossible de récupérer les membres premiums'
-      )
-    }
-    connection.destroy()
-    return rows.map(row => row.discord_id)
+    const response = await got('https://grafikart.fr/api/discord/premium')
+    return JSON.parse(response.body);
   }
 }

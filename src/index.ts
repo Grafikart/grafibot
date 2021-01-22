@@ -8,7 +8,7 @@ import {
   BanCommand
 } from './commands'
 import { Client } from 'discord.js'
-import { roles, syntax } from './config'
+import { syntax } from './config'
 import Logger from './utils/Logger'
 import {
   CapslockFilter,
