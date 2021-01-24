@@ -1,3 +1,7 @@
+.PHONY: deploy
+deploy: ## Déploie une nouvelle version du site
+	ssh -A grafikart 'cd grafibot && git pull origin master && make install'
+
 .PHONY: install
 install:
 	git pull origin master
