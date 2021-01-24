@@ -23,7 +23,7 @@ export default class Bot {
     this.client = client
     this.client.on('ready', () => {
       let roles = this.client.guilds.cache.first().roles
-      this.modoRole = roles.cache.find(r => r.name === 'Modo')
+      this.modoRole = roles.cache.find(r => r.name === modoRole)
       this.modos = this.modoRole.members.map(member => member.id)
     })
     this.client.on('message', this.onMessage.bind(this))
