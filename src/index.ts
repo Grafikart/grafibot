@@ -48,14 +48,14 @@ bot
     new QuickCommand(
       'php',
       'Permet de renvoyer un utilisateur vers la doc de php (!php @user strpos)',
-      ":mag: @user Je pense que cette fonction devrait t'aider http://php.net/search.php?show=quickref&pattern=@content"
+      ":mag: @user Je pense que cette fonction devrait t'aider http://php.net/search.php?show=quickref&pattern=@url:content"
     )
   )
   .addCommand(
     new QuickCommand(
       'grafikart',
       'Permet de renvoyer un utilisateur vers un tutoriel grafikart (!grafikart @user rsync)',
-      ':mag: @user Il y a sûrement déjà un tutoriel sur le sujet https://www.grafikart.fr/search?q=@content'
+      ':mag: @user Il y a sûrement déjà un tutoriel sur le sujet https://grafikart.fr/recherche?q=@url:content'
     )
   )
   .addCommand(
