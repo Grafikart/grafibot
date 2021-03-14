@@ -28,7 +28,6 @@ export default class CleanCommand extends Command implements ICommand {
         .setColor("#c62828")
         .addField('Message supprimés', messages.array().length, true)
         .addField('Raison', reason, true)
-        .setAuthor(message.author.username, message.author.avatarURL())
       message.channel.send(embed).catch(console.error)
     } else if (limit <= 5) {
       this.log(message.author, messages).catch(console.error)
