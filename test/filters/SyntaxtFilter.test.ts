@@ -1,5 +1,5 @@
 import { SyntaxFilter } from '../../src/filters'
-import { expect, chai, fakeMessage } from '../helpers'
+import { fakeMessage } from '../helpers'
 
 const filter = new SyntaxFilter({
   '1111': /^(\[[^\]]+\]|<\:[a-z0-9]+\:[0-9]+>)( |\n)(.|\n)+( |\n)<?https?:\/\/\S*>?$/im
@@ -20,16 +20,16 @@ describe('SyntaxFilter', () => {
   it('laisse passer les messages sur un autre channel', () => {
     let message = fakeMessage(bad[0])
     message.channel.id = '22'
-    expect(filter.filter(message)).to.be.false
-    expect(message.author.createDM).to.not.be.called()
+    expect(filter.filter(message)).toBe(false)
+    expect(message.author.createDM).not.toHaveBeenCalled()
   })
 
   it('détecte les mauvais messages', () => {
     bad.forEach(function (q) {
       let message = fakeMessage(q)
       message.channel.id = '1111'
-      expect(filter.filter(message), q).to.be.true
-      expect(message.author.createDM).to.be.called()
+      expect(filter.filter(message)).toBe(true)
+      expect(message.author.createDM).toHaveBeenCalled()
     })
   })
 
@@ -37,8 +37,8 @@ describe('SyntaxFilter', () => {
     good.forEach(function (q) {
       let message = fakeMessage(q)
       message.channel.id = '1111'
-      expect(filter.filter(message), q).to.be.false
-      expect(message.author.createDM).to.not.be.called()
+      expect(filter.filter(message)).toBe(false)
+      expect(message.author.createDM).not.toHaveBeenCalled()
     })
   })
 })

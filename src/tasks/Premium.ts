@@ -53,6 +53,6 @@ export default class Premium {
 
   static async getPremiumsFromSite (): Promise<string[]> {
     const response = await got('https://grafikart.fr/api/discord/premium')
-    return JSON.parse(response.body);
+    return JSON.parse(response.body)
   }
 }

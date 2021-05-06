@@ -1,8 +1,4 @@
 import { Client, Guild, Message, TextChannel } from 'discord.js'
-import chai from 'chai'
-import spies from 'chai-spies'
-
-chai.use(spies)
 
 process.on('unhandledRejection', () => null)
 
@@ -23,15 +19,20 @@ const fakeMessage = function (content: string): Message {
     },
     channel
   )
-  message.author.createDM = function () {
-    return new Promise((resolve, reject) => reject())
-  }
-  chai.spy.on(message.channel, ['send'])
-  chai.spy.on(message, ['delete', 'reply'])
-  chai.spy.on(message.author, ['createDM'])
+  // Spy everything
+  jest
+    .spyOn(message.channel, 'send')
+    .mockImplementation(() => Promise.resolve(message))
+  jest
+    .spyOn(message, 'delete')
+    .mockImplementation(() => Promise.resolve(message))
+  jest
+    .spyOn(message, 'reply')
+    .mockImplementation(() => Promise.resolve(message))
+  jest
+    .spyOn(message.author, 'createDM')
+    .mockImplementation(() => Promise.reject())
   return message
 }
 
-const expect = chai.expect
-
-export { chai, expect, fakeMessage }
+export { fakeMessage }

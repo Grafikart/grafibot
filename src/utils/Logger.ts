@@ -6,12 +6,9 @@ export default class Logger implements ILogger {
 
   constructor (client: Client) {
     client.on('ready', () => {
-      this.channel = client.guilds
-        .cache
+      this.channel = client.guilds.cache
         .first()
-        .channels
-        .cache
-        .find(c => c.name === 'logs') as TextChannel
+        .channels.cache.find(c => c.name === 'logs') as TextChannel
     })
   }
 

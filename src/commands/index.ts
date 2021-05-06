@@ -4,10 +4,4 @@ import QuickCommand from './QuickCommand'
 import MuteCommand from './MuteCommand'
 import BanCommand from './BanCommand'
 
-export {
-  HelpCommand,
-  CleanCommand,
-  QuickCommand,
-  MuteCommand,
-  BanCommand
-}
+export { HelpCommand, CleanCommand, QuickCommand, MuteCommand, BanCommand }

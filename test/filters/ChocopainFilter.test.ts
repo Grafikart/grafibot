@@ -1,5 +1,5 @@
 import { ChocopainFilter } from '../../src/filters'
-import { expect, chai, fakeMessage } from '../helpers'
+import { fakeMessage } from '../helpers'
 
 let filter = new ChocopainFilter()
 
@@ -11,9 +11,10 @@ describe('ChocopainFilter', () => {
           "Ce matin j'ai mangé un pain au chocolat il était délicieux"
         )
       )
-    ).to.be.true
-    expect(filter.filter(fakeMessage("J'aime les chocolatines au chocolat !")))
-      .to.be.true
-    expect(filter.filter(fakeMessage("J'aime les chocopains"))).to.be.false
+    ).toBe(true)
+    expect(
+      filter.filter(fakeMessage("J'aime les chocolatines au chocolat !"))
+    ).toBe(true)
+    expect(filter.filter(fakeMessage("J'aime les chocopains"))).toBe(false)
   })
 })

@@ -32,12 +32,11 @@ export default class RSS {
       this.lastTime = feed.items[0].isoDate
       return
     }
-    let channel = this.client.guilds
-      .cache
+    let channel = this.client.guilds.cache
       .first()
-      .channels
-      .cache
-      .find(channel => channel.name === 'annonces') as TextChannel
+      .channels.cache.find(
+        channel => channel.name === 'annonces'
+      ) as TextChannel
     if (channel === undefined) return
     feed.items.forEach((item: IFeedItem) => {
       if (item.isoDate > this.lastTime) {

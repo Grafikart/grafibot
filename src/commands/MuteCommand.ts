@@ -83,8 +83,7 @@ export default class MuteCommand implements ICommand {
   private resetJobs () {
     this.db.each('SELECT id, lvl, muted_at FROM mutes', (err, row) => {
       if (err === null) {
-        let member = this.client.guilds
-          .cache
+        let member = this.client.guilds.cache
           .first()
           .members.cache.find(m => m.id === row.id)
         if (member) {
@@ -135,7 +134,9 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedRole (): Role {
-    return this.client.guilds.cache.first().roles.cache.find(r => r.name === 'Muted')
+    return this.client.guilds.cache
+      .first()
+      .roles.cache.find(r => r.name === 'Muted')
   }
 
   /**
@@ -143,12 +144,9 @@ export default class MuteCommand implements ICommand {
    * @returns {module:discord.js.Role}
    */
   private getMutedChannel (): TextChannel {
-    return this.client.guilds
-      .cache
+    return this.client.guilds.cache
       .first()
-      .channels
-      .cache
-      .find(c => c.name === 'muted') as TextChannel
+      .channels.cache.find(c => c.name === 'muted') as TextChannel
   }
 
   private async decrementLevelForUser (member: GuildMember): Promise<any> {

@@ -21,7 +21,12 @@ export default class QuickCommand implements ICommand {
       content = args.slice(1).join(' ')
     }
     message.channel
-      .send(this.message.replace('@user', user).replace('@content', content).replace('@url:content', encodeURIComponent(content)))
+      .send(
+        this.message
+          .replace('@user', user)
+          .replace('@content', content)
+          .replace('@url:content', encodeURIComponent(content))
+      )
       .catch()
   }
 }

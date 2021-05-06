@@ -1,6 +1,9 @@
-import { Message } from 'discord.js'
+import { GuildMember, Message } from 'discord.js'
 import { IFilter } from '../interfaces'
-import MuteCommand from '../commands/MuteCommand'
+
+export interface MuteCommand {
+  muteMember: (member: GuildMember, reason: string) => Promise<any>
+}
 
 /**
  * Evite la guerre Chocolatine / Pain au chocolat

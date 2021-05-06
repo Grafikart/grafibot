@@ -1,6 +1,6 @@
 import { Message } from 'discord.js'
 import Bot from '../src/Bot'
-import { expect, chai, fakeMessage } from './helpers'
+import { fakeMessage } from './helpers'
 import { ICommand, IFilter } from '../src/interfaces'
 
 const generateCommand = function (name: string): ICommand {
@@ -11,7 +11,7 @@ const generateCommand = function (name: string): ICommand {
       return
     }
   }
-  chai.spy.on(command, 'run')
+  jest.spyOn(command, 'run')
   return command
 }
 
@@ -23,7 +23,7 @@ const generateFilter = function (content: string): IFilter {
       return triggered
     }
   }
-  chai.spy.on(filter, 'filter')
+  jest.spyOn(filter, 'filter')
   return filter
 }
 
@@ -35,7 +35,7 @@ describe('Commands', function () {
 
   it('should detect command', function () {
     message.client.emit('message', message)
-    expect(command.run).to.be.called.with(message, ['a1', 'a2'])
+    expect(command.run).toHaveBeenCalledWith(message, ['a1', 'a2'])
   })
 })
 
@@ -48,7 +48,7 @@ describe('Filters', function () {
     bot.addFilter(filtera)
     bot.addFilter(filterb)
     message.client.emit('message', message)
-    expect(message.channel.send).to.not.be.called()
+    expect(message.channel.send).not.toHaveBeenCalled()
   })
 
   it('filtre les messages', function () {
@@ -59,9 +59,9 @@ describe('Filters', function () {
     bot.addFilter(filtera)
     bot.addFilter(filterb)
     message.client.emit('message', message)
-    expect(message.channel.send).to.be.called()
-    expect(filtera.filter).to.be.called()
-    expect(filterb.filter).to.not.be.called()
+    expect(message.channel.send).toHaveBeenCalled()
+    expect(filtera.filter).toHaveBeenCalled()
+    expect(filterb.filter).not.toHaveBeenCalled()
   })
 
   it('ne filtre pas les messages proventant ', function () {
@@ -70,7 +70,7 @@ describe('Filters', function () {
     let filtera = generateFilter('a')
     let bot = new Bot(message.client).addFilter(filtera)
     message.client.emit('message', message)
-    expect(message.channel.send).to.not.be.called()
-    expect(filtera.filter).to.not.be.called()
+    expect(message.channel.send).not.toHaveBeenCalled()
+    expect(filtera.filter).not.toHaveBeenCalled()
   })
 })

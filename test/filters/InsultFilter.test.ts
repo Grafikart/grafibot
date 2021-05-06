@@ -1,4 +1,4 @@
-import { expect, chai, fakeMessage } from '../helpers'
+import { fakeMessage } from '../helpers'
 import { InsultFilter } from '../../src/filters'
 
 const filter = new InsultFilter()
@@ -13,16 +13,16 @@ describe('QuestionFilter', () => {
   it('détecte les questions', () => {
     match.forEach(function (m) {
       let message = fakeMessage(m)
-      expect(filter.filter(message), m).to.be.true
-      expect(message.author.createDM).to.be.called()
+      expect(filter.filter(message)).toBe(true)
+      expect(message.author.createDM).toHaveBeenCalled()
     })
   })
 
   it('laisse passer les messages', () => {
     noMatch.forEach(function (m) {
       let message = fakeMessage(m)
-      expect(filter.filter(message), m).to.be.false
-      expect(message.author.createDM).to.not.be.called()
+      expect(filter.filter(message)).toBe(false)
+      expect(message.author.createDM).not.toHaveBeenCalled()
     })
   })
 })
