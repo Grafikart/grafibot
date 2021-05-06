@@ -30,6 +30,7 @@ import {
   SecCommand,
   RuleCommand
 } from './reactions'
+import { RaidFilter } from './filters/RaidFilter'
 
 dotenv.config()
 
@@ -79,6 +80,7 @@ bot
   .addFilter(new CodeFilter())
   .addFilter(new SyntaxFilter(syntax))
   .addFilter(new InviteFilter(muteCommand))
+  .addFilter(new RaidFilter(logger))
   .connect()
   .catch(function (e: string) {
     console.error(e)
