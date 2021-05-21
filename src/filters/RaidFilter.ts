@@ -7,13 +7,13 @@ import { append } from '../utils/list'
  * Filtre pour éviter les raids (plusieurs utilisateurs qui spam des messages en simultané)
  */
 export class RaidFilter implements IFilter {
-  private limit = 3 // Nombre de message
-  private interval = 5 // Intervalle (en seconde)
+  private limit = 5 // Nombre de message
+  private interval = 3 // Intervalle (en seconde)
   private cache = flru(50) // Nombre d'utilisateur à suivre en parallèle
   private voteThreshold = 5 // Quantité de vote qui déclenche le ban
   private logger: ILogger
   private locked = false
-  private voteDuration = 10000
+  private voteDuration = 5 // Durée du vote en seconde
 
   constructor (logger: ILogger) {
     this.logger = logger
@@ -22,13 +22,13 @@ export class RaidFilter implements IFilter {
   filter (message: Message): boolean {
     const timeStampList = append(
       this.cache.get(message.author.id) ?? [],
-      message.createdTimestamp / 1000,
+      Date.now() / 1000,
       this.limit
     )
     if (timeStampList.length >= this.limit) {
       const delay = timeStampList[timeStampList.length - 1] - timeStampList[0]
       if (delay < this.interval && !this.locked) {
-        this.startVerification(message).catch(console.error)
+        this.startVerification(message).catch(this.logger.log)
         return true
       }
     }
@@ -43,31 +43,31 @@ export class RaidFilter implements IFilter {
     this.locked = true
     try {
       const channel = message.channel as TextChannel
+      this.logger.log(`Verouillage du salon #${channel.name} à cause du message ${message.url}`)
       // On bloque la possibilité d'écrire sur le salon
       await channel
         .updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false })
-        .catch(console.error)
-      if (!channel.name.includes('🔒')) {
-        channel.setName(`🔒-${channel.name}`).catch(console.error)
-      }
+        .catch(this.logger.log)
       // On lance le vote
       const reply = await message.reply(
         'a posté trop de message rapidement. Est-ce un bot ? Oui 🇴 / Non : 🇳'
       )
-      reply.react('🇴').catch(console.error)
-      reply.react('🇳').catch(console.error)
+      reply.react('🇴').catch(this.logger.log)
+      reply.react('🇳').catch(this.logger.log)
+      // On débloque le salon à la fin du vote
       const timer = setTimeout(() => {
         channel.client.off('messageReactionAdd', listener)
         this.endVerification(reply)
-      }, this.voteDuration)
+      }, this.voteDuration * 1000)
+      // Ou lorsque le nombre de vote positif dépasse le threshold
       const listener = (reaction: MessageReaction) => {
         if (
           reaction.emoji.name === '🇴' &&
           reaction.count >= this.voteThreshold &&
           reaction.message.id === reply.id
         ) {
-          this.ban(message)
           this.endVerification(reply)
+          this.ban(message)
           clearTimeout(timer)
           channel.client.off('messageReactionAdd', listener)
         }
@@ -95,23 +95,23 @@ export class RaidFilter implements IFilter {
         days: 1,
         reason: `Raid "${message.content}"`
       })
-      .catch(console.error)
+      .catch(this.logger.log)
   }
 
   /**
    * On termine le processus de vérification en nettoyant ce qui a été fait avant
    */
   private async endVerification (message: Message) {
+    this.logger.log(`Deverouillage du salon #${(message.channel as TextChannel).name}`)
     this.locked = false
     try {
       await message.delete()
       const channel = message.channel as TextChannel
-      channel.setName(channel.name.replace('🔒-', '')).catch(console.error)
       channel
         .updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: null })
-        .catch(console.error)
+        .catch(this.logger.log)
     } catch (e) {
-      console.error(e)
+      this.logger.log(e)
     }
   }
 }
