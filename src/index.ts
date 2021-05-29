@@ -20,7 +20,8 @@ import {
   DontAskFilter,
   CodeFilter,
   SyntaxFilter,
-  InviteFilter
+  InviteFilter,
+  LmgtfyFilter
 } from './filters'
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
@@ -77,6 +78,7 @@ bot
   .addFilter(new ErrorsFilter())
   .addFilter(new RegleFilter())
   .addFilter(new DontAskFilter())
+  .addFilter(new LmgtfyFilter())
   // .addFilter(new InsultFilter())
   // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())

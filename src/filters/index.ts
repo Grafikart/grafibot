@@ -9,6 +9,7 @@ import SyntaxFilter from './SyntaxFilter'
 import InviteFilter from './InviteFilter'
 import RegleFilter from './RegleFilter'
 import DontAskFilter from './DontAskFilter'
+import LmgtfyFilter from './LmgtfyFilter'
 
 export {
   CapslockFilter,
@@ -21,5 +22,6 @@ export {
   SyntaxFilter,
   InviteFilter,
   RegleFilter,
-  DontAskFilter
+  DontAskFilter,
+  LmgtfyFilter
 }
