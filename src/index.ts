@@ -17,6 +17,7 @@ import {
   RegleFilter,
   // InsultFilter,
   // QuestionFilter,
+  DontAskFilter,
   CodeFilter,
   SyntaxFilter,
   InviteFilter
@@ -75,6 +76,7 @@ bot
   .addFilter(new ChocopainFilter())
   .addFilter(new ErrorsFilter())
   .addFilter(new RegleFilter())
+  .addFilter(new DontAskFilter())
   // .addFilter(new InsultFilter())
   // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())

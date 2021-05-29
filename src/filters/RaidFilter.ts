@@ -43,7 +43,9 @@ export class RaidFilter implements IFilter {
     this.locked = true
     try {
       const channel = message.channel as TextChannel
-      this.logger.log(`Verouillage du salon #${channel.name} à cause du message ${message.url}`)
+      this.logger.log(
+        `Verouillage du salon #${channel.name} à cause du message ${message.url}`
+      )
       // On bloque la possibilité d'écrire sur le salon
       await channel
         .updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false })
@@ -102,7 +104,9 @@ export class RaidFilter implements IFilter {
    * On termine le processus de vérification en nettoyant ce qui a été fait avant
    */
   private async endVerification (message: Message) {
-    this.logger.log(`Deverouillage du salon #${(message.channel as TextChannel).name}`)
+    this.logger.log(
+      `Deverouillage du salon #${(message.channel as TextChannel).name}`
+    )
     this.locked = false
     try {
       await message.delete()

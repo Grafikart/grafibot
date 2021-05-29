@@ -8,6 +8,7 @@ import MentionFilter from './MentionFilter'
 import SyntaxFilter from './SyntaxFilter'
 import InviteFilter from './InviteFilter'
 import RegleFilter from './RegleFilter'
+import DontAskFilter from './DontAskFilter'
 
 export {
   CapslockFilter,
@@ -19,5 +20,6 @@ export {
   MentionFilter,
   SyntaxFilter,
   InviteFilter,
-  RegleFilter
+  RegleFilter,
+  DontAskFilter
 }
