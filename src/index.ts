@@ -7,7 +7,7 @@ import {
   QuickCommand,
   BanCommand
 } from './commands'
-import { Client } from 'discord.js'
+import { Client, Intents } from 'discord.js'
 import { syntax } from './config'
 import Logger from './utils/Logger'
 import {
@@ -25,7 +25,6 @@ import {
 } from './filters'
 import Premium from './tasks/Premium'
 import RSS from './tasks/RSS'
-import sqlite3 from 'sqlite3'
 import {
   JeSaisToutCommand,
   ReportCommand,
@@ -36,16 +35,16 @@ import { RaidFilter } from './filters/RaidFilter'
 
 dotenv.config()
 
-const db = new sqlite3.Database('db.sqlite')
-const client = new Client()
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS]
+})
 const logger = new Logger(client)
 Premium.connect(client, logger)
 RSS.connect(client)
 const bot = new Bot(client, process.env.API_KEY)
-const muteCommand = new MuteCommand(db, client, logger)
 bot
   .addCommand(new BanCommand(logger))
-  .addCommand(muteCommand)
+  .addCommand(new MuteCommand(logger))
   .addCommand(new CleanCommand(logger))
   .addCommand(
     new QuickCommand(
@@ -83,7 +82,7 @@ bot
   // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
   .addFilter(new SyntaxFilter(syntax))
-  .addFilter(new InviteFilter(muteCommand))
+  .addFilter(new InviteFilter())
   .addFilter(new RaidFilter(logger))
   .connect()
   .catch(function (e: string) {

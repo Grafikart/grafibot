@@ -1,4 +1,4 @@
-import { Message } from 'discord.js'
+import { Message, PartialMessage } from 'discord.js'
 
 /**
  * Envoie un message en privée ou sur le channel si les MP sont désactivés
@@ -7,7 +7,7 @@ import { Message } from 'discord.js'
  * @returns {Promise<any>}
  */
 export const sendDMorReply = async function (
-  message: Message,
+  message: PartialMessage|Message,
   content: string
 ) {
   return message.author
@@ -44,7 +44,7 @@ export const sendDMorReplyAutoDelete = async function (
  * @param {T[]} arr2
  * @returns {T[]}
  */
-export const arrayDiff = function<T> (arr1: T[], arr2: T[]): T[] {
+export const arrayDiff = function <T> (arr1: T[], arr2: T[]): T[] {
   return arr1.filter(i => arr2.indexOf(i) < 0)
 }
 

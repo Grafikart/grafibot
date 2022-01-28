@@ -1,6 +1,12 @@
-import RSSParser, { IFeedItem } from 'rss-parser'
+import RSSParser from 'rss-parser'
 import { Client, TextChannel } from 'discord.js'
 import { CronJob } from 'cron'
+
+type FeedItem = {
+  link: string,
+  isoDate: string,
+  title: string
+}
 
 export default class RSS {
   static url = 'https://www.grafikart.fr/feed.rss'
@@ -38,7 +44,7 @@ export default class RSS {
         channel => channel.name === 'annonces'
       ) as TextChannel
     if (channel === undefined) return
-    feed.items.forEach((item: IFeedItem) => {
+    feed.items.forEach((item: FeedItem) => {
       if (item.isoDate > this.lastTime) {
         channel.send(this.message(item)).catch()
         this.lastTime = item.isoDate
@@ -48,10 +54,10 @@ export default class RSS {
 
   /**
    * Renvoie le message à poster
-   * @param {IFeedItem} item
+   * @param {FeedItem} item
    * @returns {string}
    */
-  static message (item: IFeedItem): string {
+  static message (item: FeedItem): string {
     let parts = item.title.split(':')
     return `**<:grafikart:250692379638497280> Nouveau ${
       parts[0]

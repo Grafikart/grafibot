@@ -1,4 +1,4 @@
-import { MessageReaction, User } from 'discord.js'
+import { GuildMember, MessageReaction } from 'discord.js'
 import { ILogger, IReactionCommand } from '../interfaces/index'
 import { modoRole } from '../config'
 
@@ -13,14 +13,14 @@ export default class ReportCommand implements IReactionCommand {
     this.logger = logger
   }
 
-  run (reaction: MessageReaction, user: User) {
+  run (reaction: MessageReaction, member: GuildMember) {
     reaction.remove().catch(console.error)
     const modos = reaction.message.guild.roles.cache.find(
       r => r.name === modoRole
     )
     const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
     this.logger.log(`${modos.toString()} <@!${
-      user.id
+      member.user.id
     }> a signalé le message ${permalink}
 \`\`\`
 ${reaction.message.content}

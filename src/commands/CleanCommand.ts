@@ -5,20 +5,18 @@ import {
   NewsChannel,
   User
 } from 'discord.js'
-import { ICommand, ILogger } from '../interfaces/index'
-import Command from './Command'
+import { ICommand, ILogger } from '../interfaces'
 
 /**
  * Supprime plusieurs messages
  */
-export default class CleanCommand extends Command implements ICommand {
+export default class CleanCommand implements ICommand {
   public name = 'clean'
   public description = 'Permet de supprimer X messages, ex: "!clean !messages"'
   public admin = true
   private logger: ILogger
 
   constructor (logger: ILogger) {
-    super()
     this.logger = logger
   }
 
@@ -32,9 +30,9 @@ export default class CleanCommand extends Command implements ICommand {
       const embed = new MessageEmbed()
         .setImage('https://media.giphy.com/media/6NtM0tLYeLwT6/giphy.gif')
         .setColor('#c62828')
-        .addField('Message supprimés', messages.array().length, true)
+        .addField('Message supprimés', messages.size.toString(), true)
         .addField('Raison', reason, true)
-      message.channel.send(embed).catch(console.error)
+      message.channel.send({ embeds: [embed] }).catch(console.error)
     } else if (limit <= 5) {
       this.log(message.author, messages).catch(console.error)
     }

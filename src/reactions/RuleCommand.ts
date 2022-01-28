@@ -1,5 +1,5 @@
 import { IReactionCommand, ILogger } from '../interfaces'
-import { MessageReaction, User } from 'discord.js'
+import { GuildMember, MessageReaction, User } from 'discord.js'
 
 export default class RuleCommand implements IReactionCommand {
   buffer: string[] = [] // Mémorise les messages pour éviter les doublons
@@ -13,7 +13,7 @@ export default class RuleCommand implements IReactionCommand {
     return ['0️⃣', '2️⃣', '3️⃣', '5️⃣', '6️⃣', '7️⃣'].includes(reactionName)
   }
 
-  run (reaction: MessageReaction, user: User): any {
+  run (reaction: MessageReaction, member: GuildMember): any {
     let message = null
     switch (reaction.emoji.name) {
       case '0️⃣':

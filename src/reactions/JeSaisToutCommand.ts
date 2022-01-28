@@ -1,5 +1,5 @@
-import { MessageReaction, User } from 'discord.js'
-import { IReactionCommand } from '../interfaces/index'
+import { GuildMember, MessageReaction } from 'discord.js'
+import { IReactionCommand } from '../interfaces'
 import { sendDMorReply } from '../utils/helpers'
 
 /**
@@ -9,7 +9,7 @@ export default class JeSaisToutCommand implements IReactionCommand {
   public name = 'brain'
   public admin = true
 
-  run (reaction: MessageReaction, user: User) {
+  run (reaction: MessageReaction, member: GuildMember) {
     reaction.remove().catch(console.error)
     const author = reaction.message.author
     const quote = (str: string) =>

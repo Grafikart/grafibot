@@ -1,18 +1,17 @@
 import { Message } from 'discord.js'
-import { ICommand } from '../interfaces/index'
-import Command from './Command'
+import { ICommand } from '../interfaces'
+import { sendDMorReply } from '../utils/helpers'
 
 interface ICommandList {
   [name: string]: string
 }
 
-export default class HelpCommand extends Command implements ICommand {
+export default class HelpCommand implements ICommand {
   public name = 'help'
   public description = 'Affiche cette aide'
   private commands: ICommand[] = []
 
   public constructor (commands: ICommand[]) {
-    super()
     this.commands = commands
   }
 
@@ -33,13 +32,13 @@ export default class HelpCommand extends Command implements ICommand {
         return `**!${name}**: ${commands[name]}`
       })
       .join('\n')
-    await this.replyDM(
+    await sendDMorReply(
+      message,
       `Voici la liste de mes commandes disponibles :
 
 ${help}
 
 Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`,
-      message
     )
   }
 }

@@ -9,11 +9,11 @@ install:
 	pm2 start --env production
 
 .PHONY: build
-build: node_modules db.sqlite
+build: node_modules
 	npx tsc
 
 .PHONY: dev
-dev: db.sqlite build
+dev: build
 	npx concurrently -k \
 		-p "[{name}]" \
 		-n "TypeScript,Node" \
@@ -33,8 +33,5 @@ wtest: lint
 lint:
 	npx prettier-standard --format "**/*.ts"
 
-db.sqlite: schema.sqlite
-	cp schema.sqlite db.sqlite
-
 node_modules:
-	yarn
+	pnpm i

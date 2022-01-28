@@ -48,7 +48,8 @@ export class RaidFilter implements IFilter {
       )
       // On bloque la possibilité d'écrire sur le salon
       await channel
-        .updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false })
+        .permissionOverwrites
+        .edit(channel.guild.roles.everyone, { SEND_MESSAGES: false })
         .catch(this.logger.log)
       // On lance le vote
       const reply = await message.reply(
@@ -112,7 +113,8 @@ export class RaidFilter implements IFilter {
       await message.delete()
       const channel = message.channel as TextChannel
       channel
-        .updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: null })
+        .permissionOverwrites
+        .edit(channel.guild.roles.everyone, { SEND_MESSAGES: null })
         .catch(this.logger.log)
     } catch (e) {
       this.logger.log(e)
