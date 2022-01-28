@@ -1,24 +1,43 @@
-import { Client, Guild, Message, TextChannel } from 'discord.js'
+import { Client, Guild, Message, MessageAttachment, MessageEmbed, TextChannel } from 'discord.js'
 
 process.on('unhandledRejection', () => null)
 
-const fakeMessage = function (content: string): Message {
-  let client = new Client()
-  let guild = new Guild(client, { emojis: [], id: '13123123' })
-  let channel = new TextChannel(guild, { id: '123123' })
-  let message = new Message(
+const fakeMessage = function (content: string): any {
+  let client = new Client({intents: []})
+  // @ts-ignore
+  let guild = new Guild(client, { emojis: [], id: 13123123 })
+  // @ts-ignore
+  let channel = new TextChannel(guild, { id: 123123 })
+  // @ts-ignore
+  let messagee = new Message(
     client,
     {
       content,
-      id: 'messageID',
+      id: 1241244,
       attachments: [],
       embeds: [],
       author: {
-        id: 'authorID'
-      }
+        id: 1242143123
+      },
     },
-    channel
   )
+  const message = {
+    client,
+    content,
+    id: 1241244,
+    attachments: [] as MessageAttachment[],
+    embed: [] as MessageEmbed[],
+    member: {
+      timeout: () => Promise.resolve('')
+    },
+    author: {
+      createDM: () => Promise.resolve('')
+    },
+    channel,
+    delete: () => Promise.resolve(message),
+    reply: () => Promise.resolve(message),
+    createDM: () => Promise.resolve(message)
+  }
   // Spy everything
   jest
     .spyOn(message.channel, 'send')
@@ -26,6 +45,9 @@ const fakeMessage = function (content: string): Message {
   jest
     .spyOn(message, 'delete')
     .mockImplementation(() => Promise.resolve(message))
+  jest
+    .spyOn(message.member, 'timeout')
+    .mockImplementation(() => Promise.resolve(''))
   jest
     .spyOn(message, 'reply')
     .mockImplementation(() => Promise.resolve(message))

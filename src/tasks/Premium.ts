@@ -1,9 +1,7 @@
 import { Client, GuildMember, Role } from 'discord.js'
 import { arrayDiff } from '../utils/helpers'
 import { ILogger } from '../interfaces'
-import got from 'got/dist/source'
-
-type IRow = { discord_id: string }
+import got from 'got'
 
 export default class Premium {
   static client: Client

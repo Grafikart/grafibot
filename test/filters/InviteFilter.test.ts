@@ -1,11 +1,7 @@
 import { InviteFilter } from '../../src/filters'
 import { fakeMessage } from '../helpers'
-import MuteCommand from '../../src/commands/MuteCommand'
 
-let muteCommand = {
-  muteMember: jest.fn().mockImplementation(() => Promise.resolve())
-}
-let filter = new InviteFilter(muteCommand)
+let filter = new InviteFilter()
 
 describe('InviteFilter', () => {
   it('détecte les invitation discord', () => {
@@ -50,13 +46,14 @@ describe('InviteFilter', () => {
   })
 
   it("mute l'utilisateur", () => {
+    const message = fakeMessage(
+      'Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'
+    );
     expect(
       filter.filter(
-        fakeMessage(
-          'Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe'
-        )
+        message
       )
     ).toBe(true)
-    expect(muteCommand.muteMember).toHaveBeenCalledTimes(1)
+    expect(message.member.timeout).toHaveBeenCalledTimes(1)
   })
 })

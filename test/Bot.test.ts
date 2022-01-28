@@ -66,7 +66,7 @@ describe('Filters', function () {
 
   it('ne filtre pas les messages proventant ', function () {
     let message = fakeMessage('a')
-    message.channel.type = 'dm'
+    message.channel.type = 'DM'
     let filtera = generateFilter('a')
     let bot = new Bot(message.client).addFilter(filtera)
     message.client.emit('message', message)

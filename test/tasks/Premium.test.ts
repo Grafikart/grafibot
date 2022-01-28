@@ -18,14 +18,13 @@ for (let i = 0; i < 10; i++) {
 
 describe('Premium', function () {
   beforeEach(() => {
-    Premium.connect(new Client(), { log: () => null })
+    Premium.connect(new Client({intents: []}), { log: () => null })
     jest
       .spyOn(Premium, 'getPremiumsFromSite')
       .mockImplementation(() => Promise.resolve(['1', '2', '3', '4']))
     jest
       .spyOn(Premium, 'getPremiumsFromDiscord')
       .mockImplementation(() => Promise.resolve(['4', '5']))
-    const client = new Client()
     // @ts-ignore
     jest.spyOn(Premium.client.guilds.cache, 'first').mockImplementation(() => ({
       members: { cache: members },
