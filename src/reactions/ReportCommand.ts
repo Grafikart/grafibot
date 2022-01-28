@@ -20,7 +20,7 @@ export default class ReportCommand implements IReactionCommand {
     )
     const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
     this.logger.log(`${modos.toString()} <@!${
-      member.user.id
+      member.id
     }> a signalé le message ${permalink}
 \`\`\`
 ${reaction.message.content}

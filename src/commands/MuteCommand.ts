@@ -20,7 +20,10 @@ export default class MuteCommand implements ICommand {
     this.logger.log(
       `<@!${message.author.id}> a mute <@!${member.id}>\n **Raison :** ${reason}`
     )
-    await sendDMorReply(message, `Vous avez été muté pour la raison suivante \n\n > *${reason.trim()}* \n\n, merci de respecter les règles de ce serveur.`)
+    member
+      .createDM()
+      .then(channel => channel.send(`Vous avez été muté pour la raison suivante \n\n > *${reason.trim()}* \n\n, merci de respecter les règles de ce serveur.`))
+      .catch(() => null)
     await member.timeout(10 * minute, reason.trim())
     return true
   }
