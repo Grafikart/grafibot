@@ -1,6 +1,6 @@
 import { GuildMember, MessageReaction } from 'discord.js'
 import { IReactionCommand } from '../interfaces'
-import { sendDMorReply } from '../utils/helpers'
+import { sendDMorReply } from '../utils/helpers.js'
 
 /**
  * Supprime plusieurs messages

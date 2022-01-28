@@ -1,6 +1,6 @@
 import { Message } from 'discord.js'
 import { ICommand } from '../interfaces'
-import { sendDMorReply } from '../utils/helpers'
+import { sendDMorReply } from '../utils/helpers.js'
 
 interface ICommandList {
   [name: string]: string

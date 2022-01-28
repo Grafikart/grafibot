@@ -1,5 +1,5 @@
-import { IReactionCommand, ILogger } from '../interfaces'
-import { GuildMember, MessageReaction, User } from 'discord.js'
+import { ILogger, IReactionCommand } from '../interfaces'
+import { GuildMember, MessageReaction } from 'discord.js'
 
 export default class RuleCommand implements IReactionCommand {
   buffer: string[] = [] // Mémorise les messages pour éviter les doublons

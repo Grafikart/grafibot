@@ -1,4 +1,4 @@
-import { DontAskFilter } from '../../src/filters'
+import { DontAskFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 const filter = new DontAskFilter()

@@ -1,5 +1,5 @@
 import { Client, GuildMember, Role } from 'discord.js'
-import { arrayDiff } from '../utils/helpers'
+import { arrayDiff } from '../utils/helpers.js'
 import { ILogger } from '../interfaces'
 import got from 'got'
 

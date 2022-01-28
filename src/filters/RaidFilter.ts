@@ -1,7 +1,7 @@
 import { IFilter, ILogger } from '../interfaces'
 import { Message, MessageReaction, TextChannel } from 'discord.js'
 import flru from 'flru'
-import { append } from '../utils/list'
+import { append } from '../utils/list.js'
 
 /**
  * Filtre pour éviter les raids (plusieurs utilisateurs qui spam des messages en simultané)

@@ -1,5 +1,5 @@
 import { fakeMessage } from '../helpers'
-import { InsultFilter } from '../../src/filters'
+import { InsultFilter } from '../../src/filters/index.js'
 
 const filter = new InsultFilter()
 const match = ['vazy ntm !', 'yo ntm', 'pute']

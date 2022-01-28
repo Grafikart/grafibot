@@ -1,4 +1,4 @@
-import { CapslockFilter } from '../../src/filters'
+import { CapslockFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 let filter = new CapslockFilter()

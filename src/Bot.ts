@@ -7,7 +7,7 @@ import {
   MessageReaction,
   User, PartialMessage
 } from 'discord.js'
-import { modoRole } from './config'
+import { modoRole } from './config.js'
 
 export default class Bot {
   public commands: ICommand[] = [] // Liste les commandes à utiliser

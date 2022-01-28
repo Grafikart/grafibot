@@ -1,4 +1,4 @@
-import Premium from '../../src/tasks/Premium'
+import Premium from '../../src/tasks/Premium.js'
 import { Client, Collection } from 'discord.js'
 
 const addRole = jest.fn().mockImplementation(() => Promise.resolve(null))

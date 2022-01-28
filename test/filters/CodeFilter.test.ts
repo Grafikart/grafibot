@@ -1,5 +1,5 @@
 import { fakeMessage } from '../helpers'
-import { CodeFilter } from '../../src/filters'
+import { CodeFilter } from '../../src/filters/index.js'
 
 const filter = new CodeFilter()
 const match = [

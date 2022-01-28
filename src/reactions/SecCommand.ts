@@ -1,5 +1,5 @@
 import { GuildMember, MessageReaction, User } from 'discord.js'
-import { IReactionCommand } from '../interfaces/index'
+import { IReactionCommand } from '../interfaces'
 
 /**
  * Supprime plusieurs messages

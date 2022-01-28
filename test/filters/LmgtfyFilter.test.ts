@@ -1,4 +1,4 @@
-import { LmgtfyFilter } from '../../src/filters'
+import { LmgtfyFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 const filter = new LmgtfyFilter()

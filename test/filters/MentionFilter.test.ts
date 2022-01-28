@@ -1,4 +1,4 @@
-import { MentionFilter } from '../../src/filters'
+import { MentionFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 const filter = new MentionFilter()

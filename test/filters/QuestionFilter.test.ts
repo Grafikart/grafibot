@@ -1,4 +1,4 @@
-import { QuestionFilter } from '../../src/filters'
+import { QuestionFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 const filter = new QuestionFilter()

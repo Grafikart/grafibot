@@ -1,4 +1,4 @@
-import { SyntaxFilter } from '../../src/filters'
+import { SyntaxFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 const filter = new SyntaxFilter({

@@ -1,6 +1,6 @@
 import { Message } from 'discord.js'
 import { IFilter } from '../interfaces'
-import { sendDMorReply } from '../utils/helpers'
+import { sendDMorReply } from '../utils/helpers.js'
 
 export default class CodeFilter implements IFilter {
   filter (message: Message) {

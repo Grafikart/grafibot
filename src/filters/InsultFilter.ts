@@ -1,6 +1,6 @@
 import { IFilter } from '../interfaces'
 import { Message } from 'discord.js'
-import { sendDMorReply } from '../utils/helpers'
+import { sendDMorReply } from '../utils/helpers.js'
 
 /**
  * Supprime un message en cas d'insulte

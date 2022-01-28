@@ -1,15 +1,15 @@
 import * as dotenv from 'dotenv'
-import Bot from './Bot'
+import Bot from './Bot.js'
 import {
   MuteCommand,
   HelpCommand,
   CleanCommand,
   QuickCommand,
   BanCommand
-} from './commands'
+} from './commands/index.js'
 import { Client, Intents } from 'discord.js'
-import { syntax } from './config'
-import Logger from './utils/Logger'
+import { syntax } from './config.js'
+import Logger from './utils/Logger.js'
 import {
   CapslockFilter,
   ChocopainFilter,
@@ -22,16 +22,16 @@ import {
   SyntaxFilter,
   InviteFilter,
   LmgtfyFilter
-} from './filters'
-import Premium from './tasks/Premium'
-import RSS from './tasks/RSS'
+} from './filters/index.js'
+import Premium from './tasks/Premium.js'
+import RSS from './tasks/RSS.js'
 import {
   JeSaisToutCommand,
   ReportCommand,
   SecCommand,
   RuleCommand
-} from './reactions'
-import { RaidFilter } from './filters/RaidFilter'
+} from './reactions/index.js'
+import { RaidFilter } from './filters/RaidFilter.js'
 
 dotenv.config()
 

@@ -1,6 +1,6 @@
 import { IFilter } from '../interfaces'
 import { Message } from 'discord.js'
-import { sendDMorReplyAutoDelete } from '../utils/helpers'
+import { sendDMorReplyAutoDelete } from '../utils/helpers.js'
 
 type ISyntaxes = { [key: string]: RegExp }
 

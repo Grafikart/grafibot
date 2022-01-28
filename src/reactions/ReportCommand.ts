@@ -1,6 +1,6 @@
 import { GuildMember, MessageReaction } from 'discord.js'
-import { ILogger, IReactionCommand } from '../interfaces/index'
-import { modoRole } from '../config'
+import { ILogger, IReactionCommand } from '../interfaces'
+import { modoRole } from '../config.js'
 
 /**
  * Supprime plusieurs messages

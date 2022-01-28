@@ -1,4 +1,4 @@
-import { InviteFilter } from '../../src/filters'
+import { InviteFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 let filter = new InviteFilter()

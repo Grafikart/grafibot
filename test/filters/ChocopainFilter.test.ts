@@ -1,4 +1,4 @@
-import { ChocopainFilter } from '../../src/filters'
+import { ChocopainFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 let filter = new ChocopainFilter()

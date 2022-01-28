@@ -1,4 +1,4 @@
-import { ErrorsFilter } from '../../src/filters'
+import { ErrorsFilter } from '../../src/filters/index.js'
 import { fakeMessage } from '../helpers'
 
 let filter = new ErrorsFilter()
