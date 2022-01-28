@@ -64,7 +64,6 @@ export default class Bot {
    * Connecte le bot
    */
   async connect () {
-    console.log('logged')
     await this.client.login(this.apiKey)
     console.log('logged')
     this.client.on('error', e => console.error(e.message))

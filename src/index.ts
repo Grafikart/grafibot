@@ -36,7 +36,16 @@ import { RaidFilter } from './filters/RaidFilter.js'
 dotenv.config()
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS]
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+    Intents.FLAGS.GUILD_INTEGRATIONS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+  ]
 })
 const logger = new Logger(client)
 Premium.connect(client, logger)
