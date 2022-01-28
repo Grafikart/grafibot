@@ -6,7 +6,7 @@ deploy: ## Déploie une nouvelle version du site
 install:
 	git pull origin master
 	make build
-	pm2 start --env production
+	pm2 start --env production ecosystem.config.cjs
 
 .PHONY: build
 build: node_modules
