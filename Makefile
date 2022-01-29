@@ -10,7 +10,8 @@ install:
 
 .PHONY: build
 build: node_modules
-	npx tsc
+	npx tsc --noEmit
+	npx esbuild src/index.ts --bundle --platform=node --target=node16.3.0 --outfile=dist/index.js --external:./node_modules/* --format=esm
 
 .PHONY: dev
 dev: build

@@ -1,17 +1,17 @@
-import { IFilter } from '../interfaces'
-import { Message } from 'discord.js'
-import { sendDMorReplyAutoDelete } from '../utils/helpers.js'
+import { IFilter } from "../interfaces";
+import { Message } from "discord.js";
+import { sendDMorReplyAutoDelete } from "../utils/helpers";
 
-type ISyntaxes = { [key: string]: RegExp }
+type ISyntaxes = { [key: string]: RegExp };
 
 export default class SyntaxFilter implements IFilter {
-  private syntaxes: ISyntaxes
+  private syntaxes: ISyntaxes;
 
-  constructor (syntaxes: ISyntaxes) {
-    this.syntaxes = syntaxes
+  constructor(syntaxes: ISyntaxes) {
+    this.syntaxes = syntaxes;
   }
 
-  filter (message: Message): boolean {
+  filter(message: Message): boolean {
     if (
       Object.keys(this.syntaxes).includes(message.channel.id) &&
       message.content.match(this.syntaxes[message.channel.id]) === null
@@ -22,10 +22,10 @@ export default class SyntaxFilter implements IFilter {
 \`\`\`
 ${message.cleanContent}
 \`\`\``
-      ).catch()
-      message.delete().catch()
-      return true
+      ).catch();
+      message.delete().catch();
+      return true;
     }
-    return false
+    return false;
   }
 }

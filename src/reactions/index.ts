@@ -1,6 +1,6 @@
-import ReportCommand from './ReportCommand.js'
-import SecCommand from './SecCommand.js'
-import JeSaisToutCommand from './JeSaisToutCommand.js'
-import RuleCommand from './RuleCommand.js'
+import ReportCommand from "./ReportCommand";
+import SecCommand from "./SecCommand";
+import JeSaisToutCommand from "./JeSaisToutCommand";
+import RuleCommand from "./RuleCommand";
 
-export { ReportCommand, SecCommand, JeSaisToutCommand, RuleCommand }
+export { ReportCommand, SecCommand, JeSaisToutCommand, RuleCommand };

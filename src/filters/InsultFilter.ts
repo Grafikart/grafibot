@@ -1,16 +1,16 @@
-import { IFilter } from '../interfaces'
-import { Message } from 'discord.js'
-import { sendDMorReply } from '../utils/helpers.js'
+import { IFilter } from "../interfaces";
+import { Message } from "discord.js";
+import { sendDMorReply } from "../utils/helpers";
 
 /**
  * Supprime un message en cas d'insulte
  */
 export default class InsultFilter implements IFilter {
   private badwords =
-    'pute|connard|enculé|bite|ntm|pd|fdp|tepu|salope|conasse|iench|pétasse|catin|bouffone|bouffon|truie'
+    "pute|connard|enculé|bite|ntm|pd|fdp|tepu|salope|conasse|iench|pétasse|catin|bouffone|bouffon|truie";
 
-  filter (message: Message): boolean {
-    let regex = new RegExp(`(\\b)(${this.badwords})(\\b)`, 'i')
+  filter(message: Message): boolean {
+    let regex = new RegExp(`(\\b)(${this.badwords})(\\b)`, "i");
     if (message.content.match(regex) !== null) {
       sendDMorReply(
         message,
@@ -18,10 +18,10 @@ export default class InsultFilter implements IFilter {
 \`\`\`
 ${message.cleanContent}
 \`\`\``
-      ).catch()
-      message.delete().catch()
-      return true
+      ).catch();
+      message.delete().catch();
+      return true;
     }
-    return false
+    return false;
   }
 }

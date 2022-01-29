@@ -1,7 +1,7 @@
-import HelpCommand from './HelpCommand.js'
-import CleanCommand from './CleanCommand.js'
-import QuickCommand from './QuickCommand.js'
-import MuteCommand from './MuteCommand.js'
-import BanCommand from './BanCommand.js'
+import HelpCommand from "./HelpCommand";
+import CleanCommand from "./CleanCommand";
+import QuickCommand from "./QuickCommand";
+import MuteCommand from "./MuteCommand";
+import BanCommand from "./BanCommand";
 
-export { HelpCommand, CleanCommand, QuickCommand, MuteCommand, BanCommand }
+export { HelpCommand, CleanCommand, QuickCommand, MuteCommand, BanCommand };
