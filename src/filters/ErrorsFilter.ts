@@ -15,6 +15,8 @@ export default class ErrorsFilter {
       'https://www.grafikart.fr/tutoriels/undefined-index-872',
     'Cannot read property ':
       'https://www.grafikart.fr/tutoriels/javascript-cannot-read-property-1348',
+    'Cannot read properties ':
+      'https://www.grafikart.fr/tutoriels/javascript-cannot-read-property-1348',
     'RegeneratorRuntime is not defined':
       'https://www.grafikart.fr/tutoriels/javascript-regeneratorruntime-1349'
   }
