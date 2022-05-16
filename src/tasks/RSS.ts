@@ -59,8 +59,8 @@ export default class RSS {
    */
   static message (item: FeedItem): string {
     let parts = item.title.split(':')
-    return `**<:grafikart:250692379638497280> Nouveau ${
-      parts[0]
+    return `**<:grafikart:250692379638497280> ${
+      parts[0] ? `Nouveau ${parts[0]}` : 'Nouvel article' 
     }** ${parts.slice(1).join(':')} ${item.link}`
   }
 }
