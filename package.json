@@ -34,7 +34,7 @@
     "npm-check-updates": "^13.0",
     "prettier-standard": "^16.4",
     "ts-jest": "^28.0",
-    "typescript": "^4.5"
+    "typescript": "^4.6"
   },
   "dependencies": {
     "cron": "^2.0",
