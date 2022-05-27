@@ -7,8 +7,8 @@ export default class CapslockFilter {
   filter (message: Message): boolean {
     if (this.isCapslock(message.content)) {
       message.channel
-          .send(`:scream_cat: Pas la peine de hurler <@!${message.author.id}>`)
-          .catch(console.error)
+        .send(`:scream_cat: Pas la peine de hurler <@!${message.author.id}>`)
+        .catch(console.error)
       return true
     }
     return false
@@ -20,10 +20,10 @@ export default class CapslockFilter {
 
   private isCapslock (content: string): boolean {
     return (
-        content === content.toUpperCase() &&
-        content.length > 15 &&
-        content.match(/[A-Z]{4,}/) !== null &&
-        !this.isOnlySmiley(content)
+      content === content.toUpperCase() &&
+      content.length > 15 &&
+      content.match(/[A-Z]{4,}/) !== null &&
+      !this.isOnlySmiley(content)
     )
   }
 }
