@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest'
 import { Message } from 'discord.js'
 import Bot from '../src/Bot'
 import { fakeMessage } from './helpers'
@@ -11,7 +12,7 @@ const generateCommand = function (name: string): ICommand {
       return
     }
   }
-  jest.spyOn(command, 'run')
+  vi.spyOn(command, 'run')
   return command
 }
 
@@ -23,7 +24,7 @@ const generateFilter = function (content: string): IFilter {
       return triggered
     }
   }
-  jest.spyOn(filter, 'filter')
+  vi.spyOn(filter, 'filter')
   return filter
 }
 

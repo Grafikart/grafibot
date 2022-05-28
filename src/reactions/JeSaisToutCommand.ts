@@ -12,6 +12,9 @@ export default class JeSaisToutCommand implements IReactionCommand {
   run(reaction: MessageReaction, member: GuildMember) {
     reaction.remove().catch(console.error);
     const author = reaction.message.author;
+    if (!author || !reaction.message.content) {
+      return;
+    }
     const quote = (str: string) =>
       str
         .split("\n")

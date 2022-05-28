@@ -92,7 +92,7 @@ export class RaidFilter implements IFilter {
         "Votre compte a été banni du serveur **Grafikart** en raison d'un nombre trop important de messages à la suite. En cas d'erreur vous pouvez le signaler par email https://grafikart.fr/contact"
       )
       .catch(() => null);
-    message.guild.members
+    message.guild?.members
       .ban(message.author, {
         days: 1,
         reason: `Raid "${message.content}"`,

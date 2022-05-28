@@ -6,9 +6,13 @@ export default class Logger implements ILogger {
 
   constructor (client: Client) {
     client.on('ready', () => {
-      this.channel = client.guilds.cache
+      const channel = client.guilds.cache
         .first()
-        .channels.cache.find(c => c.name === 'logs') as TextChannel
+        ?.channels.cache.find(c => c.name === 'logs')
+      if (!channel) {
+        throw new Error('Impossible de trouver le salon "logs"')
+      }
+      this.channel = channel as TextChannel
     })
   }
 

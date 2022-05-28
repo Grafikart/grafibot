@@ -15,7 +15,10 @@ export default class MuteCommand implements ICommand {
   }
 
   async run(message: Message, args: string[]) {
-    let member = message.mentions.members.first();
+    let member = message?.mentions?.members?.first();
+    if (!member) {
+      return;
+    }
     let reason = args.slice(1).join(" ");
     this.logger.log(
       `<@!${message.author.id}> a mute <@!${member.id}>\n **Raison :** ${reason}`

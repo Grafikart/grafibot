@@ -1,9 +1,10 @@
+import { vi } from 'vitest'
 import { Client, Guild, Message, MessageAttachment, MessageEmbed, TextChannel } from 'discord.js'
 
 process.on('unhandledRejection', () => null)
 
 const fakeMessage = function (content: string): any {
-  let client = new Client({intents: []})
+  let client = new Client({ intents: [] })
   // @ts-ignore
   let guild = new Guild(client, { emojis: [], id: 13123123 })
   // @ts-ignore
@@ -18,8 +19,8 @@ const fakeMessage = function (content: string): any {
       embeds: [],
       author: {
         id: 1242143123
-      },
-    },
+      }
+    }
   )
   const message = {
     client,
@@ -39,19 +40,19 @@ const fakeMessage = function (content: string): any {
     createDM: () => Promise.resolve(message)
   }
   // Spy everything
-  jest
+  vi
     .spyOn(message.channel, 'send')
     .mockImplementation(() => Promise.resolve(message))
-  jest
+  vi
     .spyOn(message, 'delete')
     .mockImplementation(() => Promise.resolve(message))
-  jest
+  vi
     .spyOn(message.member, 'timeout')
     .mockImplementation(() => Promise.resolve(''))
-  jest
+  vi
     .spyOn(message, 'reply')
     .mockImplementation(() => Promise.resolve(message))
-  jest
+  vi
     .spyOn(message.author, 'createDM')
     .mockImplementation(() => Promise.reject())
   return message

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { CapslockFilter } from "../../src/filters";
 import { fakeMessage } from "../helpers";
 

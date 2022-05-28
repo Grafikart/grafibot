@@ -14,39 +14,40 @@ export default class Premium {
   }
 
   static async syncPremiums() {
-    let role = this.client.guilds.cache
+    const role = this.client.guilds.cache
       .first()
-      .roles.cache.find((r) => r.name === "Premium");
-    let [discord, site] = await Promise.all([
+      ?.roles.cache.find((r) => r.name === "Premium");
+    const guild = this.client.guilds.cache.first();
+    if (!role || !guild) {
+      return;
+    }
+    const [discord, site] = await Promise.all([
       this.getPremiumsFromDiscord(role),
       this.getPremiumsFromSite(),
     ]);
-    let guild = this.client.guilds.cache.first();
-    let toRemove = arrayDiff(discord, site);
-    let toAdd = arrayDiff(site, discord);
-    toRemove.forEach((id) => {
-      let member = guild.members.cache.find((m) => m.id === id);
+    const toRemove = arrayDiff(discord, site);
+    const toAdd = arrayDiff(site, discord);
+    for (const id of toRemove) {
+      const member = guild.members.cache.find((m) => m.id === id);
       if (member) {
         member.roles.remove(role).catch();
       }
-    });
-    toAdd.forEach((id) => {
-      let member = guild.members.cache.find((m) => m.id === id);
+    }
+    for (const id of toAdd) {
+      const member = guild.members.cache.find((m) => m.id === id);
       if (member) {
         member.roles.add(role).catch();
       }
-    });
+    };
     setTimeout(this.syncPremiums.bind(this), 1000 * 60 * 10);
     return;
   }
 
   static async getPremiumsFromDiscord(role: Role): Promise<string[]> {
-    return this.client.guilds.cache
-      .first()
-      .members.cache.filter((member: GuildMember) =>
+    return this.client.guilds.cache.first()?.members.cache.filter((member: GuildMember) =>
         member.roles.cache.has(role.id)
       )
-      .map((member: GuildMember) => member.id);
+      .map((member: GuildMember) => member.id) ?? [];
   }
 
   static async getPremiumsFromSite(): Promise<string[]> {

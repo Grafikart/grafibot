@@ -10,7 +10,7 @@ type FeedItem = {
 
 export default class RSS {
   static url = 'https://www.grafikart.fr/feed.rss'
-  static lastTime: string = null
+  static lastTime: string|undefined
   static client: Client
 
   static connect (client: Client) {
@@ -40,12 +40,12 @@ export default class RSS {
     }
     let channel = this.client.guilds.cache
       .first()
-      .channels.cache.find(
+      ?.channels.cache.find(
         channel => channel.name === 'annonces'
       ) as TextChannel
     if (channel === undefined) return
     feed.items.forEach((item: FeedItem) => {
-      if (item.isoDate > this.lastTime) {
+      if (this.lastTime === undefined || item.isoDate > this.lastTime) {
         channel.send(this.message(item)).catch()
         this.lastTime = item.isoDate
       }

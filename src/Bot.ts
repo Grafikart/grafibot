@@ -23,8 +23,16 @@ export default class Bot {
     this.apiKey = apiKey;
     this.client = client;
     this.client.on("ready", () => {
-      let roles = this.client.guilds.cache.first().roles;
-      this.modoRole = roles.cache.find((r) => r.name === modoRole);
+      const guild = this.client.guilds.cache.first()
+      if (!guild) {
+        throw new Error('Impossible de récupérer les rôles')
+      }
+      let roles = guild.roles;
+      const foundModoRole = roles.cache.find((r) => r.name === modoRole);
+      if (foundModoRole === undefined) {
+        throw new Error('Impossible de récupérer le rôle modérateur')
+      }
+      this.modoRole = foundModoRole
       this.modos = this.modoRole.members.map((member) => member.id);
     });
     this.client.on("message", this.onMessage.bind(this));
@@ -76,6 +84,9 @@ export default class Bot {
    * @param {module:discord.js.Message} message
    */
   private onMessage(message: Message | PartialMessage) {
+    if (!message.author || !message.content) {
+      return;
+    }
     return (
       (this.client.user && message.author.id === this.client.user.id) ||
       (message.content.startsWith("!") && this.runCommand(message) !== false) ||
@@ -90,7 +101,7 @@ export default class Bot {
     const command = this.reactionCommands.find(function (c) {
       return (
         c.name === reaction.emoji.name ||
-        (c.support && c.support(reaction.emoji.name))
+        (c.support && c.support(reaction?.emoji?.name ?? ''))
       );
     });
     if (command === undefined) return false;
@@ -105,9 +116,12 @@ export default class Bot {
    * @param {module:discord.js.Message} message
    */
   private runCommand(message: Message | PartialMessage) {
+    if (!message.content || !message.member) {
+      return;
+    }
     const parts = message.content.split(" ");
     const commandName = parts[0].replace("!", "");
-    const command: ICommand = this.commands.find((c) => c.name === commandName);
+    const command = this.commands.find((c) => c.name === commandName);
     if (command === undefined) return false;
     if (command.admin === true && !this.isModo(message.member)) {
       return false;

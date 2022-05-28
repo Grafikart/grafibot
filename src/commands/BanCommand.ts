@@ -13,12 +13,14 @@ export default class BanCommand implements ICommand {
 
   run (message: Message, args: string[]) {
     let reason = args.slice(1).join(' ')
-    let member = message.mentions.members.first()
+    let member = message?.mentions?.members?.first()
+    if (!member) {
+      return;
+    }
     this.logger.log(
       `<@!${message.author.id}> a banni <@!${member.id}>\n **Raison :** ${reason}`
     )
-    message.mentions.members
-      .first()
+    member
       .ban({
         days: 7,
         reason: reason

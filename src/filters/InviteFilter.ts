@@ -8,6 +8,7 @@ import { sendDMorReply } from "../utils/helpers";
 export default class InviteFilter implements IFilter {
   filter(message: Message): boolean {
     if (
+      message.member &&
       message.content.match(
         /(discord\.(gg|io|me|li)|discordapp\.com\/(invite|oauth2))\/[0-9A-Za-z]+/i
       ) !== null

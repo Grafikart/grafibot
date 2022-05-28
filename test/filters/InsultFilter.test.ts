@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { fakeMessage } from "../helpers";
 import { InsultFilter } from "../../src/filters";
 

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import QuickCommand from '../../src/commands/QuickCommand'
 import { fakeMessage } from '../helpers'
 
