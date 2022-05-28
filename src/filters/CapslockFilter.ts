@@ -14,11 +14,16 @@ export default class CapslockFilter {
     return false
   }
 
+  private isOnlySmiley(content: string): boolean {
+    return content.match(/^\s*\<\:[A-Z0-9]+\:[0-9]+\>\s*(\<\:[A-Z0-9]+\:[0-9]+\>\s*)*$/gm) !== null
+  }
+
   private isCapslock (content: string): boolean {
     return (
       content === content.toUpperCase() &&
       content.length > 15 &&
-      content.match(/[A-Z]{4,}/) !== null
+      content.match(/[A-Z]{4,}/) !== null &&
+      !this.isOnlySmiley(content)
     )
   }
 }
