@@ -15,7 +15,7 @@ export default class CapslockFilter {
   }
 
   private isOnlySmiley(content: string): boolean {
-    return content.match(/^\<\:[A-Z0-9]+\:[0-9]+\>/gm) !== null
+    return content.match(/^\s*\<\:[A-Z0-9]+\:[0-9]+\>\s*(\<\:[A-Z0-9]+\:[0-9]+\>\s*)*$/gm) !== null
   }
 
   private isCapslock (content: string): boolean {

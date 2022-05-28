@@ -25,6 +25,11 @@ describe("CapslockFilter", () => {
     expect(filter.filter(message)).toBe(false)
   })
 
+  it("laisse passer les messages avec qu'un smiley en caps", () => {
+    let message = fakeMessage("<:THIS6:123456123456> JE SUIS EN CAPSLOCK")
+    expect(filter.filter(message)).toBe(true)
+  })
+
   it("laisse passer les messages avec des smiley en caps", () => {
     let message = fakeMessage(
       "<:THIS6:123456123456> <:THIS6:123456123456> <:THIS6:123456123456> <:THIS6:123456123456>"
