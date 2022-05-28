@@ -19,7 +19,7 @@ export default class ReportCommand implements IReactionCommand {
       (r) => r.name === modoRole
     );
     if (!modos || !reaction?.message?.guild?.id) {
-      return
+      return;
     }
     const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`;
     this.logger.log(`${modos.toString()} <@!${

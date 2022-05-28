@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from "vitest";
 import { CapslockFilter } from "../../src/filters";
 import { fakeMessage } from "../helpers";
 
@@ -22,29 +22,29 @@ describe("CapslockFilter", () => {
   });
 
   it("laisse passer les messages avec qu'un smiley en caps", () => {
-    let message = fakeMessage("<:THIS6:123456123456>")
-    expect(filter.filter(message)).toBe(false)
-  })
+    let message = fakeMessage("<:THIS6:123456123456>");
+    expect(filter.filter(message)).toBe(false);
+  });
 
   it("laisse passer les messages avec qu'un smiley en caps", () => {
-    let message = fakeMessage("<:THIS6:123456123456> JE SUIS EN CAPSLOCK")
-    expect(filter.filter(message)).toBe(true)
-  })
+    let message = fakeMessage("<:THIS6:123456123456> JE SUIS EN CAPSLOCK");
+    expect(filter.filter(message)).toBe(true);
+  });
 
   it("laisse passer les messages avec des smiley en caps", () => {
     let message = fakeMessage(
       "<:THIS6:123456123456> <:THIS6:123456123456> <:THIS6:123456123456> <:THIS6:123456123456>"
-    )
-    expect(filter.filter(message)).toBe(false)
-  })
+    );
+    expect(filter.filter(message)).toBe(false);
+  });
 
   it("ne laisse passer les messages avec des smiley et un message en caps", () => {
-    let message = fakeMessage("ÇA URGE PAR CONTRE <:THIS6:123456123456>")
-    expect(filter.filter(message)).toBe(true)
-  })
+    let message = fakeMessage("ÇA URGE PAR CONTRE <:THIS6:123456123456>");
+    expect(filter.filter(message)).toBe(true);
+  });
 
   it("laisse passer le messages avec un smiley en caps et un message normal", () => {
-    let message = fakeMessage("svp j'ai besoin d'aide <:THIS6:123456123456>")
-    expect(filter.filter(message)).toBe(false)
-  })
+    let message = fakeMessage("svp j'ai besoin d'aide <:THIS6:123456123456>");
+    expect(filter.filter(message)).toBe(false);
+  });
 });

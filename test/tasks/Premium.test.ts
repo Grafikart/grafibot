@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, test} from 'vitest'
+import { describe, it, expect, beforeEach, vi, test } from "vitest";
 import Premium from "../../src/tasks/Premium";
 import { Client, Collection } from "discord.js";
 
@@ -20,12 +20,12 @@ for (let i = 0; i < 10; i++) {
 describe("Premium", function () {
   beforeEach(() => {
     Premium.connect(new Client({ intents: [] }), { log: () => null });
-    vi
-      .spyOn(Premium, "getPremiumsFromSite")
-      .mockImplementation(() => Promise.resolve(["1", "2", "3", "4"]));
-    vi
-      .spyOn(Premium, "getPremiumsFromDiscord")
-      .mockImplementation(() => Promise.resolve(["4", "5"]));
+    vi.spyOn(Premium, "getPremiumsFromSite").mockImplementation(() =>
+      Promise.resolve(["1", "2", "3", "4"])
+    );
+    vi.spyOn(Premium, "getPremiumsFromDiscord").mockImplementation(() =>
+      Promise.resolve(["4", "5"])
+    );
     // @ts-ignore
     vi.spyOn(Premium.client.guilds.cache, "first").mockImplementation(() => ({
       members: { cache: members },

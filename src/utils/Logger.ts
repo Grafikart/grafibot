@@ -1,25 +1,25 @@
-import { Client, TextChannel } from 'discord.js'
-import { ILogger } from '../interfaces'
+import { Client, TextChannel } from "discord.js";
+import { ILogger } from "../interfaces";
 
 export default class Logger implements ILogger {
-  private channel: TextChannel
+  private channel: TextChannel;
 
-  constructor (client: Client) {
-    client.on('ready', () => {
+  constructor(client: Client) {
+    client.on("ready", () => {
       const channel = client.guilds.cache
         .first()
-        ?.channels.cache.find(c => c.name === 'logs')
+        ?.channels.cache.find((c) => c.name === "logs");
       if (!channel) {
-        throw new Error('Impossible de trouver le salon "logs"')
+        throw new Error('Impossible de trouver le salon "logs"');
       }
-      this.channel = channel as TextChannel
-    })
+      this.channel = channel as TextChannel;
+    });
   }
 
-  async log (message: string) {
+  async log(message: string) {
     if (this.channel) {
-      return this.channel.send(message)
+      return this.channel.send(message);
     }
-    return
+    return;
   }
 }

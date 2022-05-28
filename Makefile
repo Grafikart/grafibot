@@ -23,7 +23,7 @@ dev: build
 
 .PHONY: test
 test: lint
-	npx jest --forceExit --verbose --runInBand
+	npm run test
 
 .PHONY: wtest
 wtest: lint
@@ -31,7 +31,7 @@ wtest: lint
 
 .PHONY: lint
 lint:
-	npx prettier-standard --format "**/*.ts"
+	npx prettier --write .
 
 node_modules:
 	pnpm i

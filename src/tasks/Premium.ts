@@ -38,16 +38,20 @@ export default class Premium {
       if (member) {
         member.roles.add(role).catch();
       }
-    };
+    }
     setTimeout(this.syncPremiums.bind(this), 1000 * 60 * 10);
     return;
   }
 
   static async getPremiumsFromDiscord(role: Role): Promise<string[]> {
-    return this.client.guilds.cache.first()?.members.cache.filter((member: GuildMember) =>
-        member.roles.cache.has(role.id)
-      )
-      .map((member: GuildMember) => member.id) ?? [];
+    return (
+      this.client.guilds.cache
+        .first()
+        ?.members.cache.filter((member: GuildMember) =>
+          member.roles.cache.has(role.id)
+        )
+        .map((member: GuildMember) => member.id) ?? []
+    );
   }
 
   static async getPremiumsFromSite(): Promise<string[]> {

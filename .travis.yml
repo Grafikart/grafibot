@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-  - '14'
-cache: yarn
-script:
-  - yarn install --silent
-  - make test

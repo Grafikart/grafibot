@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from "vitest";
 import { fakeMessage } from "../helpers";
 import { CodeFilter } from "../../src/filters";
 
