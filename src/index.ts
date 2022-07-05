@@ -89,7 +89,7 @@ bot
   // .addFilter(new InsultFilter())
   // .addFilter(new QuestionFilter())
   .addFilter(new CodeFilter())
-  .addFilter(new SyntaxFilter(syntax))
+  // .addFilter(new SyntaxFilter(syntax))
   .addFilter(new InviteFilter())
   .addFilter(new RaidFilter(logger))
   .connect()
