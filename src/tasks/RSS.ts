@@ -12,16 +12,14 @@ type FeedItem = {
 export default class RSS {
   static url = "https://www.grafikart.fr/feed.rss";
   static client: Client;
-  static parser: RSSParser
 
-  static connect(client: Client, parser = new RSSParser()) {
+  static connect(client: Client) {
     let job = new CronJob(
       "0 2 10-18 * * *",
       this.parseRSS.bind(this),
       null,
       false
     );
-    this.parser = parser
     this.client = client;
     this.client.on("ready", () => {
       job.start();
@@ -34,7 +32,7 @@ export default class RSS {
    * @returns {Promise<void>}
    */
   static async parseRSS() {
-    let feed = await this.parser.parseURL(this.url);
+    let feed = await new RSSParser().parseURL(this.url);
     let lastTime = Options.get('rssLastTime');
     if (lastTime === null) {
       lastTime = feed.items[0].isoDate!;
