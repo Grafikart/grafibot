@@ -1,6 +1,7 @@
 import RSSParser from "rss-parser";
 import { Client, TextChannel } from "discord.js";
 import { CronJob } from "cron";
+import { Options } from '../utils/Options'
 
 type FeedItem = {
   link: string;
@@ -10,16 +11,17 @@ type FeedItem = {
 
 export default class RSS {
   static url = "https://www.grafikart.fr/feed.rss";
-  static lastTime: string | undefined;
   static client: Client;
+  static parser: RSSParser
 
-  static connect(client: Client) {
+  static connect(client: Client, parser = new RSSParser()) {
     let job = new CronJob(
       "0 2 10-18 * * *",
       this.parseRSS.bind(this),
       null,
       false
     );
+    this.parser = parser
     this.client = client;
     this.client.on("ready", () => {
       job.start();
@@ -32,10 +34,11 @@ export default class RSS {
    * @returns {Promise<void>}
    */
   static async parseRSS() {
-    let parser = new RSSParser();
-    let feed = await parser.parseURL(this.url);
-    if (this.lastTime === null) {
-      this.lastTime = feed.items[0].isoDate;
+    let feed = await this.parser.parseURL(this.url);
+    let lastTime = Options.get('rssLastTime');
+    if (lastTime === null) {
+      lastTime = feed.items[0].isoDate!;
+      Options.set('rssLastTime', lastTime)
       return;
     }
     let channel = this.client.guilds.cache
@@ -45,9 +48,9 @@ export default class RSS {
       ) as TextChannel;
     if (channel === undefined) return;
     feed.items.forEach((item: FeedItem) => {
-      if (this.lastTime === undefined || item.isoDate > this.lastTime) {
+      if (lastTime === undefined || item.isoDate > lastTime) {
         channel.send(this.message(item)).catch();
-        this.lastTime = item.isoDate;
+        Options.set('rssLastTime', item.isoDate);
       }
     });
   }

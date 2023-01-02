@@ -16,16 +16,6 @@ const fakeMessage = function (content: string): any {
   let guild = new Guild(client, { emojis: [], id: 13123123 });
   // @ts-ignore
   let channel = new TextChannel(guild, { id: 123123 });
-  // @ts-ignore
-  let messagee = new Message(client, {
-    content,
-    id: 1241244,
-    attachments: [],
-    embeds: [],
-    author: {
-      id: 1242143123,
-    },
-  });
   const message = {
     client,
     content,
@@ -55,6 +45,7 @@ const fakeMessage = function (content: string): any {
   );
   vi.spyOn(message, "reply").mockImplementation(() => Promise.resolve(message));
   vi.spyOn(message.author, "createDM").mockImplementation(() =>
+    // @ts-ignore
     Promise.reject()
   );
   return message;

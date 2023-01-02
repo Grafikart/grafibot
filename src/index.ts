@@ -8,7 +8,6 @@ import {
   BanCommand,
 } from "./commands";
 import { Client, Intents } from "discord.js";
-import { syntax } from "./config";
 import Logger from "./utils/Logger";
 import {
   CapslockFilter,
