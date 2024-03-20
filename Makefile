@@ -5,21 +5,11 @@ deploy: ## Déploie une nouvelle version du site
 .PHONY: install
 install:
 	git pull origin master
-	make build
 	pm2 start --env production ecosystem.config.cjs
 
-.PHONY: build
-build: node_modules
-	npm run build
-
 .PHONY: dev
-dev: build
-	npx concurrently -k \
-		-p "[{name}]" \
-		-n "TypeScript,Node" \
-		-c "yellow.bold,cyan.bold,green.bold" \
-		"npx tsc -w" \
-		"npx nodemon --inspect dist/index.js"
+dev:
+	bun --watch src/index.ts
 
 .PHONY: test
 test: lint

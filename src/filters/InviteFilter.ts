@@ -1,16 +1,16 @@
 import { Message } from "discord.js";
-import { IFilter } from "../interfaces";
+import type { IFilter } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
 /**
  * Evite les liens vers d'autres salon discord
  */
-export default class InviteFilter implements IFilter {
+export class InviteFilter implements IFilter {
   filter(message: Message): boolean {
     if (
       message.member &&
       message.content.match(
-        /(discord\.(gg|io|me|li)|discordapp\.com\/(invite|oauth2))\/[0-9A-Za-z]+/i
+        /(discord\.(gg|io|me|li)|discordapp\.com\/(invite|oauth2))\/[0-9A-Za-z]+/i,
       ) !== null
     ) {
       message.member
@@ -18,8 +18,8 @@ export default class InviteFilter implements IFilter {
         .then(() =>
           sendDMorReply(
             message,
-            "Les liens d'invitation discord sont interdit sur ce serveur"
-          )
+            "Les liens d'invitation discord sont interdit sur ce serveur",
+          ),
         )
         .then(() => message.delete())
         .catch(console.error);

@@ -1,11 +1,11 @@
-import { Message, PartialMessage } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 /**
  * Envoie un message en privée ou sur le channel si les MP sont désactivés
  */
 export const sendDMorReply = async function (
   message: PartialMessage | Message,
-  content: string
+  content: string,
 ): Promise<any> {
   return message.author
     ?.createDM()
@@ -18,7 +18,7 @@ export const sendDMorReply = async function (
  */
 export const sendDMorReplyAutoDelete = async function (
   message: Message,
-  content: string
+  content: string,
 ): Promise<any> {
   return message.author
     .createDM()

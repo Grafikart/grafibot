@@ -1,16 +1,16 @@
 import {
   Collection,
+  EmbedBuilder,
   Message,
-  MessageEmbed,
   NewsChannel,
   User,
 } from "discord.js";
-import { ICommand, ILogger } from "../interfaces";
+import type { ICommand, ILogger } from "../interfaces";
 
 /**
  * Supprime plusieurs messages
  */
-export default class CleanCommand implements ICommand {
+export class CleanCommand implements ICommand {
   public name = "clean";
   public description = 'Permet de supprimer X messages, ex: "!clean !messages"';
   public admin = true;
@@ -27,11 +27,17 @@ export default class CleanCommand implements ICommand {
       limit: limit,
     });
     if (reason) {
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setImage("https://media.giphy.com/media/6NtM0tLYeLwT6/giphy.gif")
         .setColor("#c62828")
-        .addField("Message supprimés", messages.size.toString(), true)
-        .addField("Raison", reason, true);
+        .addFields([
+          {
+            name: "Message supprimés",
+            value: messages.size.toString(),
+            inline: true,
+          },
+          { name: "Raison", value: reason, inline: true },
+        ]);
       message.channel.send({ embeds: [embed] }).catch(console.error);
     } else if (limit <= 5) {
       this.log(message.author, messages).catch(console.error);

@@ -2,7 +2,8 @@ module.exports = {
   apps: [
     {
       name: "Grafibot",
-      script: "dist/index.js",
+      script: "src/index.ts",
+      interpreter: '~/.bun/bin/bun',
       env: {
         NODE_ENV: "development",
       },

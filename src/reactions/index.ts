@@ -1,6 +1,4 @@
-import ReportCommand from "./ReportCommand";
-import SecCommand from "./SecCommand";
-import JeSaisToutCommand from "./JeSaisToutCommand";
-import RuleCommand from "./RuleCommand";
-
-export { ReportCommand, SecCommand, JeSaisToutCommand, RuleCommand };
+export { ReportCommand } from "./ReportCommand";
+export { SecCommand } from "./SecCommand";
+export { JeSaisToutCommand } from "./JeSaisToutCommand";
+export { RuleCommand } from "./RuleCommand";

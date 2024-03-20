@@ -1,8 +1,8 @@
 import { Client, TextChannel } from "discord.js";
-import { ILogger } from "../interfaces";
+import type { ILogger } from "../interfaces";
 
 export default class Logger implements ILogger {
-  private channel: TextChannel;
+  private channel?: TextChannel;
 
   constructor(client: Client) {
     client.on("ready", () => {

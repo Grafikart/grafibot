@@ -1,5 +1,10 @@
-import { IFilter, ILogger } from "../interfaces";
-import { Message, MessageReaction, TextChannel } from "discord.js";
+import type { IFilter, ILogger } from "../interfaces";
+import {
+  Message,
+  MessageReaction,
+  type PartialMessageReaction,
+  TextChannel,
+} from "discord.js";
 import flru from "flru";
 import { append } from "../utils/list";
 
@@ -23,7 +28,7 @@ export class RaidFilter implements IFilter {
     const timeStampList = append(
       this.cache.get(message.author.id) ?? [],
       Date.now() / 1000,
-      this.limit
+      this.limit,
     );
     if (timeStampList.length >= this.limit) {
       const delay = timeStampList[timeStampList.length - 1] - timeStampList[0];
@@ -44,15 +49,15 @@ export class RaidFilter implements IFilter {
     try {
       const channel = message.channel as TextChannel;
       this.logger.log(
-        `Verouillage du salon #${channel.name} à cause du message ${message.url}`
+        `Verouillage du salon #${channel.name} à cause du message ${message.url}`,
       );
       // On bloque la possibilité d'écrire sur le salon
       await channel.permissionOverwrites
-        .edit(channel.guild.roles.everyone, { SEND_MESSAGES: false })
+        .edit(channel.guild.roles.everyone, { SendMessages: false })
         .catch(this.logger.log);
       // On lance le vote
       const reply = await message.reply(
-        "a posté trop de message rapidement. Est-ce un bot ? Oui 🇴 / Non : 🇳"
+        "a posté trop de message rapidement. Est-ce un bot ? Oui 🇴 / Non : 🇳",
       );
       reply.react("🇴").catch(this.logger.log);
       reply.react("🇳").catch(this.logger.log);
@@ -62,10 +67,10 @@ export class RaidFilter implements IFilter {
         this.endVerification(reply);
       }, this.voteDuration * 1000);
       // Ou lorsque le nombre de vote positif dépasse le threshold
-      const listener = (reaction: MessageReaction) => {
+      const listener = (reaction: MessageReaction | PartialMessageReaction) => {
         if (
           reaction.emoji.name === "🇴" &&
-          reaction.count >= this.voteThreshold &&
+          (reaction.count ?? 0) >= this.voteThreshold &&
           reaction.message.id === reply.id
         ) {
           this.endVerification(reply);
@@ -85,16 +90,16 @@ export class RaidFilter implements IFilter {
    */
   private ban(message: Message) {
     this.logger.log(
-      `Ban pour raid ${message.author.toString()} : \n\n ${message.content}`
+      `Ban pour raid ${message.author.toString()} : \n\n ${message.content}`,
     );
     message.author
       .send(
-        "Votre compte a été banni du serveur **Grafikart** en raison d'un nombre trop important de messages à la suite. En cas d'erreur vous pouvez le signaler par email https://grafikart.fr/contact"
+        "Votre compte a été banni du serveur **Grafikart** en raison d'un nombre trop important de messages à la suite. En cas d'erreur vous pouvez le signaler par email https://grafikart.fr/contact",
       )
       .catch(() => null);
     message.guild?.members
       .ban(message.author, {
-        days: 1,
+        deleteMessageSeconds: 60 * 60 * 24,
         reason: `Raid "${message.content}"`,
       })
       .catch(this.logger.log);
@@ -105,14 +110,14 @@ export class RaidFilter implements IFilter {
    */
   private async endVerification(message: Message) {
     this.logger.log(
-      `Deverouillage du salon #${(message.channel as TextChannel).name}`
+      `Deverouillage du salon #${(message.channel as TextChannel).name}`,
     );
     this.locked = false;
     try {
       await message.delete();
       const channel = message.channel as TextChannel;
       channel.permissionOverwrites
-        .edit(channel.guild.roles.everyone, { SEND_MESSAGES: null })
+        .edit(channel.guild.roles.everyone, { SendMessages: null })
         .catch(this.logger.log);
     } catch (e) {
       this.logger.log(e);

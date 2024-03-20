@@ -1,7 +1,7 @@
-import { ICommand, ILogger } from "../interfaces";
+import type { ICommand, ILogger } from "../interfaces";
 import { Message } from "discord.js";
 
-export default class BanCommand implements ICommand {
+export class BanCommand implements ICommand {
   readonly name = "ban";
   readonly description = "Permet de bannir un utilisateur";
   readonly admin = true;
@@ -18,11 +18,11 @@ export default class BanCommand implements ICommand {
       return;
     }
     this.logger.log(
-      `<@!${message.author.id}> a banni <@!${member.id}>\n **Raison :** ${reason}`
+      `<@!${message.author.id}> a banni <@!${member.id}>\n **Raison :** ${reason}`,
     );
     member
       .ban({
-        days: 7,
+        deleteMessageSeconds: 7 * 24 * 60 * 60,
         reason: reason,
       })
       .catch();

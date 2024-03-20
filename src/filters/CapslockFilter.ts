@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 /**
  * Evite les capslock
  */
-export default class CapslockFilter {
+export class CapslockFilter {
   filter(message: Message): boolean {
     if (this.isCapslock(message.content)) {
       message.channel
@@ -17,7 +17,7 @@ export default class CapslockFilter {
   private isOnlySmiley(content: string): boolean {
     return (
       content.match(
-        /^\s*\<\:[A-Z0-9]+\:[0-9]+\>\s*(\<\:[A-Z0-9]+\:[0-9]+\>\s*)*$/gm
+        /^\s*\<\:[A-Z0-9]+\:[0-9]+\>\s*(\<\:[A-Z0-9]+\:[0-9]+\>\s*)*$/gm,
       ) !== null
     );
   }

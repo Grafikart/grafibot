@@ -1,15 +1,15 @@
-import { GuildMember, MessageReaction } from "discord.js";
-import { IReactionCommand } from "../interfaces";
+import { MessageReaction } from "discord.js";
+import type { IReactionCommand } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
 /**
  * Supprime plusieurs messages
  */
-export default class JeSaisToutCommand implements IReactionCommand {
+export class JeSaisToutCommand implements IReactionCommand {
   public name = "brain";
   public admin = true;
 
-  run(reaction: MessageReaction, member: GuildMember) {
+  run(reaction: MessageReaction) {
     reaction.remove().catch(console.error);
     const author = reaction.message.author;
     if (!author || !reaction.message.content) {

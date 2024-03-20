@@ -1,12 +1,13 @@
-import {
+import type {
   GuildMember,
   Message,
   MessageReaction,
   PartialMessage,
+  PartialMessageReaction,
 } from "discord.js";
 
 export interface ILogger {
-  log(message: string): void;
+  log(message: unknown): void;
 }
 
 export interface ICommand {
@@ -21,7 +22,10 @@ export interface IReactionCommand {
   readonly name?: string;
   readonly admin?: boolean;
 
-  run(reaction: MessageReaction, member: GuildMember): any;
+  run(
+    reaction: MessageReaction | PartialMessageReaction,
+    member: GuildMember,
+  ): any;
   support?(reactionName: string): boolean;
 }
 

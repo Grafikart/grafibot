@@ -1,7 +1,7 @@
-import { ICommand } from "../interfaces";
+import type { ICommand } from "../interfaces";
 import { Message } from "discord.js";
 
-export default class QuickCommand implements ICommand {
+export class QuickCommand implements ICommand {
   public name: string;
   public description: string;
   private message: string;
@@ -25,7 +25,7 @@ export default class QuickCommand implements ICommand {
         this.message
           .replace("@user", user)
           .replace("@content", content)
-          .replace("@url:content", encodeURIComponent(content))
+          .replace("@url:content", encodeURIComponent(content)),
       )
       .catch();
   }

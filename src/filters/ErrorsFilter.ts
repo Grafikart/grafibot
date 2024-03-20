@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 /**
  * Vérifie si le message est une erreur connue
  */
-export default class ErrorsFilter {
+export class ErrorsFilter {
   private errors: { [key: string]: string } = {
     "Cannot modify header information - headers already sent by":
       "https://www.grafikart.fr/tutoriels/headers-already-sent-871",
@@ -23,12 +23,12 @@ export default class ErrorsFilter {
 
   filter(message: Message): boolean {
     let error = Object.keys(this.errors).find(
-      (e) => message.content.match(new RegExp(e, "i")) !== null
+      (e) => message.content.match(new RegExp(e, "i")) !== null,
     );
     if (error) {
       message.channel
         .send(
-          `:mag_right: Hey je connais cette erreur <@!${message.author.id}> ! N'hésite pas à regarder cette vidéo elle t'aidera à mieux comprendre de quoi il en retourne ${this.errors[error]}`
+          `:mag_right: Hey je connais cette erreur <@!${message.author.id}> ! N'hésite pas à regarder cette vidéo elle t'aidera à mieux comprendre de quoi il en retourne ${this.errors[error]}`,
         )
         .catch(console.error);
       return true;

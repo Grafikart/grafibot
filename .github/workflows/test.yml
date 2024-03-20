@@ -8,14 +8,8 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         node-version: [17.x]
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn
-      - name: test
-        run: yarn run test
-        env:
-          CI: true
-          NOVE_ENV: test
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun run check
+      - run: bun run test

@@ -1,9 +1,8 @@
 import { Client, GuildMember, Role } from "discord.js";
 import { arrayDiff } from "../utils/helpers";
-import { ILogger } from "../interfaces";
-import got from "got";
+import type { ILogger } from "../interfaces";
 
-export default class Premium {
+export class Premium {
   static client: Client;
   static logger: ILogger;
 
@@ -48,14 +47,15 @@ export default class Premium {
       this.client.guilds.cache
         .first()
         ?.members.cache.filter((member: GuildMember) =>
-          member.roles.cache.has(role.id)
+          member.roles.cache.has(role.id),
         )
         .map((member: GuildMember) => member.id) ?? []
     );
   }
 
   static async getPremiumsFromSite(): Promise<string[]> {
-    const response = await got("https://grafikart.fr/api/discord/premium");
-    return JSON.parse(response.body);
+    return fetch("https://grafikart.fr/api/discord/premium").then((r) =>
+      r.json(),
+    );
   }
 }

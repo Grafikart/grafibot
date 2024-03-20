@@ -1,7 +1,7 @@
-import { ILogger, IReactionCommand } from "../interfaces";
-import { GuildMember, MessageReaction } from "discord.js";
+import type { ILogger, IReactionCommand } from "../interfaces";
+import { MessageReaction } from "discord.js";
 
-export default class RuleCommand implements IReactionCommand {
+export class RuleCommand implements IReactionCommand {
   buffer: string[] = []; // Mémorise les messages pour éviter les doublons
   logger: ILogger;
 
@@ -13,7 +13,7 @@ export default class RuleCommand implements IReactionCommand {
     return ["0️⃣", "2️⃣", "3️⃣", "5️⃣", "6️⃣", "7️⃣"].includes(reactionName);
   }
 
-  run(reaction: MessageReaction, member: GuildMember): any {
+  run(reaction: MessageReaction): any {
     let message = null;
     switch (reaction.emoji.name) {
       case "0️⃣":
@@ -44,10 +44,10 @@ export default class RuleCommand implements IReactionCommand {
       }
       const permalink = `https://discordapp.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`;
       this.logger.log(
-        `<@!${reactionOwnerId}> a utilisé le bot pour la règle ${reaction.emoji.name} sur le message ${permalink}`
+        `<@!${reactionOwnerId}> a utilisé le bot pour la règle ${reaction.emoji.name} sur le message ${permalink}`,
       );
       reaction.message.reply(
-        `:robot: **règle ${reaction.emoji.name}** : ${message}`
+        `:robot: **règle ${reaction.emoji.name}** : ${message}`,
       );
       this.bufferPush(reaction.message.id);
       reaction.remove();

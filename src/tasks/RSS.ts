@@ -1,7 +1,7 @@
 import RSSParser from "rss-parser";
 import { Client, TextChannel } from "discord.js";
 import { CronJob } from "cron";
-import { Options } from '../utils/Options'
+import { Options } from "../utils/Options";
 
 type FeedItem = {
   link: string;
@@ -9,7 +9,7 @@ type FeedItem = {
   title: string;
 };
 
-export default class RSS {
+export class RSS {
   static url = "https://www.grafikart.fr/feed.rss";
   static client: Client;
 
@@ -18,7 +18,7 @@ export default class RSS {
       "0 2 10-18 * * *",
       this.parseRSS.bind(this),
       null,
-      false
+      false,
     );
     this.client = client;
     this.client.on("ready", () => {
@@ -33,22 +33,22 @@ export default class RSS {
    */
   static async parseRSS() {
     let feed = await new RSSParser().parseURL(this.url);
-    let lastTime = Options.get('rssLastTime');
+    let lastTime = Options.get("rssLastTime");
     if (lastTime === null) {
       lastTime = feed.items[0].isoDate!;
-      Options.set('rssLastTime', lastTime)
+      Options.set("rssLastTime", lastTime);
       return;
     }
     let channel = this.client.guilds.cache
       .first()
       ?.channels.cache.find(
-        (channel) => channel.name === "annonces"
+        (channel) => channel.name === "annonces",
       ) as TextChannel;
     if (channel === undefined) return;
     feed.items.forEach((item: FeedItem) => {
       if (lastTime === undefined || item.isoDate > lastTime) {
         channel.send(this.message(item)).catch();
-        Options.set('rssLastTime', item.isoDate);
+        Options.set("rssLastTime", item.isoDate);
       }
     });
   }

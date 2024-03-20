@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
-import { IFilter } from "../interfaces";
+import type { IFilter } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
-export default class CodeFilter implements IFilter {
+export class CodeFilter implements IFilter {
   filter(message: Message) {
     if (
       message.content &&
@@ -17,7 +17,7 @@ Pour rappel voila le message que tu as essayé d'envoyer :
 
 \`\`\`
 ${message.cleanContent}
-\`\`\``
+\`\`\``,
       )
         .catch()
         .then(() => message.delete())

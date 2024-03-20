@@ -1,10 +1,10 @@
-import { IFilter } from "../interfaces";
+import type { IFilter } from "../interfaces";
 import { Message } from "discord.js";
 import { sendDMorReplyAutoDelete } from "../utils/helpers";
 
 type ISyntaxes = { [key: string]: RegExp };
 
-export default class SyntaxFilter implements IFilter {
+export class SyntaxFilter implements IFilter {
   private syntaxes: ISyntaxes;
 
   constructor(syntaxes: ISyntaxes) {
@@ -21,7 +21,7 @@ export default class SyntaxFilter implements IFilter {
         `:octagonal_sign: Votre message a été supprimé car il ne respecte pas le format imposé par le channel
 \`\`\`
 ${message.cleanContent}
-\`\`\``
+\`\`\``,
       ).catch();
       message.delete().catch();
       return true;

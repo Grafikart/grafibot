@@ -1,10 +1,10 @@
-import { IFilter } from "../interfaces";
+import type { IFilter } from "../interfaces";
 import { Message } from "discord.js";
 
 /**
  * Réagit au message ne contenant qu'une mention "@user"
  */
-export default class MentionFilter implements IFilter {
+export class MentionFilter implements IFilter {
   private regexp = /^\<\@([0-9]+)\>$/i;
 
   filter(message: Message): boolean {
@@ -14,7 +14,7 @@ export default class MentionFilter implements IFilter {
     ) {
       message.channel
         .send(
-          `:robot: Merci de ne pas mentionner un autre utilisateur sans message <@!${message.author.id}>`
+          `:robot: Merci de ne pas mentionner un autre utilisateur sans message <@!${message.author.id}>`,
         )
         .catch();
       return true;

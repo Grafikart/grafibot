@@ -1,11 +1,11 @@
 import { GuildMember, MessageReaction } from "discord.js";
-import { ILogger, IReactionCommand } from "../interfaces";
+import type { ILogger, IReactionCommand } from "../interfaces";
 import { modoRole } from "../config";
 
 /**
  * Supprime plusieurs messages
  */
-export default class ReportCommand implements IReactionCommand {
+export class ReportCommand implements IReactionCommand {
   public name = "report";
   private logger: ILogger;
 
@@ -16,7 +16,7 @@ export default class ReportCommand implements IReactionCommand {
   run(reaction: MessageReaction, member: GuildMember) {
     reaction.remove().catch(console.error);
     const modos = reaction?.message?.guild?.roles.cache.find(
-      (r) => r.name === modoRole
+      (r) => r.name === modoRole,
     );
     if (!modos || !reaction?.message?.guild?.id) {
       return;

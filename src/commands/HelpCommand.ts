@@ -1,12 +1,12 @@
 import { Message } from "discord.js";
-import { ICommand } from "../interfaces";
+import type { ICommand } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
 interface ICommandList {
   [name: string]: string;
 }
 
-export default class HelpCommand implements ICommand {
+export class HelpCommand implements ICommand {
   public name = "help";
   public description = "Affiche cette aide";
   private commands: ICommand[] = [];
@@ -15,17 +15,16 @@ export default class HelpCommand implements ICommand {
     this.commands = commands;
   }
 
-  public async run(message: Message, args: string[]) {
+  public async run(message: Message) {
     let commands: ICommandList = this.commands.reduce(function (
       acc: ICommandList,
-      command
+      command,
     ) {
       if (command.admin !== true) {
         acc[command.name] = command.description;
       }
       return acc;
-    },
-    {});
+    }, {});
     let commandsName = Object.keys(commands).sort();
     let help = commandsName
       .map(function (name) {
@@ -38,7 +37,7 @@ export default class HelpCommand implements ICommand {
 
 ${help}
 
-Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`
+Un bug / un problème avec le bot ? https://github.com/Grafikart/grafibot/issues`,
     );
   }
 }

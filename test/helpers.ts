@@ -1,12 +1,5 @@
 import { vi } from "vitest";
-import {
-  Client,
-  Guild,
-  Message,
-  MessageAttachment,
-  MessageEmbed,
-  TextChannel,
-} from "discord.js";
+import { Client, Guild, TextChannel } from "discord.js";
 
 process.on("unhandledRejection", () => null);
 
@@ -15,13 +8,13 @@ const fakeMessage = function (content: string): any {
   // @ts-ignore
   let guild = new Guild(client, { emojis: [], id: 13123123 });
   // @ts-ignore
-  let channel = new TextChannel(guild, { id: 123123 });
+  let channel = new TextChannel(guild, { id: 123123 }, client);
   const message = {
     client,
     content,
     id: 1241244,
-    attachments: [] as MessageAttachment[],
-    embed: [] as MessageEmbed[],
+    attachments: [],
+    embed: [],
     member: {
       timeout: () => Promise.resolve(""),
     },
@@ -35,18 +28,18 @@ const fakeMessage = function (content: string): any {
   };
   // Spy everything
   vi.spyOn(message.channel, "send").mockImplementation(() =>
-    Promise.resolve(message)
+    Promise.resolve(message),
   );
   vi.spyOn(message, "delete").mockImplementation(() =>
-    Promise.resolve(message)
+    Promise.resolve(message),
   );
   vi.spyOn(message.member, "timeout").mockImplementation(() =>
-    Promise.resolve("")
+    Promise.resolve(""),
   );
   vi.spyOn(message, "reply").mockImplementation(() => Promise.resolve(message));
   vi.spyOn(message.author, "createDM").mockImplementation(() =>
     // @ts-ignore
-    Promise.reject()
+    Promise.reject(),
   );
   return message;
 };

@@ -1,14 +1,14 @@
 import { describe, it, expect, vi } from "vitest";
-import { Message } from "discord.js";
+import { ChannelType, Message } from "discord.js";
 import Bot from "../src/Bot";
 import { fakeMessage } from "./helpers";
-import { ICommand, IFilter } from "../src/interfaces";
+import type { ICommand, IFilter } from "../src/interfaces";
 
 const generateCommand = function (name: string): ICommand {
   let command = {
     name: name,
     description: name,
-    run(msg: Message, args: string[]): void {
+    run(): void {
       return;
     },
   };
@@ -35,7 +35,7 @@ describe("Commands", function () {
   bot.addCommand(command);
 
   it("should detect command", function () {
-    message.client.emit("message", message);
+    message.client.emit("messageCreate", message);
     expect(command.run).toHaveBeenCalledWith(message, ["a1", "a2"]);
   });
 });
@@ -48,7 +48,7 @@ describe("Filters", function () {
     let bot = new Bot(message.client);
     bot.addFilter(filtera);
     bot.addFilter(filterb);
-    message.client.emit("message", message);
+    message.client.emit("messageCreate", message);
     expect(message.channel.send).not.toHaveBeenCalled();
   });
 
@@ -59,18 +59,18 @@ describe("Filters", function () {
     let bot = new Bot(message.client);
     bot.addFilter(filtera);
     bot.addFilter(filterb);
-    message.client.emit("message", message);
+    message.client.emit("messageCreate", message);
     expect(message.channel.send).toHaveBeenCalled();
     expect(filtera.filter).toHaveBeenCalled();
     expect(filterb.filter).not.toHaveBeenCalled();
   });
 
-  it("ne filtre pas les messages proventant ", function () {
+  it("ne filtre pas les messages provenant des DM", function () {
     let message = fakeMessage("a");
-    message.channel.type = "DM";
+    message.channel.type = ChannelType.DM;
     let filtera = generateFilter("a");
-    let bot = new Bot(message.client).addFilter(filtera);
-    message.client.emit("message", message);
+    new Bot(message.client).addFilter(filtera);
+    message.client.emit("messageCreate", message);
     expect(message.channel.send).not.toHaveBeenCalled();
     expect(filtera.filter).not.toHaveBeenCalled();
   });

@@ -1,10 +1,10 @@
-import { GuildMember, MessageReaction, User } from "discord.js";
-import { IReactionCommand } from "../interfaces";
+import { GuildMember, MessageReaction } from "discord.js";
+import type { IReactionCommand } from "../interfaces";
 
 /**
  * Supprime plusieurs messages
  */
-export default class SecCommand implements IReactionCommand {
+export class SecCommand implements IReactionCommand {
   public name = "sec";
   public admin = true;
 
