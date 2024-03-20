@@ -23,9 +23,6 @@ export class NicknamesCleaner {
     }
     const cleanedUsername = this.cleanUsername(presence.member.displayName);
     if (cleanedUsername !== presence.member.displayName) {
-      console.log(
-        `Cleaning nickname "${presence.member.displayName}" to "${cleanedUsername}"`,
-      );
       presence.member.setNickname(cleanedUsername).catch(() => null);
       return;
     }
