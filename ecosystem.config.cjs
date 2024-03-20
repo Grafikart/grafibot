@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "Grafibot",
       script: "src/index.ts",
-      interpreter: '~/.bun/bin/bun',
+      interpreter: "/home/grafikart/.bun/bin/bun",
       env: {
         NODE_ENV: "development",
       },
