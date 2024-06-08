@@ -22,19 +22,19 @@
   "license": "ISC",
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/cron": "^2.0",
+    "@types/cron": "^2.4",
     "@types/sqlite3": "^3.1",
     "@types/ws": "^8.5",
     "@types/xml2js": "^0.4",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.2",
-    "vitest": "^0.12.9"
+    "prettier": "^3.3",
+    "typescript": "^5.4",
+    "vitest": "^1.6"
   },
   "dependencies": {
-    "cron": "^2.0",
-    "discord.js": "^14.14.1",
-    "dotenv": "^16.0",
+    "cron": "^3.1",
+    "discord.js": "^14.15",
+    "dotenv": "^16.4",
     "flru": "^1.0",
-    "rss-parser": "^3.12"
+    "rss-parser": "^3.13"
   }
 }

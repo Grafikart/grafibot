@@ -55,7 +55,7 @@ export class Premium {
 
   static async getPremiumsFromSite(): Promise<string[]> {
     return fetch("https://grafikart.fr/api/discord/premium").then((r) =>
-      r.json(),
+      r.json() as Promise<string[]>
     );
   }
 }
