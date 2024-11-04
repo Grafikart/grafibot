@@ -39,8 +39,6 @@ export class CleanCommand implements ICommand {
           { name: "Raison", value: reason, inline: true },
         ]);
       message.channel.send({ embeds: [embed] }).catch(console.error);
-    } else if (limit <= 5) {
-      this.log(message.author, messages).catch(console.error);
     }
     return (message.channel as NewsChannel)
       .bulkDelete(messages)
