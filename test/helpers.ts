@@ -3,22 +3,36 @@ import { Client, Guild, TextChannel } from "discord.js";
 
 process.on("unhandledRejection", () => null);
 
-const fakeMessage = function (content: string): any {
+const fakeMessage = function (
+  content: string,
+  options: {
+    authorId?: number;
+    channelId?: number;
+    attachmentCount?: number;
+    joinedTimestamp?: number | null;
+  } = {},
+): any {
   let client = new Client({ intents: [] });
   // @ts-ignore
   let guild = new Guild(client, { emojis: [], id: 13123123 });
   // @ts-ignore
-  let channel = new TextChannel(guild, { id: 123123 }, client);
+  let channel = new TextChannel(
+    guild,
+    { id: options.channelId ?? 123123 },
+    client,
+  );
   const message = {
     client,
     content,
     id: 1241244,
-    attachments: [],
+    attachments: { size: options.attachmentCount ?? 0 },
     embed: [],
     member: {
+      joinedTimestamp: options.joinedTimestamp ?? null,
       timeout: () => Promise.resolve(""),
     },
     author: {
+      id: options.authorId ?? 1,
       createDM: () => Promise.resolve(""),
     },
     channel,
