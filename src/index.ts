@@ -18,6 +18,7 @@ import {
   CodeFilter,
   InviteFilter,
   LmgtfyFilter,
+  ScamImageFilter,
 } from "./filters";
 import { Premium } from "./tasks/Premium";
 import { RSS } from "./tasks/RSS";
@@ -89,6 +90,7 @@ bot
   .addFilter(new LmgtfyFilter())
   .addFilter(new CodeFilter())
   .addFilter(new InviteFilter())
+  .addFilter(new ScamImageFilter(logger))
   .addFilter(new RaidFilter(logger))
   .connect()
   .catch(function (e: string) {
