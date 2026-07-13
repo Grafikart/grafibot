@@ -137,6 +137,9 @@ export default class Bot {
    * Renvoie le message sur tous les filtres
    */
   private runFilters(message: Message | PartialMessage): boolean {
+    if (!message.inGuild()) {
+      return false;
+    }
     return this.filters.find((f) => f.filter(message)) === undefined;
   }
 

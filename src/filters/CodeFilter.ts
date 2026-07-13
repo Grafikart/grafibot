@@ -1,9 +1,11 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 import type { IFilter } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
 export class CodeFilter implements IFilter {
-  filter(message: Message) {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (
       message.content &&
       message.content.split("\n").length > 40 &&

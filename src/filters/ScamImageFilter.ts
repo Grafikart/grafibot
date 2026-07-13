@@ -16,7 +16,7 @@ export class ScamImageFilter implements IFilter {
   constructor(private logger: ILogger) {
   }
 
-  filter(msg: Message | PartialMessage): boolean {
+  filter(msg: Message<true> | PartialMessage<true>): boolean {
     if (!msg.member || msg.attachments.size === 0) {
       return false;
     }

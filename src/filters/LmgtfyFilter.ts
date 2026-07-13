@@ -1,11 +1,13 @@
 import type { IFilter } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 /**
  * Empêche les liens lmgtfy en les remplaçant par un message plus familier
  */
 export class LmgtfyFilter implements IFilter {
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (message.content.includes("lmgtfy.")) {
       message.channel
         .send(

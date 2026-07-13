@@ -30,5 +30,5 @@ export interface IReactionCommand {
 }
 
 export interface IFilter {
-  filter(msg: Message | PartialMessage): boolean;
+  filter(msg: Message<true> | PartialMessage<true>): boolean;
 }

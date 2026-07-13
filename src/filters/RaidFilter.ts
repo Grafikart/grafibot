@@ -1,7 +1,8 @@
 import type { IFilter, ILogger } from "../interfaces";
 import {
-  Message,
-  MessageReaction,
+  type Message,
+  type MessageReaction,
+  type PartialMessage,
   type PartialMessageReaction,
   TextChannel,
 } from "discord.js";
@@ -24,7 +25,9 @@ export class RaidFilter implements IFilter {
     this.logger = logger;
   }
 
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     const timeStampList = append(
       this.cache.get(message.author.id) ?? [],
       Date.now() / 1000,
@@ -44,7 +47,7 @@ export class RaidFilter implements IFilter {
   /**
    * Lance le processus de vérification de l'utilisateur avec un vote
    */
-  private async startVerification(message: Message) {
+  private async startVerification(message: Message<true>) {
     this.locked = true;
     try {
       const channel = message.channel as TextChannel;
@@ -88,7 +91,7 @@ export class RaidFilter implements IFilter {
   /**
    * Banni l'utilisateur associé au message
    */
-  private ban(message: Message) {
+  private ban(message: Message<true>) {
     this.logger.log(
       `Ban pour raid ${message.author.toString()} : \n\n ${message.content}`,
     );
@@ -108,7 +111,7 @@ export class RaidFilter implements IFilter {
   /**
    * On termine le processus de vérification en nettoyant ce qui a été fait avant
    */
-  private async endVerification(message: Message) {
+  private async endVerification(message: Message<true>) {
     this.logger.log(
       `Deverouillage du salon #${(message.channel as TextChannel).name}`,
     );

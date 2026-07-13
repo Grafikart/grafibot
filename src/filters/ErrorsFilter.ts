@@ -1,9 +1,10 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
+import type { IFilter } from "../interfaces";
 
 /**
  * Vérifie si le message est une erreur connue
  */
-export class ErrorsFilter {
+export class ErrorsFilter implements IFilter {
   private errors: { [key: string]: string } = {
     "Cannot modify header information - headers already sent by":
       "https://www.grafikart.fr/tutoriels/headers-already-sent-871",
@@ -21,7 +22,9 @@ export class ErrorsFilter {
       "https://www.grafikart.fr/tutoriels/javascript-regeneratorruntime-1349",
   };
 
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     let error = Object.keys(this.errors).find(
       (e) => message.content.match(new RegExp(e, "i")) !== null,
     );

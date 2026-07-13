@@ -1,10 +1,13 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
+import type { IFilter } from "../interfaces";
 
 /**
  * Evite les capslock
  */
-export class CapslockFilter {
-  filter(message: Message): boolean {
+export class CapslockFilter implements IFilter {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (this.isCapslock(message.content)) {
       message.channel
         .send(`:scream_cat: Pas la peine de hurler <@!${message.author.id}>`)

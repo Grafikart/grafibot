@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 import type { IFilter } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
@@ -6,7 +6,9 @@ import { sendDMorReply } from "../utils/helpers";
  * Evite les liens vers d'autres salon discord
  */
 export class InviteFilter implements IFilter {
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (
       message.member &&
       message.content.match(

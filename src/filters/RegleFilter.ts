@@ -1,5 +1,5 @@
 import type { IFilter } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 /**
  * Réagit au message contenant "règle X"
@@ -7,7 +7,9 @@ import { Message } from "discord.js";
 export class RegleFilter implements IFilter {
   private regexp = /^règle [0-9].*/i;
 
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (message.content.match(this.regexp) !== null) {
       message.channel
         .send(

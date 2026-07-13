@@ -1,11 +1,13 @@
 import type { IFilter } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 /**
  * Vérifie si le message est une question ouverte
  */
 export class QuestionFilter implements IFilter {
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (this.isQuestion(message.content.trim())) {
       message.channel
         .send(

@@ -1,5 +1,5 @@
 import type { IFilter } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 import { sendDMorReplyAutoDelete } from "../utils/helpers";
 
 type ISyntaxes = { [key: string]: RegExp };
@@ -11,7 +11,9 @@ export class SyntaxFilter implements IFilter {
     this.syntaxes = syntaxes;
   }
 
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     if (
       Object.keys(this.syntaxes).includes(message.channel.id) &&
       message.content.match(this.syntaxes[message.channel.id]) === null

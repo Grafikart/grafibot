@@ -1,5 +1,5 @@
 import type { IFilter } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 import { sendDMorReply } from "../utils/helpers";
 
 /**
@@ -9,7 +9,9 @@ export class InsultFilter implements IFilter {
   private badwords =
     "pute|connard|enculé|bite|ntm|pd|fdp|tepu|salope|conasse|iench|pétasse|catin|bouffone|bouffon|truie";
 
-  filter(message: Message): boolean {
+  filter(message: Message<true> | PartialMessage<true>): boolean {
+    if (message.partial) return false;
+
     let regex = new RegExp(`(\\b)(${this.badwords})(\\b)`, "i");
     if (message.content.match(regex) !== null) {
       sendDMorReply(
