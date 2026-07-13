@@ -1,5 +1,5 @@
 import type { ICommand, ILogger } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 const minute = 60 * 1000;
 
@@ -13,7 +13,9 @@ export class MuteCommand implements ICommand {
     this.logger = logger;
   }
 
-  async run(message: Message, args: string[]) {
+  async run(message: Message<true> | PartialMessage<true>, args: string[]) {
+    if (message.partial) return;
+
     let member = message?.mentions?.members?.first();
     if (!member) {
       return;

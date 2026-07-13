@@ -120,7 +120,7 @@ export default class Bot {
    * Trouve la commande à lancer pour le message
    */
   private runCommand(message: Message | PartialMessage) {
-    if (!message.content || !message.member) {
+    if (!message.content || !message.member || !message.inGuild()) {
       return;
     }
     const parts = message.content.split(" ");

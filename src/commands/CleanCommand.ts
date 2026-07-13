@@ -1,11 +1,6 @@
-import {
-  Collection,
-  EmbedBuilder,
-  Message,
-  NewsChannel,
-  User,
-} from "discord.js";
-import type { ICommand, ILogger } from "../interfaces";
+import type {PartialMessage} from "discord.js";
+import {EmbedBuilder, Message, NewsChannel,} from "discord.js";
+import type {ICommand} from "../interfaces";
 
 /**
  * Supprime plusieurs messages
@@ -14,13 +9,9 @@ export class CleanCommand implements ICommand {
   public name = "clean";
   public description = 'Permet de supprimer X messages, ex: "!clean !messages"';
   public admin = true;
-  private logger: ILogger;
+  constructor() {}
 
-  constructor(logger: ILogger) {
-    this.logger = logger;
-  }
-
-  async run(message: Message, args: string[]) {
+  async run(message: Message<true> | PartialMessage<true>, args: string[]) {
     const limit = args[0] ? parseInt(args[0], 10) + 1 : 2;
     const reason = args[1] ? args.slice(1).join(" ") : null;
     let messages = await message.channel.messages.fetch({
@@ -43,20 +34,5 @@ export class CleanCommand implements ICommand {
     return (message.channel as NewsChannel)
       .bulkDelete(messages)
       .catch(console.error);
-  }
-
-  private async log(member: User, messages: Collection<string, Message>) {
-    let deletions = messages
-      .map((message) => {
-        return message.author.username + ": " + message.cleanContent;
-      })
-      .slice(1)
-      .reverse()
-      .join("\n");
-    return this.logger
-      .log(`:x: <@!${member.id}> a supprimé les messages suivant :
-\`\`\`
-${deletions}
-\`\`\``);
   }
 }

@@ -15,6 +15,8 @@ export class SecCommand implements IReactionCommand {
       return;
     }
     const message = `:anger: Pas besoin d'être aussi sec ! <@!${author.id}> si la question ne t'intérèsse pas abstiens-toi.`;
-    reaction.message.channel.send(message).catch(console.error);
+    if (reaction.message.inGuild()) {
+      reaction.message.channel.send(message).catch(console.error);
+    }
   }
 }

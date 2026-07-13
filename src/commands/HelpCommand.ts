@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 import type { ICommand } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
@@ -15,7 +15,7 @@ export class HelpCommand implements ICommand {
     this.commands = commands;
   }
 
-  public async run(message: Message) {
+  public async run(message: Message<true> | PartialMessage<true>) {
     let commands: ICommandList = this.commands.reduce(function (
       acc: ICommandList,
       command,

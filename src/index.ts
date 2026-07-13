@@ -55,7 +55,7 @@ const bot = new Bot(client, process.env["API_KEY"]);
 bot
   .addCommand(new BanCommand(logger))
   .addCommand(new MuteCommand(logger))
-  .addCommand(new CleanCommand(logger))
+  .addCommand(new CleanCommand())
   .addCommand(
     new QuickCommand(
       "php",

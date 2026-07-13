@@ -1,5 +1,5 @@
 import type { ICommand } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 export class QuickCommand implements ICommand {
   public name: string;
@@ -12,7 +12,7 @@ export class QuickCommand implements ICommand {
     this.message = message;
   }
 
-  run(message: Message, args: string[]) {
+  run(message: Message<true> | PartialMessage<true>, args: string[]) {
     message.delete().catch();
     let user = "";
     let content = args[0];

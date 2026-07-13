@@ -15,7 +15,7 @@ export interface ICommand {
   readonly description: string;
   readonly admin?: boolean;
 
-  run(msg: Message | PartialMessage, args: string[]): any;
+  run(msg: Message<true> | PartialMessage<true>, args: string[]): any;
 }
 
 export interface IReactionCommand {

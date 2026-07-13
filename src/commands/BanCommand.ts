@@ -1,5 +1,5 @@
 import type { ICommand, ILogger } from "../interfaces";
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 
 export class BanCommand implements ICommand {
   readonly name = "ban";
@@ -11,7 +11,9 @@ export class BanCommand implements ICommand {
     this.logger = logger;
   }
 
-  run(message: Message, args: string[]) {
+  run(message: Message<true> | PartialMessage<true>, args: string[]) {
+    if (message.partial) return;
+
     let reason = args.slice(1).join(" ");
     let member = message?.mentions?.members?.first();
     if (!member) {
