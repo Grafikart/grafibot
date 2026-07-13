@@ -10,3 +10,4 @@ export { InviteFilter } from "./InviteFilter";
 export { RegleFilter } from "./RegleFilter";
 export { DontAskFilter } from "./DontAskFilter";
 export { LmgtfyFilter } from "./LmgtfyFilter";
+export { ScamImageFilter } from "./ScamImageFilter";
