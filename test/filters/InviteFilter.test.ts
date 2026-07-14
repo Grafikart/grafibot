@@ -51,6 +51,6 @@ describe("InviteFilter", () => {
       "Pour ce qui veulent mon groupe : https://discord.gg/jMwPGe"
     );
     expect(filter.filter(message)).toBe(true);
-    expect(message.member.timeout).toHaveBeenCalledTimes(1);
+    expect(message.member!.timeout).toHaveBeenCalledTimes(1);
   });
 });

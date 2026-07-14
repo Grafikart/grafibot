@@ -10,13 +10,14 @@ export class SecCommand implements IReactionCommand {
 
   run(reaction: MessageReaction, member: GuildMember) {
     reaction.users.remove(member.user).catch(console.error);
-    const author = reaction.message.author;
+    const reactionMessage = reaction.message;
+    const author = reactionMessage.author;
     if (!author) {
       return;
     }
     const message = `:anger: Pas besoin d'être aussi sec ! <@!${author.id}> si la question ne t'intérèsse pas abstiens-toi.`;
-    if (reaction.message.inGuild()) {
-      reaction.message.channel.send(message).catch(console.error);
+    if (reactionMessage.inGuild()) {
+      reactionMessage.channel.send(message).catch(console.error);
     }
   }
 }

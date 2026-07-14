@@ -18,7 +18,7 @@ const generateCommand = function (name: string): ICommand {
 
 const generateFilter = function (content: string): IFilter {
   let filter = {
-    filter(message: Message) {
+    filter(message: Message<true>) {
       let triggered = message.content === content;
       if (triggered) message.channel.send("filtered !");
       return triggered;
@@ -67,7 +67,7 @@ describe("Filters", function () {
 
   it("ne filtre pas les messages provenant des DM", function () {
     let message = fakeMessage("a");
-    message.channel.type = ChannelType.DM;
+    (message.channel as unknown as { type: ChannelType }).type = ChannelType.DM;
     let filtera = generateFilter("a");
     new Bot(message.client).addFilter(filtera);
     message.client.emit("messageCreate", message);
