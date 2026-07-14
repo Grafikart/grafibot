@@ -26,7 +26,7 @@ export default class Bot {
   constructor(client: Client, apiKey: string = "") {
     this.apiKey = apiKey;
     this.client = client;
-    this.client.on("ready", () => {
+    this.client.on("clientReady", () => {
       const guild = this.client.guilds.cache.first();
       if (!guild) {
         throw new Error("Impossible de récupérer les rôles");

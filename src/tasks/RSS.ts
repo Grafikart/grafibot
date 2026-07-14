@@ -24,7 +24,7 @@ export class RSS {
       false,
     );
     this.client = client;
-    this.client.on("ready", () => {
+    this.client.on("clientReady", () => {
       job.start();
       this.parseRSS().catch();
     });

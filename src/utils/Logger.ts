@@ -8,7 +8,7 @@ export default class Logger implements ILogger {
   private channel?: TextChannel;
 
   constructor(client: Client) {
-    client.on("ready", () => {
+    client.on("clientReady", () => {
       const channel = client.guilds.cache
         .first()
         ?.channels.cache.find((c) => c.name === "logs");

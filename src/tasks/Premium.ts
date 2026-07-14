@@ -12,7 +12,7 @@ export class Premium {
   static connect(client: Client, logger: ILogger) {
     this.client = client;
     this.logger = logger;
-    this.client.on("ready", this.syncPremiums.bind(this));
+    this.client.on("clientReady", this.syncPremiums.bind(this));
   }
 
   static async syncPremiums() {
