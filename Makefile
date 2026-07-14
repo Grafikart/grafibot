@@ -1,10 +1,10 @@
 .PHONY: deploy
 deploy: ## Déploie une nouvelle version du site
-	ssh -A grafikart 'cd grafibot && git pull origin master && make install'
+	ssh -A grafikart 'cd grafibot && git pull origin main && make install'
 
 .PHONY: install
 install:
-	git pull origin master
+	git pull origin main
 	pm2 start --env production ecosystem.config.cjs
 
 .PHONY: dev
