@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { QuickCommand } from "../../src/commands/QuickCommand";
+import { QuickCommand } from "../../src/commands";
 import { fakeMessage } from "../helpers";
 
 describe("QuickCommand", function () {

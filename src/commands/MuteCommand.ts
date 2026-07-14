@@ -3,6 +3,9 @@ import type { Message, PartialMessage } from "discord.js";
 
 const minute = 60 * 1000;
 
+/**
+ * Suspend temporairement le membre mentionné.
+ */
 export class MuteCommand implements ICommand {
   readonly name = "mute";
   readonly description = "Permet de mute un utilisateur";

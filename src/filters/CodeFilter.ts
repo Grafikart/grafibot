@@ -2,6 +2,9 @@ import type { Message, PartialMessage } from "discord.js";
 import type { IFilter } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
+/**
+ * Empêche l'envoi de longs blocs de code et oriente vers un service de partage de code.
+ */
 export class CodeFilter implements IFilter {
   filter(message: Message<true> | PartialMessage<true>): boolean {
     if (message.partial) return false;

@@ -4,6 +4,9 @@ type OptionValue = string | number
 
 const path = './storage/options.json'
 
+/**
+ * Conserve des options persistantes simples, telles que le dernier élément RSS traité.
+ */
 export class Options {
 
   static memory = false

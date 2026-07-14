@@ -3,7 +3,7 @@ import {EmbedBuilder, Message, NewsChannel,} from "discord.js";
 import type {ICommand} from "../interfaces";
 
 /**
- * Supprime plusieurs messages
+ * Supprime un nombre donné de messages du salon.
  */
 export class CleanCommand implements ICommand {
   public name = "clean";

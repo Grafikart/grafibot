@@ -1,6 +1,9 @@
 import type { ICommand, ILogger } from "../interfaces";
 import type { Message, PartialMessage } from "discord.js";
 
+/**
+ * Commande de modération qui bannit le membre mentionné avec une raison.
+ */
 export class BanCommand implements ICommand {
   readonly name = "ban";
   readonly description = "Permet de bannir un utilisateur";

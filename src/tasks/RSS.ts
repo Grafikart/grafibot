@@ -9,6 +9,9 @@ type FeedItem = {
   title: string;
 };
 
+/**
+ * Surveille le flux RSS de Grafikart et publie les nouveaux contenus dans les annonces.
+ */
 export class RSS {
   static url = "https://www.grafikart.fr/feed.rss";
   static client: Client;

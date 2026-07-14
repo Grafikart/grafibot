@@ -5,10 +5,8 @@ import {sendDMorReply} from "../utils/helpers.ts";
 type LastMessage = {channelId: string, content: string | null, authorId: string, onDelete: () => void}
 
 /**
- * Détecte les comptes (souvent piratés) qui postent une image accompagnée
- * d'un lien dans plusieurs salons en peu de temps (ex: fausse capture
- * d'écran "vous avez gagné" façon MrBeast), ou un compte tout juste arrivé
- * qui poste directement une image.
+ * Détecte et bloque les tentatives d'arnaque par image ou lien, notamment les
+ * messages identiques publiés rapidement dans plusieurs salons.
  */
 export class ScamImageFilter implements IFilter {
   private lastMsg: LastMessage | null = null

@@ -2,7 +2,7 @@ import { GuildMember, MessageReaction } from "discord.js";
 import type { IReactionCommand } from "../interfaces";
 
 /**
- * Supprime plusieurs messages
+ * Incite l'utilisateur à formuler une réponse plus courtoise.
  */
 export class SecCommand implements IReactionCommand {
   public name = "sec";

@@ -3,7 +3,7 @@ import type { IReactionCommand } from "../interfaces";
 import { sendDMorReply } from "../utils/helpers";
 
 /**
- * Supprime plusieurs messages
+ * Réagit à l'emoji brain en rappelant d'adapter le niveau de détail d'une réponse.
  */
 export class JeSaisToutCommand implements IReactionCommand {
   public name = "brain";

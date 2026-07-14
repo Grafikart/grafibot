@@ -3,7 +3,7 @@ import type { ILogger, IReactionCommand } from "../interfaces";
 import { modoRole } from "../config";
 
 /**
- * Supprime plusieurs messages
+ * Signale le message d'un utilisateur pour une review par un modérateur
  */
 export class ReportCommand implements IReactionCommand {
   public name = "report";

@@ -1,6 +1,12 @@
 import type { ICommand } from "../interfaces";
 import type { Message, PartialMessage } from "discord.js";
 
+/**
+ * Génère une commande générique à partir d'un template
+ * - "@user" : remplacé par l'utilisateur
+ * - "@content" : remplacé par le message de l'utilisateur
+ * - "@url:content" : URL vers le message
+ */
 export class QuickCommand implements ICommand {
   public name: string;
   public description: string;

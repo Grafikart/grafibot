@@ -6,6 +6,9 @@ interface ICommandList {
   [name: string]: string;
 }
 
+/**
+ * Affiche une aide avec les commandes disponibles sur le serveur
+ */
 export class HelpCommand implements ICommand {
   public name = "help";
   public description = "Affiche cette aide";

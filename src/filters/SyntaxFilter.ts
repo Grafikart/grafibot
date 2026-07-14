@@ -4,6 +4,9 @@ import { sendDMorReplyAutoDelete } from "../utils/helpers";
 
 type ISyntaxes = { [key: string]: RegExp };
 
+/**
+ * Supprime les messages qui ne respectent pas la syntaxe imposée à un salon.
+ */
 export class SyntaxFilter implements IFilter {
   private syntaxes: ISyntaxes;
 

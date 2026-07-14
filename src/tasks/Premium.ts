@@ -2,6 +2,9 @@ import { Client, GuildMember, Role } from "discord.js";
 import { arrayDiff } from "../utils/helpers";
 import type { ILogger } from "../interfaces";
 
+/**
+ * Synchronise périodiquement le rôle Discord Premium avec les abonnements du site.
+ */
 export class Premium {
   static client: Client;
   static logger: ILogger;

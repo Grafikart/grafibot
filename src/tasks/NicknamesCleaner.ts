@@ -3,7 +3,7 @@ import { randomItem } from "../utils/array.ts";
 import { adjectives, animals } from "../utils/dictionnary.ts";
 
 /**
- * Evite les pseudonymes avec des caractères spéciaux
+ * Normalise les pseudonymes contenant des caractères non autorisés à leur arrivée.
  */
 export class NicknamesCleaner {
   static client: Client;

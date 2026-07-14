@@ -12,6 +12,10 @@ import {
 } from "discord.js";
 import { modoRole } from "./config";
 
+/**
+ * Orchestre le client Discord : il enregistre les commandes et filtres puis
+ * distribue les messages et réactions aux éléments concernés.
+ */
 export default class Bot {
   public commands: ICommand[] = []; // Liste les commandes à utiliser
   private reactionCommands: IReactionCommand[] = [];

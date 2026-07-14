@@ -1,6 +1,9 @@
 import type { ILogger, IReactionCommand } from "../interfaces";
 import { MessageReaction } from "discord.js";
 
+/**
+ * Rappel d'une règle du serveur
+ */
 export class RuleCommand implements IReactionCommand {
   buffer: string[] = []; // Mémorise les messages pour éviter les doublons
   logger: ILogger;

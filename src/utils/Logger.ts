@@ -1,6 +1,9 @@
 import { Client, TextChannel } from "discord.js";
 import type { ILogger } from "../interfaces";
 
+/**
+ * Centralise les journaux du bot dans le salon Discord dédié aux logs.
+ */
 export default class Logger implements ILogger {
   private channel?: TextChannel;
 
